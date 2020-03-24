@@ -1,7 +1,9 @@
 package kr.ac.kpu.game.scgyong.pair;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
@@ -102,6 +104,17 @@ public class MainActivity extends AppCompatActivity {
 
     public void onBtnRestart(View view) {
         Log.v(TAG, "onBtnRestart");
-        startGame();
+        new AlertDialog.Builder(this)
+                .setTitle(R.string.restartTitle)
+                .setMessage(R.string.restartMessage)
+                .setNegativeButton(R.string.restartNo, null)
+                .setPositiveButton(R.string.restartYes, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        startGame();
+                    }
+                })
+                .create()
+                .show();
     }
 }
