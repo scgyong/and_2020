@@ -31,11 +31,13 @@
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:orientation="horizontal"
         >
         <ImageButton
-            android:layout_width="100dp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="match_parent"
             android:id="@+id/b_00"
             android:onClick="onBtnCard"
@@ -43,20 +45,23 @@
             android:scaleType="fitCenter"
             />
         <ImageButton
-            android:layout_width="100dp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="match_parent"
             android:id="@+id/b_01"
             android:onClick="onBtnCard"
             android:src="@mipmap/card_as"
             />
         <ImageButton
-            android:layout_width="100dp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="match_parent"
             android:id="@+id/b_02"
             android:onClick="onBtnCard"
             />
         <ImageButton
-            android:layout_width="100dp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="match_parent"
             android:id="@+id/b_03"
             android:onClick="onBtnCard"
@@ -64,29 +69,34 @@
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:orientation="horizontal"
         >
         <ImageButton
-            android:layout_width="100dp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="match_parent"
             android:id="@+id/b_10"
             android:onClick="onBtnCard"
             />
         <ImageButton
-            android:layout_width="100dp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="match_parent"
             android:id="@+id/b_11"
             android:onClick="onBtnCard"
             />
         <ImageButton
-            android:layout_width="100dp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="match_parent"
             android:id="@+id/b_12"
             android:onClick="onBtnCard"
             />
         <ImageButton
-            android:layout_width="100dp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="match_parent"
             android:id="@+id/b_13"
             android:onClick="onBtnCard"
@@ -94,29 +104,34 @@
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:orientation="horizontal"
         >
         <ImageButton
-            android:layout_width="100dp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="match_parent"
             android:id="@+id/b_20"
             android:onClick="onBtnCard"
             />
         <ImageButton
-            android:layout_width="100dp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="match_parent"
             android:id="@+id/b_21"
             android:onClick="onBtnCard"
             />
         <ImageButton
-            android:layout_width="100dp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="match_parent"
             android:id="@+id/b_22"
             android:onClick="onBtnCard"
             />
         <ImageButton
-            android:layout_width="100dp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="match_parent"
             android:id="@+id/b_23"
             android:onClick="onBtnCard"
@@ -124,29 +139,34 @@
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:orientation="horizontal"
         >
         <ImageButton
-            android:layout_width="100dp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="match_parent"
             android:id="@+id/b_30"
             android:onClick="onBtnCard"
             />
         <ImageButton
-            android:layout_width="100dp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="match_parent"
             android:id="@+id/b_31"
             android:onClick="onBtnCard"
             />
         <ImageButton
-            android:layout_width="100dp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="match_parent"
             android:id="@+id/b_32"
             android:onClick="onBtnCard"
             />
         <ImageButton
-            android:layout_width="100dp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="match_parent"
             android:id="@+id/b_33"
             android:onClick="onBtnCard"
