@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import java.util.Arrays;
 import java.util.Random;
@@ -26,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
     };
     private static final String TAG = MainActivity.class.getSimpleName();
     private ImageButton lastButton;
+    private int flips;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +38,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void startGame() {
+        flips = 0;
+        TextView scoreTextView = findViewById(R.id.scoreTextView);
+        scoreTextView.setText("Flips: " + flips);
+
         int[] buttonIds = shuffleButtonIds();
         for (int i = 0; i < buttonIds.length; i++) {
             ImageButton btn = findViewById(buttonIds[i]);
@@ -43,7 +49,10 @@ public class MainActivity extends AppCompatActivity {
             btn.setTag(resId);
             btn.setImageResource(R.mipmap.card_blue_back);
             btn.setScaleType(ImageView.ScaleType.FIT_CENTER);
+            btn.setEnabled(true);
         }
+
+        lastButton = null;
     }
 
     private int[] shuffleButtonIds() {
@@ -79,9 +88,14 @@ public class MainActivity extends AppCompatActivity {
         lastButton.setEnabled(true);
 
         lastButton = btn;
+
+        flips++;
+        TextView scoreTextView = findViewById(R.id.scoreTextView);
+        scoreTextView.setText("Flips: " + flips);
     }
 
     public void onBtnRestart(View view) {
         Log.v(TAG, "onBtnRestart");
+        startGame();
     }
 }
