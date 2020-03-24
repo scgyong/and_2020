@@ -2,6 +2,7 @@ package kr.ac.kpu.game.scgyong.pair;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -40,7 +41,9 @@ public class MainActivity extends AppCompatActivity {
     private void startGame() {
         flips = 0;
         TextView scoreTextView = findViewById(R.id.scoreTextView);
-        scoreTextView.setText("Flips: " + flips);
+        Resources res = getResources();
+        String text = String.format(res.getString(R.string.flipsScoreFormat), flips);
+        scoreTextView.setText(text);
 
         int[] buttonIds = shuffleButtonIds();
         for (int i = 0; i < buttonIds.length; i++) {

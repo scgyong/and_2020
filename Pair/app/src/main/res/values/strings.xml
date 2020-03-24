@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Pair</string>
+    <string name="restart">Restart</string>
+    <string name="flipsScoreFormat">Flips: %d</string>
 </resources>
