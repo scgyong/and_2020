@@ -17,12 +17,15 @@
             android:layout_height="match_parent"
             android:id="@+id/b_00"
             android:onClick="onBtnCard"
+            android:src="@mipmap/card_blue_back"
+            android:scaleType="fitCenter"
             />
         <ImageButton
             android:layout_width="100dp"
             android:layout_height="match_parent"
             android:id="@+id/b_01"
             android:onClick="onBtnCard"
+            android:src="@mipmap/card_as"
             />
         <ImageButton
             android:layout_width="100dp"

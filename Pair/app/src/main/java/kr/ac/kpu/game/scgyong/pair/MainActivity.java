@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageButton;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -24,5 +25,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void onBtnCard(View view) {
         Log.d(TAG, "Button ID = " + view.getId());
+        ImageButton btn = (ImageButton) view;
+        btn.setImageResource(R.mipmap.card_blue_back);
     }
 }
