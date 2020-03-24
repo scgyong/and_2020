@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
             R.mipmap.card_jc, R.mipmap.card_qh, R.mipmap.card_kd, R.mipmap.card_as,
     };
     private static final String TAG = MainActivity.class.getSimpleName();
+    private ImageButton lastButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,5 +63,18 @@ public class MainActivity extends AppCompatActivity {
         ImageButton btn = (ImageButton) view;
         int resId = (int)btn.getTag();
         btn.setImageResource(resId);
+
+        if (lastButton == null) {
+            lastButton = btn;
+            return;
+        }
+
+        if ((int)lastButton.getTag() == (int)btn.getTag()) {
+            lastButton = null;
+            return;
+        }
+
+        lastButton.setImageResource(R.mipmap.card_blue_back);
+        lastButton = btn;
     }
 }
