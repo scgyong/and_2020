@@ -9,6 +9,9 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
+import java.util.Arrays;
+import java.util.Random;
+
 public class MainActivity extends AppCompatActivity {
 
     private static final int[] BUTTON_IDS = {
@@ -32,13 +35,26 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void startGame() {
-        for (int i = 0; i < BUTTON_IDS.length; i++) {
-            ImageButton btn = findViewById(BUTTON_IDS[i]);
+        int[] buttonIds = shuffleButtonIds();
+        for (int i = 0; i < buttonIds.length; i++) {
+            ImageButton btn = findViewById(buttonIds[i]);
             int resId = imageResIds[i / 2];
             btn.setTag(resId);
             btn.setImageResource(R.mipmap.card_blue_back);
             btn.setScaleType(ImageView.ScaleType.FIT_CENTER);
         }
+    }
+
+    private int[] shuffleButtonIds() {
+        int[] buttonIds = Arrays.copyOf(BUTTON_IDS, BUTTON_IDS.length);
+        Random rand = new Random();
+        for (int i = 0; i < buttonIds.length; i++) {
+            int r = rand.nextInt(buttonIds.length);
+            int temp = buttonIds[i];
+            buttonIds[i] = buttonIds[r];
+            buttonIds[r] = temp;
+        }
+        return buttonIds;
     }
 
     public void onBtnCard(View view) {
