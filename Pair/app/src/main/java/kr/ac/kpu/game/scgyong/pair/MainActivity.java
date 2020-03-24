@@ -35,7 +35,8 @@ public class MainActivity extends AppCompatActivity {
         for (int i = 0; i < BUTTON_IDS.length; i++) {
             ImageButton btn = findViewById(BUTTON_IDS[i]);
             int resId = imageResIds[i / 2];
-            btn.setImageResource(resId);
+            btn.setTag(resId);
+            btn.setImageResource(R.mipmap.card_blue_back);
             btn.setScaleType(ImageView.ScaleType.FIT_CENTER);
         }
     }
@@ -43,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
     public void onBtnCard(View view) {
         Log.d(TAG, "Button ID = " + view.getId());
         ImageButton btn = (ImageButton) view;
-        btn.setImageResource(R.mipmap.card_blue_back);
+        int resId = (int)btn.getTag();
+        btn.setImageResource(resId);
     }
 }
