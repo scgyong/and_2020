@@ -63,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
         ImageButton btn = (ImageButton) view;
         int resId = (int)btn.getTag();
         btn.setImageResource(resId);
+        btn.setEnabled(false);
 
         if (lastButton == null) {
             lastButton = btn;
@@ -75,6 +76,12 @@ public class MainActivity extends AppCompatActivity {
         }
 
         lastButton.setImageResource(R.mipmap.card_blue_back);
+        lastButton.setEnabled(true);
+
         lastButton = btn;
+    }
+
+    public void onBtnRestart(View view) {
+        Log.v(TAG, "onBtnRestart");
     }
 }
