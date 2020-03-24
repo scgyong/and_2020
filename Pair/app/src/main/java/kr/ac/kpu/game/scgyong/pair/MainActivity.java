@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
             int resId = imageResIds[i / 2];
             btn.setTag(resId);
             btn.setImageResource(R.mipmap.card_blue_back);
-            btn.setScaleType(ImageView.ScaleType.FIT_CENTER);
+            //btn.setScaleType(ImageView.ScaleType.FIT_CENTER);
             btn.setEnabled(true);
         }
 
