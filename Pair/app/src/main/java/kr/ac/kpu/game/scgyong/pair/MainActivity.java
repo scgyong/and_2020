@@ -40,10 +40,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void startGame() {
         flips = 0;
-        TextView scoreTextView = findViewById(R.id.scoreTextView);
-        Resources res = getResources();
-        String text = String.format(res.getString(R.string.flipsScoreFormat), flips);
-        scoreTextView.setText(text);
+        showScore();
 
         int[] buttonIds = shuffleButtonIds();
         for (int i = 0; i < buttonIds.length; i++) {
@@ -56,6 +53,13 @@ public class MainActivity extends AppCompatActivity {
         }
 
         lastButton = null;
+    }
+
+    private void showScore() {
+        TextView scoreTextView = findViewById(R.id.scoreTextView);
+        Resources res = getResources();
+        String text = String.format(res.getString(R.string.flipsScoreFormat), flips);
+        scoreTextView.setText(text);
     }
 
     private int[] shuffleButtonIds() {
@@ -93,8 +97,7 @@ public class MainActivity extends AppCompatActivity {
         lastButton = btn;
 
         flips++;
-        TextView scoreTextView = findViewById(R.id.scoreTextView);
-        scoreTextView.setText("Flips: " + flips);
+        showScore();
     }
 
     public void onBtnRestart(View view) {
