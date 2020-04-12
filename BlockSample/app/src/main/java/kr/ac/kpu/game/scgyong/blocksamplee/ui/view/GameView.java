@@ -9,14 +9,17 @@ import android.view.View;
 
 import androidx.annotation.Nullable;
 
+import java.util.ArrayList;
+
 import kr.ac.kpu.game.scgyong.blocksamplee.gameobj.Ball;
+import kr.ac.kpu.game.scgyong.blocksamplee.gameobj.GameObject;
 
 public class GameView extends View {
     private static final String TAG = GameView.class.getSimpleName();
     private Paint mainPaint;
     private Rect rect;
     private boolean movesBall;
-    private Ball ball, ball2;
+    private ArrayList<GameObject> objects;
 
     public GameView(Context context) {
         super(context);
@@ -29,8 +32,10 @@ public class GameView extends View {
         mainPaint.setColor(0xFFFFEEEE);
 
         rect = new Rect();
-        ball = new Ball(this, 10, 10, 1, 1);
-        ball2 = new Ball(this, 1000, 10, -2, 3);
+
+        objects = new ArrayList<>();
+        objects.add(new Ball(this, 10, 10, 1, 1));
+        objects.add(new Ball(this, 1000, 10, -2, 3));
     }
 
     public GameView(Context context, @Nullable AttributeSet attrs) {
@@ -53,14 +58,16 @@ public class GameView extends View {
 
         canvas.drawRect(rect, mainPaint);
 
-        ball.draw(canvas);
-        ball2.draw(canvas);
+        for (GameObject o : objects) {
+            o.draw(canvas);
+        }
     }
 
     public void update() {
         if (movesBall) {
-            ball.update();
-            ball2.update();
+            for (GameObject o : objects) {
+                o.update();
+            }
         }
     }
 

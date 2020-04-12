@@ -7,7 +7,7 @@ import android.view.View;
 
 import kr.ac.kpu.game.scgyong.blocksamplee.R;
 
-public class Ball {
+public class Ball implements GameObject {
     private static Bitmap image;
     private final int dx;
     private final int dy;
