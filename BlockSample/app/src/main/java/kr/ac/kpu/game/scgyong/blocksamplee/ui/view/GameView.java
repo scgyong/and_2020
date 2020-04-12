@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.Nullable;
@@ -13,6 +14,7 @@ import java.util.ArrayList;
 
 import kr.ac.kpu.game.scgyong.blocksamplee.gameobj.Ball;
 import kr.ac.kpu.game.scgyong.blocksamplee.gameobj.GameObject;
+import kr.ac.kpu.game.scgyong.blocksamplee.gameobj.GameWorld;
 import kr.ac.kpu.game.scgyong.blocksamplee.gameobj.Plane;
 
 public class GameView extends View {
@@ -20,7 +22,7 @@ public class GameView extends View {
     private Paint mainPaint;
     private Rect rect;
     private boolean movesBall;
-    private ArrayList<GameObject> objects;
+    private GameWorld gameWorld;
 
     public GameView(Context context) {
         super(context);
@@ -33,11 +35,8 @@ public class GameView extends View {
         mainPaint.setColor(0xFFFFEEEE);
 
         rect = new Rect();
-
-        objects = new ArrayList<>();
-        objects.add(new Ball(this, 10, 10, 1, 1));
-        objects.add(new Ball(this, 1000, 10, -2, 3));
-        objects.add(new Plane(this, 500, 500, 0, 0));
+        gameWorld = GameWorld.get();
+        gameWorld.init(this);
     }
 
     public GameView(Context context, @Nullable AttributeSet attrs) {
@@ -46,30 +45,33 @@ public class GameView extends View {
     }
 
     @Override
-    protected void onDraw(Canvas canvas) {
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         int pl = getPaddingLeft();
         int pt = getPaddingTop();
         int pr = getPaddingRight();
         int pb = getPaddingBottom();
-        int w = canvas.getWidth();
-        int h = canvas.getHeight();
+//        int w = getWidth();
+//        int h = getHeight();
         rect.left = pl;
         rect.top = pt;
         rect.right = w - pr;
         rect.bottom = h - pb;
+        Log.d(TAG, "Rect: " + rect);
+        gameWorld.onSize(rect);
+        super.onSizeChanged(w, h, oldw, oldh);
+    }
+
+    @Override
+    protected void onDraw(Canvas canvas) {
 
         canvas.drawRect(rect, mainPaint);
 
-        for (GameObject o : objects) {
-            o.draw(canvas);
-        }
+        gameWorld.draw(canvas);
     }
 
     public void update() {
         if (movesBall) {
-            for (GameObject o : objects) {
-                o.update();
-            }
+            gameWorld.update();
         }
     }
 
