@@ -13,6 +13,7 @@ import java.util.ArrayList;
 
 import kr.ac.kpu.game.scgyong.blocksamplee.gameobj.Ball;
 import kr.ac.kpu.game.scgyong.blocksamplee.gameobj.GameObject;
+import kr.ac.kpu.game.scgyong.blocksamplee.gameobj.Plane;
 
 public class GameView extends View {
     private static final String TAG = GameView.class.getSimpleName();
@@ -36,6 +37,7 @@ public class GameView extends View {
         objects = new ArrayList<>();
         objects.add(new Ball(this, 10, 10, 1, 1));
         objects.add(new Ball(this, 1000, 10, -2, 3));
+        objects.add(new Plane(this, 500, 500, 0, 0));
     }
 
     public GameView(Context context, @Nullable AttributeSet attrs) {
