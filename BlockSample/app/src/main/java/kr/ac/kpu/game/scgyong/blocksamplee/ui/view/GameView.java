@@ -21,6 +21,7 @@ public class GameView extends View {
     private Rect rect;
     private Bitmap ballImage;
     private int xBall, yBall;
+    private boolean movesBall;
 
     public GameView(Context context) {
         super(context);
@@ -36,8 +37,8 @@ public class GameView extends View {
         Resources res = getResources();
         ballImage = BitmapFactory.decodeResource(res, R.mipmap.soccer_ball_240);
 
-        xBall = 500;
-        yBall = 600;
+        xBall = 50;
+        yBall = 60;
     }
 
     public GameView(Context context, @Nullable AttributeSet attrs) {
@@ -64,8 +65,14 @@ public class GameView extends View {
     }
 
     public void update() {
-        xBall += 5;
-        yBall += 5;
-        Log.d(TAG, "update(): "  + xBall + ", " + yBall);
+        if (movesBall) {
+            xBall += 5;
+            yBall += 5;
+            Log.d(TAG, "update(): " + xBall + ", " + yBall);
+        }
+    }
+
+    public void doAction() {
+        movesBall = !movesBall;
     }
 }

@@ -11,6 +11,7 @@ import kr.ac.kpu.game.scgyong.blocksamplee.ui.view.GameView;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final long GAMEVIEW_UPDATE_INTERVAL_MSEC = 30;
     private GameView gameView;
 
     @Override
@@ -18,12 +19,25 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         gameView = findViewById(R.id.gameView);
+
+        postUpdate();
+    }
+
+    private void postUpdate() {
+        gameView.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                gameView.update();
+                gameView.invalidate();
+                postUpdate();
+            }
+        }, GAMEVIEW_UPDATE_INTERVAL_MSEC);
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
-            gameView.update();
+            gameView.doAction();
         }
         return true;
     }
