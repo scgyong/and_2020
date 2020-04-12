@@ -22,7 +22,7 @@ public class GameView extends View {
 
     private void initPaint() {
         mainPaint = new Paint();
-        mainPaint.setColor(Color.RED);
+        mainPaint.setColor(0xFFFFEEEE);
 
         rect = new Rect();
     }
