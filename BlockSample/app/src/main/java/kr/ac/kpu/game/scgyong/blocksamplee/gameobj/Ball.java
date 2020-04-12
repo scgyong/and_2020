@@ -12,14 +12,14 @@ public class Ball {
     private final int dx;
     private final int dy;
     private int x, y;
-    public Ball(View view, int x, int y) {
+    public Ball(View view, int x, int y, int dx, int dy) {
         if (image == null) {
             image = BitmapFactory.decodeResource(view.getResources(), R.mipmap.soccer_ball_240);
         }
         this.x = x;
         this.y = y;
-        this.dx = 1;
-        this.dy = 1;
+        this.dx = dx;
+        this.dy = dy;
     }
 
     public void update() {

@@ -16,7 +16,7 @@ public class GameView extends View {
     private Paint mainPaint;
     private Rect rect;
     private boolean movesBall;
-    private Ball ball;
+    private Ball ball, ball2;
 
     public GameView(Context context) {
         super(context);
@@ -29,7 +29,8 @@ public class GameView extends View {
         mainPaint.setColor(0xFFFFEEEE);
 
         rect = new Rect();
-        ball = new Ball(this, 10, 10);
+        ball = new Ball(this, 10, 10, 1, 1);
+        ball2 = new Ball(this, 1000, 10, -2, 3);
     }
 
     public GameView(Context context, @Nullable AttributeSet attrs) {
@@ -53,11 +54,13 @@ public class GameView extends View {
         canvas.drawRect(rect, mainPaint);
 
         ball.draw(canvas);
+        ball2.draw(canvas);
     }
 
     public void update() {
         if (movesBall) {
             ball.update();
+            ball2.update();
         }
     }
 
