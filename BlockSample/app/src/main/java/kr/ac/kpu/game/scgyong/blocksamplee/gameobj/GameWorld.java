@@ -6,10 +6,12 @@ import android.util.Log;
 import android.view.View;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class GameWorld {
 
     private static final String TAG = GameWorld.class.getSimpleName();
+    private static final int BALL_COUNT = 10;
 
     public int getLeft() {
         return rect.left;
@@ -84,7 +86,13 @@ public class GameWorld {
 
     private void initObjects() {
         add(Layer.player, new Plane(view, 500, 500, 0, 0));
-        add(Layer.enemy, new Ball(view, 10, 10, 10, 10));
-        add(Layer.enemy, new Ball(view, 1000, 10, -20, 30));
+        Random rand = new Random();
+        for (int i = 0; i < BALL_COUNT; i++) {
+            int x = rand.nextInt(1000);
+            int y = rand.nextInt(1000);
+            int dx = rand.nextInt(50) - 25; if (dx >= 0) dx++;
+            int dy = rand.nextInt(50) - 25; if (dy >= 0) dy++;
+            add(Layer.enemy, new Ball(view, x, y, dx, dy));
+        }
     }
 }
