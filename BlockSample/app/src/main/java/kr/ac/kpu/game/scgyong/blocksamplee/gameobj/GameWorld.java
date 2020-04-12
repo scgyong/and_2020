@@ -10,6 +10,20 @@ import java.util.ArrayList;
 public class GameWorld {
 
     private static final String TAG = GameWorld.class.getSimpleName();
+
+    public int getLeft() {
+        return rect.left;
+    }
+    public int getTop() {
+        return rect.top;
+    }
+    public int getRight() {
+        return rect.right;
+    }
+    public int getBottom() {
+        return rect.bottom;
+    }
+
     private Rect rect;
 
     public static GameWorld get() {
@@ -70,7 +84,7 @@ public class GameWorld {
 
     private void initObjects() {
         add(Layer.player, new Plane(view, 500, 500, 0, 0));
-        add(Layer.enemy, new Ball(view, 10, 10, 1, 1));
-        add(Layer.enemy, new Ball(view, 1000, 10, -2, 3));
+        add(Layer.enemy, new Ball(view, 10, 10, 10, 10));
+        add(Layer.enemy, new Ball(view, 1000, 10, -20, 30));
     }
 }

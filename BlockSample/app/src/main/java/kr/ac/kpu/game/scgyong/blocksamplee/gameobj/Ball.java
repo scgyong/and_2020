@@ -21,8 +21,17 @@ public class Ball implements GameObject {
     }
 
     public void update() {
+        GameWorld gw = GameWorld.get();
         x += dx;
+        if (dx > 0 && x > gw.getRight() ||
+                dx < 0 && x < gw.getLeft()) {
+            dx *= -1;
+        }
         y += dy;
+        if (dy > 0 && y > gw.getBottom() ||
+                dy < 0 && y < gw.getTop()) {
+            dy *= -1;
+        }
     }
 
     public void draw(Canvas canvas) {
