@@ -1,27 +1,22 @@
 package kr.ac.kpu.game.scgyong.blocksamplee.ui.view;
 
 import android.content.Context;
-import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.Nullable;
 
-import kr.ac.kpu.game.scgyong.blocksamplee.R;
+import kr.ac.kpu.game.scgyong.blocksamplee.gameobj.Ball;
 
 public class GameView extends View {
     private static final String TAG = GameView.class.getSimpleName();
     private Paint mainPaint;
     private Rect rect;
-    private Bitmap ballImage;
-    private int xBall, yBall;
     private boolean movesBall;
+    private Ball ball;
 
     public GameView(Context context) {
         super(context);
@@ -34,11 +29,7 @@ public class GameView extends View {
         mainPaint.setColor(0xFFFFEEEE);
 
         rect = new Rect();
-        Resources res = getResources();
-        ballImage = BitmapFactory.decodeResource(res, R.mipmap.soccer_ball_240);
-
-        xBall = 50;
-        yBall = 60;
+        ball = new Ball(this, 10, 10);
     }
 
     public GameView(Context context, @Nullable AttributeSet attrs) {
@@ -61,14 +52,12 @@ public class GameView extends View {
 
         canvas.drawRect(rect, mainPaint);
 
-        canvas.drawBitmap(ballImage, xBall, yBall, null);
+        ball.draw(canvas);
     }
 
     public void update() {
         if (movesBall) {
-            xBall += 5;
-            yBall += 5;
-            Log.d(TAG, "update(): " + xBall + ", " + yBall);
+            ball.update();
         }
     }
 
