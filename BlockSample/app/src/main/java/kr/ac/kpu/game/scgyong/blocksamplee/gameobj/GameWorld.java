@@ -35,6 +35,11 @@ public class GameWorld {
         }
         return singleton;
     }
+
+    public View getView() {
+        return view;
+    }
+
     public void init(View view) {
         this.view = view;
 
@@ -46,6 +51,9 @@ public class GameWorld {
             for (GameObject o: layer) {
                 o.update();
             }
+        }
+        if (trash.size() > 0) {
+            removeTrashObjects();
         }
     }
     public void draw(Canvas canvas) {
@@ -68,7 +76,7 @@ public class GameWorld {
     private ArrayList<GameObject> objectsAt(Layer layer) {
         return layers.get(layer.ordinal());
     }
-    private void add(Layer layer, GameObject obj) {
+    public void add(Layer layer, GameObject obj) {
         objectsAt(layer).add(obj);
     }
 
@@ -83,7 +91,25 @@ public class GameWorld {
         fighter.shoot();
     }
 
-    private enum Layer {
+    private ArrayList<GameObject> trash = new ArrayList<>();
+    public void removeObject(GameObject obj) {
+        trash.add(obj);
+    }
+
+    private void removeTrashObjects() {
+        for (GameObject obj : trash) {
+            for (ArrayList<GameObject> layer : layers) {
+                int index = layer.indexOf(obj);
+                if (index >= 0) {
+                    Log.d(TAG, "Removing obj at index: " + index + " / " + layer.size());
+                    layer.remove(index);
+                    break;
+                }
+            }
+        }
+    }
+
+    public enum Layer {
         bg, missile, enemy, player, COUNT
     }
 

@@ -15,6 +15,7 @@ public class Fighter implements GameObject {
     private final FrameAnimationBitmap fabShoot;
     private final int shootOffset;
     private int x, y, dx, dy;
+
     public Fighter(View view, int x, int y, int dx, int dy) {
         fabIdle = FrameAnimationBitmap.load(view.getResources(), R.mipmap.ryu, FRAMES_PER_SECOND, 0);
         fabShoot = FrameAnimationBitmap.load(view.getResources(), R.mipmap.ryu_1, FRAMES_PER_SECOND, SHOOT_FRAME_COUNT);
@@ -37,8 +38,19 @@ public class Fighter implements GameObject {
             if (done) {
                 state = State.idle;
                 fabIdle.reset();
+                addFireball();
             }
         }
+    }
+
+    private void addFireball() {
+        int height = fabIdle.getHeight();
+        int fx = x + height * 80 / 100;
+        int fy = y - height * 10 / 100;
+        int speed = height / 20;
+        GameWorld gw = GameWorld.get();
+        FireBall fb = new FireBall(gw.getView(), fx, fy, speed, 0);
+        gw.add(GameWorld.Layer.missile, fb);
     }
 
     public void draw(Canvas canvas) {
