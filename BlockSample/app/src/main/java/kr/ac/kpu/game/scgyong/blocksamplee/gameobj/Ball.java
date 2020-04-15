@@ -1,29 +1,24 @@
 package kr.ac.kpu.game.scgyong.blocksamplee.gameobj;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.view.View;
 
 import kr.ac.kpu.game.scgyong.blocksamplee.R;
-import kr.ac.kpu.game.scgyong.blocksamplee.util.IndexTimer;
+import kr.ac.kpu.game.scgyong.blocksamplee.util.FrameAnimationBitmap;
 
 public class Ball implements GameObject {
     private static final String TAG = Ball.class.getSimpleName();
-    private static Bitmap image;
-    private static int halfImageWidth;
-    private final IndexTimer indexTimer;
+    public static final int FRAMES_PER_SECOND = 12;
+    private final FrameAnimationBitmap fab;
+    private final int halfImageWidth;
     private int x, y, dx, dy;
     public Ball(View view, int x, int y, int dx, int dy) {
-        if (image == null) {
-            image = BitmapFactory.decodeResource(view.getResources(), R.mipmap.soccer_ball_240);
-            halfImageWidth = image.getWidth() / 2;
-        }
+        fab = FrameAnimationBitmap.load(view.getResources(), R.mipmap.fireball_128_24f, FRAMES_PER_SECOND);
+        this.halfImageWidth = fab.getHeight() / 2;
         this.x = x;
         this.y = y;
-        this.dx = dx;
-        this.dy = dy;
-        this.indexTimer = new IndexTimer(8, 6);
+        this.dx = 0; //dx;
+        this.dy = 0; //dy;
     }
 
     public void update() {
@@ -36,11 +31,10 @@ public class Ball implements GameObject {
         if (dy > 0 && y > gw.getBottom() - halfImageWidth || dy < 0 && y < gw.getTop() + halfImageWidth) {
             dy *= -1;
         }
-        int index = indexTimer.getIndex();
-//        Log.d(TAG, "Index = " + index);
+        fab.update();
     }
 
     public void draw(Canvas canvas) {
-        canvas.drawBitmap(image, x - halfImageWidth, y - halfImageWidth, null);
+        fab.draw(canvas, x, y);
     }
 }
