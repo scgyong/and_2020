@@ -9,10 +9,12 @@ import kr.ac.kpu.game.scgyong.blocksamplee.R;
 
 public class Ball implements GameObject {
     private static Bitmap image;
+    private static int radius;
     private int x, y, dx, dy;
     public Ball(View view, int x, int y, int dx, int dy) {
         if (image == null) {
             image = BitmapFactory.decodeResource(view.getResources(), R.mipmap.soccer_ball_240);
+            radius = image.getWidth() / 2;
         }
         this.x = x;
         this.y = y;
@@ -23,18 +25,16 @@ public class Ball implements GameObject {
     public void update() {
         GameWorld gw = GameWorld.get();
         x += dx;
-        if (dx > 0 && x > gw.getRight() ||
-                dx < 0 && x < gw.getLeft()) {
+        if (dx > 0 && x > gw.getRight() - radius || dx < 0 && x < gw.getLeft() + radius) {
             dx *= -1;
         }
         y += dy;
-        if (dy > 0 && y > gw.getBottom() ||
-                dy < 0 && y < gw.getTop()) {
+        if (dy > 0 && y > gw.getBottom() - radius || dy < 0 && y < gw.getTop() + radius) {
             dy *= -1;
         }
     }
 
     public void draw(Canvas canvas) {
-        canvas.drawBitmap(image, x, y, null);
+        canvas.drawBitmap(image, x - radius, y - radius, null);
     }
 }

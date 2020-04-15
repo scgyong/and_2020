@@ -10,19 +10,21 @@ import kr.ac.kpu.game.scgyong.blocksamplee.R;
 
 public class Plane implements GameObject {
     private static Bitmap image;
+    private static int radius;
     private int x, y, dx, dy;
     private Matrix matrix;
 
     public Plane(View view, int x, int y, int dx, int dy) {
         if (image == null) {
             image = BitmapFactory.decodeResource(view.getResources(), R.mipmap.plane_240);
+            radius = image.getWidth() / 2;
         }
         this.x = x;
         this.y = y;
         this.dx = dx;
         this.dy = dy;
         this.matrix = new Matrix();
-        matrix.preTranslate(x, y);
+        matrix.preTranslate(x - radius, y - radius);
     }
     @Override
     public void update() {
