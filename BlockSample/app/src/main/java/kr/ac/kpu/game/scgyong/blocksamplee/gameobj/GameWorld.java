@@ -11,7 +11,7 @@ import java.util.Random;
 public class GameWorld {
 
     private static final String TAG = GameWorld.class.getSimpleName();
-    private static final int BALL_COUNT = 10;
+    private static final int BALL_COUNT = 1;
 
     public int getLeft() {
         return rect.left;

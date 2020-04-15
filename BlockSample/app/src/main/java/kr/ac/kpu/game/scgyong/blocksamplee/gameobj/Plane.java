@@ -11,6 +11,7 @@ import kr.ac.kpu.game.scgyong.blocksamplee.R;
 public class Plane implements GameObject {
     private static Bitmap image;
     private static int radius;
+    private int size;
     private int x, y, dx, dy;
     private Matrix matrix;
 
