@@ -6,14 +6,14 @@ import android.view.View;
 import kr.ac.kpu.game.scgyong.blocksamplee.R;
 import kr.ac.kpu.game.scgyong.blocksamplee.util.FrameAnimationBitmap;
 
-public class Ball implements GameObject {
-    private static final String TAG = Ball.class.getSimpleName();
-    public static final int FRAMES_PER_SECOND = 12;
+public class Fighter implements GameObject {
+    private static final String TAG = Fighter.class.getSimpleName();
+    public static final int FRAMES_PER_SECOND = 5;
     private final FrameAnimationBitmap fab;
     private final int halfImageWidth;
     private int x, y, dx, dy;
-    public Ball(View view, int x, int y, int dx, int dy) {
-        fab = FrameAnimationBitmap.load(view.getResources(), R.mipmap.fireball_128_24f, FRAMES_PER_SECOND);
+    public Fighter(View view, int x, int y, int dx, int dy) {
+        fab = FrameAnimationBitmap.load(view.getResources(), R.mipmap.ryu, FRAMES_PER_SECOND);
         this.halfImageWidth = fab.getHeight() / 2;
         this.x = x;
         this.y = y;

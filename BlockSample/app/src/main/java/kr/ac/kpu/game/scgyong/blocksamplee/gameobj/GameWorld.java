@@ -78,14 +78,13 @@ public class GameWorld {
     }
 
     private enum Layer {
-        bg, player, missile, enemy, COUNT
+        bg, missile, enemy, player, COUNT
     }
 
     private static GameWorld singleton;
     private GameWorld() {}
 
     private void initObjects() {
-        add(Layer.player, new Plane(view, 500, 500, 0, 0));
         Random rand = new Random();
         for (int i = 0; i < BALL_COUNT; i++) {
             int x = rand.nextInt(1000);
@@ -94,5 +93,7 @@ public class GameWorld {
             int dy = rand.nextInt(50) - 25; if (dy >= 0) dy++;
             add(Layer.enemy, new Ball(view, x, y, dx, dy));
         }
+        add(Layer.player, new Plane(view, 500, 500, 0, 0));
+        add(Layer.player, new Fighter(view, 700, 700, 0, 0));
     }
 }
