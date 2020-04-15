@@ -1,6 +1,7 @@
 package kr.ac.kpu.game.scgyong.blocksamplee.gameobj;
 
 import android.graphics.Canvas;
+import android.media.MediaPlayer;
 import android.util.Log;
 import android.view.View;
 
@@ -13,6 +14,7 @@ public class Fighter implements GameObject {
     private static final int SHOOT_FRAME_COUNT = 5;
     private final FrameAnimationBitmap fabIdle;
     private final FrameAnimationBitmap fabShoot;
+    private final MediaPlayer mediaPlayer;
     private final int shootOffset;
     private int x, y, dx, dy;
 
@@ -24,6 +26,7 @@ public class Fighter implements GameObject {
         this.y = y;
         this.dx = dx;
         this.dy = dy;
+        this.mediaPlayer = MediaPlayer.create(view.getContext(), R.raw.hadouken);
     }
 
     private enum State {
@@ -67,6 +70,8 @@ public class Fighter implements GameObject {
             Log.d(TAG, "changing state to shoot");
             state = State.shoot;
             fabShoot.reset();
+            mediaPlayer.seekTo(0);
+            mediaPlayer.start();
         }
     }
 }
