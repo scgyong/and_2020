@@ -8,7 +8,7 @@ import kr.ac.kpu.game.scgyong.blocksamplee.util.FrameAnimationBitmap;
 
 public class Fighter implements GameObject {
     private static final String TAG = Fighter.class.getSimpleName();
-    public static final int FRAMES_PER_SECOND = 5;
+    public static final int FRAMES_PER_SECOND = 10;
     private final FrameAnimationBitmap fab;
     private final int halfImageWidth;
     private int x, y, dx, dy;
