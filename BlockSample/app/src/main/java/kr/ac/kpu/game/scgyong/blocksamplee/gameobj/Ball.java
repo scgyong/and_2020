@@ -13,7 +13,7 @@ public class Ball implements GameObject {
     private final int halfImageWidth;
     private int x, y, dx, dy;
     public Ball(View view, int x, int y, int dx, int dy) {
-        fab = FrameAnimationBitmap.load(view.getResources(), R.mipmap.fireball_128_24f, FRAMES_PER_SECOND);
+        fab = FrameAnimationBitmap.load(view.getResources(), R.mipmap.fireball_128_24f, FRAMES_PER_SECOND, 0);
         this.halfImageWidth = fab.getHeight() / 4;
         this.x = x;
         this.y = y;

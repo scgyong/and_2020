@@ -25,7 +25,7 @@ public class Plane implements GameObject {
         this.dx = dx;
         this.dy = dy;
         this.matrix = new Matrix();
-        matrix.preTranslate(x - radius, y - radius);
+        matrix.preTranslate(x - radius, y - radius * 6 / 5);
     }
     @Override
     public void update() {

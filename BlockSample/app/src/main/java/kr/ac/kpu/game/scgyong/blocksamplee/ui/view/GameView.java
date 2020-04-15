@@ -21,7 +21,6 @@ public class GameView extends View {
     private static final String TAG = GameView.class.getSimpleName();
     private Paint mainPaint;
     private Rect rect;
-    private boolean movesBall;
     private GameWorld gameWorld;
 
     public GameView(Context context) {
@@ -70,12 +69,6 @@ public class GameView extends View {
     }
 
     public void update() {
-        if (movesBall) {
-            gameWorld.update();
-        }
-    }
-
-    public void doAction() {
-        movesBall = !movesBall;
+        gameWorld.update();
     }
 }

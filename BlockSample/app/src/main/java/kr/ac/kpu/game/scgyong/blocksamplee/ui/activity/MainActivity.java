@@ -7,6 +7,7 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import kr.ac.kpu.game.scgyong.blocksamplee.R;
+import kr.ac.kpu.game.scgyong.blocksamplee.gameobj.GameWorld;
 import kr.ac.kpu.game.scgyong.blocksamplee.ui.view.GameView;
 
 public class MainActivity extends AppCompatActivity {
@@ -37,7 +38,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
-            gameView.doAction();
+//            gameView.doAction();
+            GameWorld.get().doAction();
         }
         return true;
     }

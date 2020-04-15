@@ -12,6 +12,7 @@ public class GameWorld {
 
     private static final String TAG = GameWorld.class.getSimpleName();
     private static final int BALL_COUNT = 10;
+    private Fighter fighter;
 
     public int getLeft() {
         return rect.left;
@@ -77,6 +78,11 @@ public class GameWorld {
         this.rect = rect;
     }
 
+    public void doAction() {
+        Log.d(TAG, "doAction()");
+        fighter.shoot();
+    }
+
     private enum Layer {
         bg, missile, enemy, player, COUNT
     }
@@ -94,6 +100,8 @@ public class GameWorld {
             add(Layer.enemy, new Ball(view, x, y, dx, dy));
         }
         add(Layer.player, new Plane(view, 500, 500, 0, 0));
-        add(Layer.player, new Fighter(view, 700, 700, 0, 0));
+
+        fighter = new Fighter(view, 200, 700, 0, 0);
+        add(Layer.player, fighter);
     }
 }
