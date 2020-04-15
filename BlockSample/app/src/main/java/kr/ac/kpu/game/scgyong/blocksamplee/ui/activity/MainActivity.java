@@ -4,10 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.MotionEvent;
-import android.view.View;
 
 import kr.ac.kpu.game.scgyong.blocksamplee.R;
 import kr.ac.kpu.game.scgyong.blocksamplee.gameobj.GameWorld;
+import kr.ac.kpu.game.scgyong.blocksamplee.sound.SoundEffects;
 import kr.ac.kpu.game.scgyong.blocksamplee.ui.view.GameView;
 
 public class MainActivity extends AppCompatActivity {
@@ -19,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        SoundEffects.get().init(this);
         gameView = findViewById(R.id.gameView);
 
         postUpdate();
