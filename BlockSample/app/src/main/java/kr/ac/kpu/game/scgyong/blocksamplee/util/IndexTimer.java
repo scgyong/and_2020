@@ -15,8 +15,8 @@ public class IndexTimer {
 
     public int getIndex() {
         long elapsed = System.currentTimeMillis() - this.time;
-        int index = (int) (((elapsed * fps) / 1000 % count));
-        Log.d("IndexTimer", "e*f=" + (elapsed * fps) + " /1000=" + ((elapsed * fps) / 1000));
+        int index = (int) (((elapsed * fps + 500) / 1000 % count));
+//        Log.d("IndexTimer", "e*f=" + (elapsed * fps) + " /1000=" + ((elapsed * fps) / 1000));
         return index;
     }
 }
