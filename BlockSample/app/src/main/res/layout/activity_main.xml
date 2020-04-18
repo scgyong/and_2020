@@ -19,10 +19,9 @@
     <kr.ac.kpu.game.scgyong.blocksamplee.ui.view.GameView
         android:id="@+id/gameView"
         android:layout_width="match_parent"
-        android:layout_height="400dp"
+        android:layout_height="match_parent"
         android:background="#ccf"
         android:padding="30dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
