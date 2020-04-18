@@ -2,11 +2,12 @@ package kr.ac.kpu.game.scgyong.blocksamplee.gameobj;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.RectF;
 
 import kr.ac.kpu.game.scgyong.blocksamplee.R;
 import kr.ac.kpu.game.scgyong.blocksamplee.util.FrameAnimationBitmap;
 
-public class Enemy implements GameObject {
+public class Enemy implements GameObject, BoxCollidable {
     private static final String TAG = Enemy.class.getSimpleName();
     public static final int FRAMES_PER_SECOND = 12;
     private final FrameAnimationBitmap fab;
@@ -39,6 +40,7 @@ public class Enemy implements GameObject {
     };
     public Enemy(int x, int level, int speed) {
         GameWorld gw = GameWorld.get();
+        level += 5;
         if (level >= RES_IDS.length) {
             level = RES_IDS.length - 1;
         }
@@ -68,6 +70,8 @@ public class Enemy implements GameObject {
     public void decreaseLife(int amount) {
         GameWorld gw = GameWorld.get();
         this.life -= amount;
+        int alpha = 255 - (maxLife - life) * 200 / maxLife;
+        paint.setAlpha(alpha);
         if (this.life <= 0) {
             gw.removeObject(this);
         }
@@ -75,5 +79,15 @@ public class Enemy implements GameObject {
 
     public void draw(Canvas canvas) {
         fab.draw(canvas, x, y, paint);
+    }
+
+    @Override
+    public void getBox(RectF rect) {
+        float halfWidth = fab.getWidth() / 2;
+        float halfHeight = fab.getHeight() / 2;
+        rect.left = x - halfWidth;
+        rect.right = x + halfWidth;
+        rect.top = y - halfHeight;
+        rect.bottom = y + halfHeight;
     }
 }

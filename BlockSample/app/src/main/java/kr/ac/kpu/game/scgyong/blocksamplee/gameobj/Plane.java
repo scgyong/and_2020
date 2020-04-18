@@ -15,11 +15,13 @@ public class Plane implements GameObject {
     private static final float ANGLE_PER_SECOND = 90;
     private static final String TAG = Plane.class.getSimpleName();
     private static final long BULLET_FIRE_INTERVAL_NSEC = 300000000;
+    private static final int INITIAL_BULLET_POWER = 100;
     private static Bitmap image;
     private static int radius;
     private long lastFire;
     private int size;
     private float x, y;
+    private int power;
 //    private Matrix matrix;
 
     public Plane() {
@@ -30,6 +32,7 @@ public class Plane implements GameObject {
         }
         this.x = 0;
         this.y = 0;
+        this.power = INITIAL_BULLET_POWER;
 
         placePlane();
 
@@ -47,7 +50,7 @@ public class Plane implements GameObject {
 
     public void fire() {
 //        float angle = MatrixHelper.getAngle(matrix);
-        Bullet bullet = new Bullet(GameWorld.get().getView(), x, y, 0, radius);
+        Bullet bullet = new Bullet(x, y - radius, power);
         GameWorld.get().add(GameWorld.Layer.missile, bullet);
     }
     @Override

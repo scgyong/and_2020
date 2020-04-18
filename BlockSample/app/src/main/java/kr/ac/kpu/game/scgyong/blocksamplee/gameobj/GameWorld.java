@@ -107,7 +107,7 @@ public class GameWorld {
         }
     }
 
-    private ArrayList<GameObject> objectsAt(Layer layer) {
+    public ArrayList<GameObject> objectsAt(Layer layer) {
         return layers.get(layer.ordinal());
     }
     public void add(Layer layer, GameObject obj) {

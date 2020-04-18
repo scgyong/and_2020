@@ -3,48 +3,52 @@ package kr.ac.kpu.game.scgyong.blocksamplee.gameobj;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.PointF;
+import android.graphics.RectF;
 import android.util.Log;
 import android.view.View;
 
+import java.util.ArrayList;
+
 import kr.ac.kpu.game.scgyong.blocksamplee.R;
+import kr.ac.kpu.game.scgyong.blocksamplee.util.CollisionHelper;
 import kr.ac.kpu.game.scgyong.blocksamplee.util.FrameAnimationBitmap;
 import kr.ac.kpu.game.scgyong.blocksamplee.util.MatrixHelper;
 
-public class Bullet implements GameObject {
+public class Bullet implements GameObject, BoxCollidable {
     private static final String TAG = Bullet.class.getSimpleName();
     public static final int SPEED = 500;
     private final FrameAnimationBitmap fab;
-//    private final Matrix matrix;
-//    private final float angle;
+    private final int power;
     private float x, y;
 
-    public Bullet(View view, float x, float y, float angle, int radius) {
-        fab = FrameAnimationBitmap.load(view.getResources(), R.mipmap.bullet, 1, 1);
-//        this.matrix = new Matrix();
-//        matrix.preTranslate(x, y);
+    public Bullet(float x, float y, int power) {
+        GameWorld gw = GameWorld.get();
+        fab = FrameAnimationBitmap.load(gw.getResources(), R.mipmap.bullet, 1, 1);
         this.x = x;
         this.y = y;
-//        this.angle = (float) (angle + Math.PI / 2);
-//        matrix.postRotate(-(float) (angle * 180 / Math.PI), x, y);
-
-        advance(radius);
-    }
-
-    private void advance(float amount) {
-//        float dx = (float) (Math.cos(angle) * amount);
-//        float dy = -(float) (Math.sin(angle) * amount);
-//        matrix.postTranslate(dx, dy);
-//        x += dx;
-//        y += dy;
-        y -= amount;
+        this.power = power;
     }
 
     public void update() {
         GameWorld gw = GameWorld.get();
-        float timeDiffInSecond = gw.getTimeDiffInSecond();
-        float amount = SPEED * timeDiffInSecond;
-        advance(amount);
+
+        y -= SPEED * gw.getTimeDiffInSecond();
+
         boolean toBeDeleted = false;
+        ArrayList<GameObject> enemies = gw.objectsAt(GameWorld.Layer.enemy);
+        for (GameObject e: enemies) {
+            if (!(e instanceof BoxCollidable)) {
+                continue;
+            }
+            BoxCollidable bc = (BoxCollidable) e;
+            boolean collides = CollisionHelper.collides(bc, this);
+            if (collides) {
+                Enemy enemy = (Enemy) bc;
+                enemy.decreaseLife(power);
+                toBeDeleted = true;
+                break;
+            }
+        }
         if (x > gw.getRight() || x < gw.getLeft()) {
             toBeDeleted = true;
         }
@@ -59,5 +63,15 @@ public class Bullet implements GameObject {
     public void draw(Canvas canvas) {
 //        fab.draw(canvas, matrix);
         fab.draw(canvas, x, y);
+    }
+
+    @Override
+    public void getBox(RectF rect) {
+        float halfWidth = fab.getWidth() / 2;
+        float halfHeight = fab.getHeight() / 2;
+        rect.left = x - halfWidth;
+        rect.right = x + halfWidth;
+        rect.top = y - halfHeight;
+        rect.bottom = y + halfHeight;
     }
 }

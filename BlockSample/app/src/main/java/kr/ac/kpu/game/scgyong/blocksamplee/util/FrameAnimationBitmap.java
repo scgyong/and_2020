@@ -104,4 +104,8 @@ public class FrameAnimationBitmap {
     public void draw(Canvas canvas, Matrix matrix) {
         canvas.drawBitmap(bitmap, matrix, null);
     }
+
+    public int getWidth() {
+        return frameWidth;
+    }
 }
