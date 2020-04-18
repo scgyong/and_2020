@@ -1,6 +1,7 @@
 package kr.ac.kpu.game.scgyong.blocksamplee.gameobj;
 
 import android.graphics.Canvas;
+import android.graphics.PointF;
 import android.graphics.Rect;
 import android.util.Log;
 import android.view.View;
@@ -15,6 +16,7 @@ public class GameWorld {
     private Fighter fighter;
     private long currentTimeNanos;
     private long timeDiffNanos;
+    private Plane plane;
 
     public float getDotsPerInch() {
         return dotsPerInch;
@@ -57,9 +59,17 @@ public class GameWorld {
         initObjects();
     }
 
+    public long getCurrentTimeNanos() {
+        return currentTimeNanos;
+    }
+
     public long getTimeDiffNanos() {
         return timeDiffNanos;
     }
+    public float getTimeDiffInSecond() {
+        return timeDiffNanos / 1000000000f;
+    }
+
 
     public void update(long frameTimeNanos) {
         this.timeDiffNanos = frameTimeNanos - currentTimeNanos;
@@ -106,9 +116,17 @@ public class GameWorld {
         this.rect = rect;
     }
 
-    public void doAction() {
-        Log.d(TAG, "doAction()");
-        fighter.shoot();
+    public void doAction(Action action, Object param) {
+        Log.d(TAG, "doAction() " + action);
+        switch (action) {
+            case fireHadoken:
+                fighter.shoot();
+                break;
+            case fireBullet:
+                plane.head((PointF)param);
+                plane.fire();
+                break;
+        }
     }
 
     private ArrayList<GameObject> trash = new ArrayList<>();
@@ -129,10 +147,6 @@ public class GameWorld {
         }
     }
 
-    public long getCurrentTimeNanos() {
-        return currentTimeNanos;
-    }
-
     public enum Layer {
         bg, missile, enemy, player, COUNT
     }
@@ -149,9 +163,12 @@ public class GameWorld {
             int dy = rand.nextInt(1000) - 500; if (dy >= 0) dy++;
             add(Layer.enemy, new Ball(view, x, y, dx, dy));
         }
-        add(Layer.player, new Plane(view, 500, 500, 0, 0));
+        plane = new Plane(view, 500, 500);
+        add(Layer.player, plane);
 
         fighter = new Fighter(view, 200, 700, 0, 0);
         add(Layer.player, fighter);
     }
+
+    public enum Action {fireBullet, fireHadoken}
 }

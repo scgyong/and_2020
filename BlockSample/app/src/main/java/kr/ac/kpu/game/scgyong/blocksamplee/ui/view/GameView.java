@@ -3,11 +3,13 @@ package kr.ac.kpu.game.scgyong.blocksamplee.ui.view;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.PointF;
 import android.graphics.Rect;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.Choreographer;
+import android.view.MotionEvent;
 import android.view.View;
 
 import androidx.annotation.Nullable;
@@ -57,6 +59,21 @@ public class GameView extends View {
     public GameView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         initResources();
+    }
+
+    private PointF pt = new PointF();
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                GameWorld.get().doAction(GameWorld.Action.fireHadoken, null);
+                break;
+            case MotionEvent.ACTION_MOVE:
+                pt.x = event.getX();
+                pt.y = event.getY();
+                GameWorld.get().doAction(GameWorld.Action.fireBullet, pt);
+        }
+        return true;
     }
 
     @Override

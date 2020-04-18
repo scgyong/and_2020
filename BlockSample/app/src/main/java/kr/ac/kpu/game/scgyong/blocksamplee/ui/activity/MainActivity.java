@@ -2,6 +2,8 @@ package kr.ac.kpu.game.scgyong.blocksamplee.ui.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.Point;
+import android.graphics.PointF;
 import android.os.Bundle;
 import android.view.MotionEvent;
 
@@ -14,6 +16,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static final long GAMEVIEW_UPDATE_INTERVAL_MSEC = 30;
     private GameView gameView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,12 +39,17 @@ public class MainActivity extends AppCompatActivity {
 //        }, GAMEVIEW_UPDATE_INTERVAL_MSEC);
 //    }
 
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        if (event.getAction() == MotionEvent.ACTION_DOWN) {
-//            gameView.doAction();
-            GameWorld.get().doAction();
-        }
-        return true;
-    }
+//    @Override
+//    public boolean onTouchEvent(MotionEvent event) {
+//        switch (event.getAction()) {
+//        case MotionEvent.ACTION_DOWN:
+//            GameWorld.get().doAction(GameWorld.Action.fireHadoken, null);
+//            break;
+//        case MotionEvent.ACTION_MOVE:
+//            pt.x = event.getX();
+//            pt.y = event.getY();
+//            GameWorld.get().doAction(GameWorld.Action.fireBullet, pt);
+//        }
+//        return true;
+//    }
 }
