@@ -40,7 +40,6 @@ public class Enemy implements GameObject, BoxCollidable {
     };
     public Enemy(int x, int level, int speed) {
         GameWorld gw = GameWorld.get();
-        level += 5;
         if (level >= RES_IDS.length) {
             level = RES_IDS.length - 1;
         }
