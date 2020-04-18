@@ -10,6 +10,8 @@ import android.util.Log;
 
 import java.util.HashMap;
 
+import kr.ac.kpu.game.scgyong.blocksamplee.gameobj.GameWorld;
+
 public class FrameAnimationBitmap {
 
     private static final String TAG = FrameAnimationBitmap.class.getSimpleName();
@@ -36,7 +38,7 @@ public class FrameAnimationBitmap {
             Log.d(TAG, "Copy from Existing: " + resId + " - " + fab);
         }
         fab.fps = framesPerSecond;
-        fab.time = System.currentTimeMillis();
+        fab.time = GameWorld.get().getCurrentTimeNanos();
         fab.index = 0;
         fab.srcRect.top = 0;
         fab.srcRect.bottom = fab.height;
@@ -47,8 +49,8 @@ public class FrameAnimationBitmap {
     }
 
     public boolean update() {
-        long elapsed = System.currentTimeMillis() - this.time;
-        int total = (int) ((elapsed * fps + 500) / 1000);
+        long elapsed = GameWorld.get().getCurrentTimeNanos() - this.time;
+        int total = (int) ((elapsed * fps + 500000000) / 1000000000);
         index = total % frames;
         return total >= frames;
     }
@@ -91,6 +93,6 @@ public class FrameAnimationBitmap {
     }
 
     public void reset() {
-        time = System.currentTimeMillis();
+        time = GameWorld.get().getCurrentTimeNanos();
     }
 }
