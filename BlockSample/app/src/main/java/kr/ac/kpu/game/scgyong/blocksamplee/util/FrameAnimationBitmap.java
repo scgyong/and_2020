@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
+import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.util.Log;
@@ -57,6 +58,9 @@ public class FrameAnimationBitmap {
     }
 
     public void draw(Canvas canvas, float x, float y) {
+        draw(canvas, x, y, null);
+    }
+    public void draw(Canvas canvas, float x, float y, Paint paint) {
         srcRect.left = frameWidth * index;
         srcRect.right = srcRect.left + frameWidth;
 
@@ -66,7 +70,7 @@ public class FrameAnimationBitmap {
         dstRect.top = y - halfHeight;
         dstRect.right = x + halfWidth;
         dstRect.bottom = y + halfHeight;
-        canvas.drawBitmap(bitmap, srcRect, dstRect, null);
+        canvas.drawBitmap(bitmap, srcRect, dstRect, paint);
     }
 
     private static HashMap<Integer, FrameAnimationBitmap> map = new HashMap<>();

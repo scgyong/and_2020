@@ -1,7 +1,7 @@
 package kr.ac.kpu.game.scgyong.blocksamplee.gameobj;
 
 import android.graphics.Canvas;
-import android.view.View;
+import android.graphics.Paint;
 
 import kr.ac.kpu.game.scgyong.blocksamplee.R;
 import kr.ac.kpu.game.scgyong.blocksamplee.util.FrameAnimationBitmap;
@@ -11,7 +11,10 @@ public class Enemy implements GameObject {
     public static final int FRAMES_PER_SECOND = 12;
     private final FrameAnimationBitmap fab;
     private final int height;
+    private final Paint paint;
+    private int life;
     private float x, y, dx, dy;
+    private int maxLife;
 
     private static int[] RES_IDS = {
             R.mipmap.enemy_01,
@@ -36,6 +39,9 @@ public class Enemy implements GameObject {
     };
     public Enemy(int x, int level, int speed) {
         GameWorld gw = GameWorld.get();
+        if (level >= RES_IDS.length) {
+            level = RES_IDS.length - 1;
+        }
         int resId = RES_IDS[level];
         fab = FrameAnimationBitmap.load(gw.getResources(), resId, FRAMES_PER_SECOND, 0);
         this.height = fab.getHeight();
@@ -43,6 +49,10 @@ public class Enemy implements GameObject {
         this.y = -height;
         this.dx = 0;
         this.dy = speed;
+        this.paint = new Paint();
+        this.maxLife = level * 100 + 10;
+        this.life = maxLife;
+//        paint.setAlpha(255 - 100 * level);
     }
 
     public void update() {
@@ -55,7 +65,15 @@ public class Enemy implements GameObject {
         fab.update();
     }
 
+    public void decreaseLife(int amount) {
+        GameWorld gw = GameWorld.get();
+        this.life -= amount;
+        if (this.life <= 0) {
+            gw.removeObject(this);
+        }
+    }
+
     public void draw(Canvas canvas) {
-        fab.draw(canvas, x, y);
+        fab.draw(canvas, x, y, paint);
     }
 }

@@ -118,6 +118,7 @@ public class GameWorld {
 
     public void onSize(Rect rect) {
         this.rect = rect;
+        plane.placePlane();
     }
 
     public void doAction(Action action, Object param) {
@@ -128,7 +129,7 @@ public class GameWorld {
                 break;
             case fireBullet:
                 plane.head((PointF)param);
-                plane.fire();
+//                plane.fire();
                 break;
         }
     }
@@ -155,6 +156,10 @@ public class GameWorld {
         return view.getResources();
     }
 
+    public boolean sizeDetermined() {
+        return rect != null;
+    }
+
     public enum Layer {
         bg, missile, enemy, player, COUNT
     }
@@ -171,7 +176,7 @@ public class GameWorld {
             int dy = rand.nextInt(1000) - 500; if (dy >= 0) dy++;
             add(Layer.enemy, new Ball(view, x, y, dx, dy));
         }
-        plane = new Plane(view, 500, 500);
+        plane = new Plane();
         add(Layer.player, plane);
 
         fighter = new Fighter(view, 200, 700, 0, 0);

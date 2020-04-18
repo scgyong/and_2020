@@ -45,8 +45,8 @@ public class EnemyGenerator {
     }
 
     private int generateEnemy(int x) {
-        int speed = 100 + 10 * wave;
-        int level = (wave - 5) / 10;
+        int speed = 500 + 10 * wave;
+        int level = (wave - 10) / 10;
         int r = rand.nextInt(20);
         if (r >= 19) {
             level += 2;

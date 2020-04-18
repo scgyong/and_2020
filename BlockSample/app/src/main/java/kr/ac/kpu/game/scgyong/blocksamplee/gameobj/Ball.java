@@ -1,7 +1,6 @@
 package kr.ac.kpu.game.scgyong.blocksamplee.gameobj;
 
 import android.graphics.Canvas;
-import android.util.Log;
 import android.view.View;
 
 import kr.ac.kpu.game.scgyong.blocksamplee.R;
