@@ -1,5 +1,6 @@
 package kr.ac.kpu.game.scgyong.blocksamplee.gameobj;
 
+import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.PointF;
 import android.graphics.Rect;
@@ -17,6 +18,7 @@ public class GameWorld {
     private long currentTimeNanos;
     private long timeDiffNanos;
     private Plane plane;
+    private EnemyGenerator enemyGenerator;
 
     public float getDotsPerInch() {
         return dotsPerInch;
@@ -85,6 +87,8 @@ public class GameWorld {
         if (trash.size() > 0) {
             removeTrashObjects();
         }
+
+        enemyGenerator.update();
     }
     public void draw(Canvas canvas) {
         for (ArrayList<GameObject> layer: layers) {
@@ -147,6 +151,10 @@ public class GameWorld {
         }
     }
 
+    public Resources getResources() {
+        return view.getResources();
+    }
+
     public enum Layer {
         bg, missile, enemy, player, COUNT
     }
@@ -168,6 +176,8 @@ public class GameWorld {
 
         fighter = new Fighter(view, 200, 700, 0, 0);
         add(Layer.player, fighter);
+
+        enemyGenerator = new EnemyGenerator();
     }
 
     public enum Action {fireBullet, fireHadoken}
