@@ -13,6 +13,14 @@ public class GameWorld {
     private static final String TAG = GameWorld.class.getSimpleName();
     private static final int BALL_COUNT = 10;
     private Fighter fighter;
+    private long currentTimeNanos;
+    private long timeDiffNanos;
+
+    public float getDotsPerInch() {
+        return dotsPerInch;
+    }
+
+    private float dotsPerInch;
 
     public int getLeft() {
         return rect.left;
@@ -43,10 +51,22 @@ public class GameWorld {
     public void init(View view) {
         this.view = view;
 
+        dotsPerInch = view.getResources().getDisplayMetrics().xdpi;
+
         initLayers();
         initObjects();
     }
-    public void update() {
+
+    public long getTimeDiffNanos() {
+        return timeDiffNanos;
+    }
+
+    public void update(long frameTimeNanos) {
+        this.timeDiffNanos = frameTimeNanos - currentTimeNanos;
+        this.currentTimeNanos = frameTimeNanos;
+
+        if (rect == null) return;
+
         for (ArrayList<GameObject> layer: layers) {
             for (GameObject o: layer) {
                 o.update();
@@ -109,6 +129,10 @@ public class GameWorld {
         }
     }
 
+    public long getCurrentTimeNanos() {
+        return currentTimeNanos;
+    }
+
     public enum Layer {
         bg, missile, enemy, player, COUNT
     }
@@ -121,8 +145,8 @@ public class GameWorld {
         for (int i = 0; i < BALL_COUNT; i++) {
             int x = rand.nextInt(1000);
             int y = rand.nextInt(1000);
-            int dx = rand.nextInt(50) - 25; if (dx >= 0) dx++;
-            int dy = rand.nextInt(50) - 25; if (dy >= 0) dy++;
+            int dx = rand.nextInt(1000) - 500; if (dx >= 0) dx++;
+            int dy = rand.nextInt(1000) - 500; if (dy >= 0) dy++;
             add(Layer.enemy, new Ball(view, x, y, dx, dy));
         }
         add(Layer.player, new Plane(view, 500, 500, 0, 0));

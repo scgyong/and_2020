@@ -22,19 +22,19 @@ public class MainActivity extends AppCompatActivity {
         SoundEffects.get().init(this);
         gameView = findViewById(R.id.gameView);
 
-        postUpdate();
+//        postUpdate();
     }
 
-    private void postUpdate() {
-        gameView.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                gameView.update();
-                gameView.invalidate();
-                postUpdate();
-            }
-        }, GAMEVIEW_UPDATE_INTERVAL_MSEC);
-    }
+//    private void postUpdate() {
+//        gameView.postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                gameView.update();
+//                gameView.invalidate();
+//                postUpdate();
+//            }
+//        }, GAMEVIEW_UPDATE_INTERVAL_MSEC);
+//    }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {

@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Rect;
+import android.graphics.RectF;
 import android.util.Log;
 
 import java.util.HashMap;
@@ -20,7 +21,7 @@ public class FrameAnimationBitmap {
     private int fps;
     private int index;
     private Rect srcRect = new Rect();
-    private Rect dstRect = new Rect();
+    private RectF dstRect = new RectF();
 
 
     public static FrameAnimationBitmap load(Resources res, int resId, int framesPerSecond, int frameCount) {
@@ -52,7 +53,7 @@ public class FrameAnimationBitmap {
         return total >= frames;
     }
 
-    public void draw(Canvas canvas, int x, int y) {
+    public void draw(Canvas canvas, float x, float y) {
         srcRect.left = frameWidth * index;
         srcRect.right = srcRect.left + frameWidth;
 
