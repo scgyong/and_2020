@@ -105,7 +105,7 @@ public class GameView extends View {
         gameWorld.update(frameTimeNanos);
         count++;
         if (timer.done()) {
-            Log.d(TAG, "Count = " + count);
+            Log.d(TAG, "Frame Count In 5 seconds = " + count + " Total Objects = " + GameWorld.get().getAllObjectCount());
             count = 0;
             timer.reset();
         }

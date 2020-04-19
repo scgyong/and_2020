@@ -1,6 +1,7 @@
 package kr.ac.kpu.game.scgyong.blocksamplee.gameobj;
 
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
 
@@ -13,6 +14,8 @@ public class Enemy implements GameObject, BoxCollidable {
     private final FrameAnimationBitmap fab;
     private final int height;
     private final Paint paint;
+    private final Paint guageBgPaint;
+    private final Paint guageFgPaint;
     private int life;
     private float x, y, dx, dy;
     private int maxLife;
@@ -51,14 +54,17 @@ public class Enemy implements GameObject, BoxCollidable {
         this.dx = 0;
         this.dy = speed;
         this.paint = new Paint();
-        this.maxLife = level * 100 + 10;
+        this.maxLife = (level + 1) * 100;
         this.life = maxLife;
 //        paint.setAlpha(255 - 100 * level);
+        this.guageBgPaint = new Paint();
+        guageBgPaint.setColor(Color.BLACK);
+        guageFgPaint = new Paint();
+        guageFgPaint.setColor(Color.WHITE);
     }
 
     public void update() {
         GameWorld gw = GameWorld.get();
-        long nanos = gw.getTimeDiffNanos();
         y += dy * gw.getTimeDiffInSecond();;
         if (y > gw.getBottom() + height) {
             gw.removeObject(this);
@@ -78,6 +84,11 @@ public class Enemy implements GameObject, BoxCollidable {
 
     public void draw(Canvas canvas) {
         fab.draw(canvas, x, y, paint);
+        int halfSize = height / 2;
+        canvas.drawRect(x - halfSize, y + halfSize, x + halfSize, y + halfSize + 10, guageBgPaint);
+        int width = (height - 4) * life / maxLife;
+        float gx = x - halfSize + 2;
+        canvas.drawRect(gx, y + halfSize + 2, gx + width, y + halfSize + 8, guageFgPaint);
     }
 
     @Override

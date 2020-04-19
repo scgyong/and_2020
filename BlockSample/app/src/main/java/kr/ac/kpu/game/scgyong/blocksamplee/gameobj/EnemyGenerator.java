@@ -9,6 +9,7 @@ public class EnemyGenerator {
     public static final long MINIMUM_GENERATE_INTERVAL = 1000000000;
     private static final int MAX_LEVEL = 20;
     private static final String TAG = EnemyGenerator.class.getSimpleName();
+    private static final int MAX_SPEED = 2000;
     private final Random rand;
     private long time;
     private long genarationInterval;
@@ -46,6 +47,9 @@ public class EnemyGenerator {
 
     private int generateEnemy(int x) {
         int speed = 500 + 10 * wave;
+        if (speed > MAX_SPEED) {
+            speed = MAX_SPEED;
+        }
         int level = (wave - 10) / 10;
         int r = rand.nextInt(20);
         if (r >= 19) {

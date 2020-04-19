@@ -106,6 +106,13 @@ public class GameWorld {
             layers.add(new ArrayList<GameObject>());
         }
     }
+    public int getAllObjectCount() {
+        int count = 0;
+        for (int i = 0; i < Layer.COUNT.ordinal(); i++) {
+            count += layers.get(i).size();
+        }
+        return count;
+    }
 
     public ArrayList<GameObject> objectsAt(Layer layer) {
         return layers.get(layer.ordinal());
@@ -122,7 +129,7 @@ public class GameWorld {
     }
 
     public void doAction(Action action, Object param) {
-        Log.d(TAG, "doAction() " + action);
+//        Log.d(TAG, "doAction() " + action);
         switch (action) {
             case fireHadoken:
                 fighter.shoot();
@@ -144,7 +151,7 @@ public class GameWorld {
             for (ArrayList<GameObject> layer : layers) {
                 int index = layer.indexOf(obj);
                 if (index >= 0) {
-                    Log.d(TAG, "Removing obj at index: " + index + " / " + layer.size());
+//                    Log.d(TAG, "Removing obj at index: " + index + " / " + layer.size());
                     layer.remove(index);
                     break;
                 }

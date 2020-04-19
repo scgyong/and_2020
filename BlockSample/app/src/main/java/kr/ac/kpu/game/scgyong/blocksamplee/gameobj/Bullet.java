@@ -23,7 +23,7 @@ public class Bullet implements GameObject, BoxCollidable {
 
     public Bullet(float x, float y, int power) {
         GameWorld gw = GameWorld.get();
-        fab = FrameAnimationBitmap.load(gw.getResources(), R.mipmap.bullet, 1, 1);
+        fab = FrameAnimationBitmap.load(gw.getResources(), R.mipmap.bullet_hadoken, 1, 6);
         this.x = x;
         this.y = y;
         this.power = power;
@@ -58,6 +58,8 @@ public class Bullet implements GameObject, BoxCollidable {
         if (toBeDeleted) {
             gw.removeObject(this);
         }
+
+        fab.update();
     }
 
     public void draw(Canvas canvas) {

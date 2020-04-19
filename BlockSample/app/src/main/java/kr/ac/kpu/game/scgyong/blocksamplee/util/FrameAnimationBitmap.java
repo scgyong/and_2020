@@ -32,12 +32,12 @@ public class FrameAnimationBitmap {
         FrameAnimationBitmap fab;
         FrameAnimationBitmap stored = map.get(resId);
         if (stored == null) {
-            Log.d(TAG, "Loading from Resource: " + resId);
+//            Log.d(TAG, "Loading from Resource: " + resId);
             fab = new FrameAnimationBitmap(res, resId, frameCount);
             map.put(resId, fab);
         } else {
             fab = new FrameAnimationBitmap(stored);
-            Log.d(TAG, "Copy from Existing: " + resId + " - " + fab);
+//            Log.d(TAG, "Copy from Existing: " + resId + " - " + fab);
         }
         fab.fps = framesPerSecond;
         fab.time = GameWorld.get().getCurrentTimeNanos();
