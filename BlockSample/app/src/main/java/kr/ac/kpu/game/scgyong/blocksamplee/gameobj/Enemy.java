@@ -4,18 +4,18 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
+import android.util.Log;
 
 import kr.ac.kpu.game.scgyong.blocksamplee.R;
 import kr.ac.kpu.game.scgyong.blocksamplee.util.FrameAnimationBitmap;
 
-public class Enemy implements GameObject, BoxCollidable {
+public class Enemy implements GameObject, BoxCollidable, Recyclable {
     private static final String TAG = Enemy.class.getSimpleName();
     public static final int FRAMES_PER_SECOND = 12;
-    private final FrameAnimationBitmap fab;
-    private final int height;
-    private final Paint paint;
-    private final Paint guageBgPaint;
-    private final Paint guageFgPaint;
+    private FrameAnimationBitmap fab;
+    private int height;
+    private Paint guageBgPaint;
+    private Paint guageFgPaint;
     private int life;
     private float x, y, dx, dy;
     private int maxLife;
@@ -41,26 +41,39 @@ public class Enemy implements GameObject, BoxCollidable {
             R.mipmap.enemy_18,
             R.mipmap.enemy_19,
     };
-    public Enemy(int x, int level, int speed) {
+
+    private Enemy() {
+        Log.v(TAG, "new Enemy()");
+    }
+    public static Enemy get(int x, int level, int speed) {
         GameWorld gw = GameWorld.get();
         if (level >= RES_IDS.length) {
             level = RES_IDS.length - 1;
         }
+        Enemy enemy = (Enemy) gw.getRecyclePool().get(Enemy.class);
+        if (enemy == null) {
+            enemy = new Enemy();
+        }
         int resId = RES_IDS[level];
-        fab = FrameAnimationBitmap.load(gw.getResources(), resId, FRAMES_PER_SECOND, 0);
-        this.height = fab.getHeight();
-        this.x = x;
-        this.y = -height;
-        this.dx = 0;
-        this.dy = speed;
-        this.paint = new Paint();
-        this.maxLife = (level + 1) * 100;
-        this.life = maxLife;
-//        paint.setAlpha(255 - 100 * level);
-        this.guageBgPaint = new Paint();
-        guageBgPaint.setColor(Color.BLACK);
-        guageFgPaint = new Paint();
-        guageFgPaint.setColor(Color.WHITE);
+        enemy.fab = FrameAnimationBitmap.load(gw.getResources(), resId, FRAMES_PER_SECOND, 0);
+        enemy.height = enemy.fab.getHeight();
+        enemy.x = x;
+        enemy.y = -enemy.height;
+        enemy.dx = 0;
+        enemy.dy = speed;
+        enemy.maxLife = (level + 1) * 100;
+        enemy.life = enemy.maxLife;
+        enemy.guageBgPaint = new Paint();
+        enemy.guageBgPaint.setColor(Color.BLACK);
+        enemy.guageFgPaint = new Paint();
+        enemy.guageFgPaint.setColor(Color.WHITE);
+
+        return enemy;
+    }
+
+    @Override
+    public void recycle() {
+
     }
 
     public void update() {
@@ -76,14 +89,13 @@ public class Enemy implements GameObject, BoxCollidable {
         GameWorld gw = GameWorld.get();
         this.life -= amount;
         int alpha = 255 - (maxLife - life) * 200 / maxLife;
-        paint.setAlpha(alpha);
         if (this.life <= 0) {
             gw.removeObject(this);
         }
     }
 
     public void draw(Canvas canvas) {
-        fab.draw(canvas, x, y, paint);
+        fab.draw(canvas, x, y);
         int halfSize = height / 2;
         canvas.drawRect(x - halfSize, y + halfSize, x + halfSize, y + halfSize + 10, guageBgPaint);
         int width = (height - 4) * life / maxLife;

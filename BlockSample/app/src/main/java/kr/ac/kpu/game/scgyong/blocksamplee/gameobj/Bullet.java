@@ -14,19 +14,30 @@ import kr.ac.kpu.game.scgyong.blocksamplee.util.CollisionHelper;
 import kr.ac.kpu.game.scgyong.blocksamplee.util.FrameAnimationBitmap;
 import kr.ac.kpu.game.scgyong.blocksamplee.util.MatrixHelper;
 
-public class Bullet implements GameObject, BoxCollidable {
+public class Bullet implements GameObject, BoxCollidable, Recyclable {
     private static final String TAG = Bullet.class.getSimpleName();
     public static final int SPEED = 500;
-    private final FrameAnimationBitmap fab;
-    private final int power;
+    private FrameAnimationBitmap fab;
+    private int power;
     private float x, y;
 
-    public Bullet(float x, float y, int power) {
+    private Bullet() {
+        Log.v(TAG, "new Bullet()");
+    }
+
+    public static Bullet get(float x, float y, int power) {
         GameWorld gw = GameWorld.get();
-        fab = FrameAnimationBitmap.load(gw.getResources(), R.mipmap.bullet_hadoken, 1, 6);
-        this.x = x;
-        this.y = y;
-        this.power = power;
+        Bullet bullet = (Bullet) gw.getRecyclePool().get(Bullet.class);
+        if (bullet == null) {
+            bullet = new Bullet();
+            bullet.fab = FrameAnimationBitmap.load(gw.getResources(), R.mipmap.bullet_hadoken, 10, 6);
+        }
+        bullet.fab.reset();
+        bullet.x = x;
+        bullet.y = y;
+        bullet.power = power;
+
+        return bullet;
     }
 
     public void update() {
@@ -64,6 +75,7 @@ public class Bullet implements GameObject, BoxCollidable {
 
     public void draw(Canvas canvas) {
 //        fab.draw(canvas, matrix);
+//        Log.d(TAG, "draw - coord: (" + x + "," + y + ") obj=" + this);
         fab.draw(canvas, x, y);
     }
 
@@ -75,5 +87,10 @@ public class Bullet implements GameObject, BoxCollidable {
         rect.right = x + halfWidth;
         rect.top = y - halfHeight;
         rect.bottom = y + halfHeight;
+    }
+
+    @Override
+    public void recycle() {
+
     }
 }

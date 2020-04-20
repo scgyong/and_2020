@@ -50,7 +50,7 @@ public class Plane implements GameObject {
 
     public void fire() {
 //        float angle = MatrixHelper.getAngle(matrix);
-        Bullet bullet = new Bullet(x, y - radius, power);
+        Bullet bullet = Bullet.get(x, y - radius, power);
         GameWorld.get().add(GameWorld.Layer.missile, bullet);
     }
     @Override

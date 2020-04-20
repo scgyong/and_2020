@@ -42,7 +42,9 @@ public class EnemyGenerator {
         if (genarationInterval < MINIMUM_GENERATE_INTERVAL) {
             genarationInterval = MINIMUM_GENERATE_INTERVAL;
         }
-        Log.d(TAG, "Wave " + wave + " Generated: " + lev + " Interval=" + (genarationInterval/1000000000.));
+        if (wave % 20 == 0) {
+            Log.d(TAG, "Wave " + wave + " Generated: " + lev + " Interval=" + (genarationInterval / 1000000000.));
+        }
     }
 
     private int generateEnemy(int x) {
@@ -71,7 +73,7 @@ public class EnemyGenerator {
             level = MAX_LEVEL;
         }
 
-        Enemy e = new Enemy(x, level, speed);
+        Enemy e = Enemy.get(x, level, speed);
         GameWorld gw = GameWorld.get();
         gw.add(GameWorld.Layer.enemy, e);
         return level;

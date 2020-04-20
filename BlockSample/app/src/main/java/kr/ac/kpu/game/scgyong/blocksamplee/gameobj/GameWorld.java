@@ -19,6 +19,7 @@ public class GameWorld {
     private long timeDiffNanos;
     private Plane plane;
     private EnemyGenerator enemyGenerator;
+    private RecyclePool recyclePool;
 
     public float getDotsPerInch() {
         return dotsPerInch;
@@ -57,6 +58,7 @@ public class GameWorld {
 
         dotsPerInch = view.getResources().getDisplayMetrics().xdpi;
 
+        recyclePool = new RecyclePool();
         initLayers();
         initObjects();
     }
@@ -147,12 +149,20 @@ public class GameWorld {
     }
 
     private void removeTrashObjects() {
-        for (GameObject obj : trash) {
+        // backword traverse
+        for (int tIndex = trash.size() - 1; tIndex >= 0; tIndex--) {
+            GameObject obj = trash.get(tIndex);
             for (ArrayList<GameObject> layer : layers) {
-                int index = layer.indexOf(obj);
-                if (index >= 0) {
+                int lIndex = layer.indexOf(obj);
+                if (lIndex >= 0) {
 //                    Log.d(TAG, "Removing obj at index: " + index + " / " + layer.size());
-                    layer.remove(index);
+                    layer.remove(lIndex);
+                    if (obj instanceof Recyclable) {
+                        Recyclable robj = (Recyclable) obj;
+                        robj.recycle();
+                        recyclePool.add(robj);
+                    }
+                    trash.remove(tIndex);
                     break;
                 }
             }
@@ -165,6 +175,10 @@ public class GameWorld {
 
     public boolean sizeDetermined() {
         return rect != null;
+    }
+
+    public RecyclePool getRecyclePool() {
+        return recyclePool;
     }
 
     public enum Layer {

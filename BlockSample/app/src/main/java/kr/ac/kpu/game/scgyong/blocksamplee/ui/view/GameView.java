@@ -51,7 +51,7 @@ public class GameView extends View {
         gameWorld = GameWorld.get();
         gameWorld.init(this);
 
-        timer = new IndexTimer(5, 1);
+        timer = new IndexTimer(30, 1);
 
         postFrameCallback();
     }
@@ -105,7 +105,7 @@ public class GameView extends View {
         gameWorld.update(frameTimeNanos);
         count++;
         if (timer.done()) {
-            Log.d(TAG, "Frame Count In 5 seconds = " + count + " Total Objects = " + GameWorld.get().getAllObjectCount());
+            Log.d(TAG, "Frame Count = " + count + " Total Objects = " + GameWorld.get().getAllObjectCount());
             count = 0;
             timer.reset();
         }

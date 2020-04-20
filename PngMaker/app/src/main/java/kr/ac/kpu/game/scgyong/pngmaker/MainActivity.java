@@ -110,6 +110,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void save(String filename) {
         try {
+            @SuppressWarnings("deprecation")
             File root = Environment.getExternalStorageDirectory();
             Log.d(TAG, "Root = " + root + " canWrite=" + root.canWrite());
             if (root.canWrite()) {
