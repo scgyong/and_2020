@@ -42,7 +42,7 @@ public class SharedBitmap {
         resources = res;
     }
     public static SharedBitmap load(int resId) {
-        Log.d(TAG, "Loading " + resId);
+//        Log.d(TAG, "Loading " + resId);
         SharedBitmap sb = map.get(resId);
         if (sb != null) {
             return sb;

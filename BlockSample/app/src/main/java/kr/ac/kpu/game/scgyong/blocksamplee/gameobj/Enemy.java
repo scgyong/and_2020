@@ -55,7 +55,7 @@ public class Enemy implements GameObject, BoxCollidable, Recyclable {
             enemy = new Enemy();
         }
         int resId = RES_IDS[level];
-        enemy.fab = new FrameAnimationBitmap(resId, FRAMES_PER_SECOND, 0);
+        enemy.fab.setBitmapResource(resId);
         enemy.height = enemy.fab.getHeight();
         enemy.x = x;
         enemy.y = -enemy.height;
