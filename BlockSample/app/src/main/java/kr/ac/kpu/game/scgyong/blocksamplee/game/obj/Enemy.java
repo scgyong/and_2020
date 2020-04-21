@@ -16,35 +16,40 @@ import kr.ac.kpu.game.scgyong.blocksamplee.res.bitmap.FrameAnimationBitmap;
 public class Enemy implements GameObject, BoxCollidable, Recyclable {
     private static final String TAG = Enemy.class.getSimpleName();
     public static final int FRAMES_PER_SECOND = 12;
+    private final LifeGauge lifeGauge = new LifeGauge();
     private FrameAnimationBitmap fab;
-    private int height;
-    private Paint guageBgPaint;
-    private Paint guageFgPaint;
-    private int life;
     private float x, y, dx, dy;
+    private int height;
+    private int life;
     private int maxLife;
 
     private static int[] RES_IDS = {
-            R.mipmap.enemy_01,
-            R.mipmap.enemy_02,
-            R.mipmap.enemy_03,
-            R.mipmap.enemy_04,
-            R.mipmap.enemy_05,
-            R.mipmap.enemy_06,
-            R.mipmap.enemy_07,
-            R.mipmap.enemy_08,
-            R.mipmap.enemy_09,
-            R.mipmap.enemy_10,
-            R.mipmap.enemy_11,
-            R.mipmap.enemy_12,
-            R.mipmap.enemy_13,
-            R.mipmap.enemy_14,
-            R.mipmap.enemy_15,
-            R.mipmap.enemy_16,
-            R.mipmap.enemy_17,
-            R.mipmap.enemy_18,
-            R.mipmap.enemy_19,
+            R.mipmap.enemy_01, R.mipmap.enemy_02, R.mipmap.enemy_03, R.mipmap.enemy_04,
+            R.mipmap.enemy_05, R.mipmap.enemy_06, R.mipmap.enemy_07, R.mipmap.enemy_08,
+            R.mipmap.enemy_09, R.mipmap.enemy_10, R.mipmap.enemy_11, R.mipmap.enemy_12,
+            R.mipmap.enemy_13, R.mipmap.enemy_14, R.mipmap.enemy_15, R.mipmap.enemy_16,
+            R.mipmap.enemy_17, R.mipmap.enemy_18, R.mipmap.enemy_19, R.mipmap.enemy_20,
     };
+
+    class LifeGauge {
+        private static final float HEIGHT = 10.0f;
+        private static final float BORDER_WIDTH = 2.0f;
+        private final Paint bgPaint = new Paint();
+        private final Paint fgPaint = new Paint();
+        float lifeWidth;
+        LifeGauge() {
+            bgPaint.setColor(Color.BLACK);
+            fgPaint.setColor(Color.WHITE);
+        }
+        void reset(int width) {
+            lifeWidth = width - 2 * BORDER_WIDTH;
+        }
+        void draw(Canvas canvas, float x, float y, int halfSize) {
+            canvas.drawRect(x - halfSize, y + halfSize, x + halfSize, y + halfSize + HEIGHT, bgPaint);
+            float gx = x - halfSize + BORDER_WIDTH;
+            canvas.drawRect(gx, y + halfSize + BORDER_WIDTH, gx + lifeWidth, y + halfSize + HEIGHT - BORDER_WIDTH, fgPaint);
+        }
+    }
 
     private Enemy() {
         Log.v(TAG, "new Enemy() " + this);
@@ -69,10 +74,7 @@ public class Enemy implements GameObject, BoxCollidable, Recyclable {
         enemy.dy = speed;
         enemy.maxLife = (level + 1) * 100;
         enemy.life = enemy.maxLife;
-        enemy.guageBgPaint = new Paint();
-        enemy.guageBgPaint.setColor(Color.BLACK);
-        enemy.guageFgPaint = new Paint();
-        enemy.guageFgPaint.setColor(Color.WHITE);
+        enemy.lifeGauge.reset(enemy.height);
 
         return enemy;
     }
@@ -94,19 +96,18 @@ public class Enemy implements GameObject, BoxCollidable, Recyclable {
     public void decreaseLife(int amount) {
         GameWorld gw = GameWorld.get();
         this.life -= amount;
-        int alpha = 255 - (maxLife - life) * 200 / maxLife;
         if (this.life <= 0) {
             gw.removeObject(this);
+            return;
         }
+        lifeGauge.lifeWidth = (height - 2 * LifeGauge.BORDER_WIDTH) * life / maxLife;;
+//        int alpha = 255 - (maxLife - life) * 200 / maxLife;
     }
 
     public void draw(Canvas canvas) {
         fab.draw(canvas, x, y);
         int halfSize = height / 2;
-        canvas.drawRect(x - halfSize, y + halfSize, x + halfSize, y + halfSize + 10, guageBgPaint);
-        int width = (height - 4) * life / maxLife;
-        float gx = x - halfSize + 2;
-        canvas.drawRect(gx, y + halfSize + 2, gx + width, y + halfSize + 8, guageFgPaint);
+        lifeGauge.draw(canvas, x, y, halfSize);
     }
 
     @Override

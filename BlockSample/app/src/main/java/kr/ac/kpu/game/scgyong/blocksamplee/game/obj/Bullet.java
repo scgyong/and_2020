@@ -16,7 +16,7 @@ import kr.ac.kpu.game.scgyong.blocksamplee.res.bitmap.FrameAnimationBitmap;
 
 public class Bullet implements GameObject, BoxCollidable, Recyclable {
     private static final String TAG = Bullet.class.getSimpleName();
-    public static final int SPEED = 500;
+    public static final int SPEED = 1500;
     private FrameAnimationBitmap fab;
     private int power;
     private float x, y;

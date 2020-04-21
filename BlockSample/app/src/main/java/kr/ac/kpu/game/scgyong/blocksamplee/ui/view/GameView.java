@@ -15,6 +15,7 @@ import androidx.annotation.Nullable;
 
 import kr.ac.kpu.game.scgyong.blocksamplee.game.world.GameWorld;
 import kr.ac.kpu.game.scgyong.blocksamplee.res.bitmap.SharedBitmap;
+import kr.ac.kpu.game.scgyong.blocksamplee.res.sound.SoundEffects;
 import kr.ac.kpu.game.scgyong.blocksamplee.util.IndexTimer;
 
 public class GameView extends View {
@@ -44,6 +45,7 @@ public class GameView extends View {
 
     private void initResources() {
         SharedBitmap.setResources(getResources());
+        SoundEffects.get().loadAll(getContext());
         mainPaint = new Paint();
         mainPaint.setColor(0xFFFFEEEE);
 

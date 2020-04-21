@@ -12,7 +12,7 @@ import kr.ac.kpu.game.scgyong.blocksamplee.game.world.GameWorld;
 public class Plane implements GameObject {
     private static final float ANGLE_PER_SECOND = 90;
     private static final String TAG = Plane.class.getSimpleName();
-    private static final long BULLET_FIRE_INTERVAL_NSEC = 300000000;
+    private static final long BULLET_FIRE_INTERVAL_NSEC = 100000000;
     private static final int INITIAL_BULLET_POWER = 100;
     private static Bitmap image;
     private static int radius;
