@@ -18,7 +18,7 @@ public class Bullet implements GameObject, BoxCollidable, Recyclable {
     private float x, y;
 
     private Bullet() {
-        Log.v(TAG, "new Bullet()");
+        Log.v(TAG, "new Bullet() " + this);
     }
 
     public static Bullet get(float x, float y, int power) {

@@ -43,19 +43,21 @@ public class Enemy implements GameObject, BoxCollidable, Recyclable {
     };
 
     private Enemy() {
-        Log.v(TAG, "new Enemy()");
+        Log.v(TAG, "new Enemy() " + this);
     }
     public static Enemy get(int x, int level, int speed) {
         GameWorld gw = GameWorld.get();
         if (level >= RES_IDS.length) {
             level = RES_IDS.length - 1;
         }
+        int resId = RES_IDS[level];
         Enemy enemy = (Enemy) gw.getRecyclePool().get(Enemy.class);
         if (enemy == null) {
             enemy = new Enemy();
+            enemy.fab = new FrameAnimationBitmap(resId, FRAMES_PER_SECOND, 0);
+        } else {
+            enemy.fab.setBitmapResource(resId);
         }
-        int resId = RES_IDS[level];
-        enemy.fab.setBitmapResource(resId);
         enemy.height = enemy.fab.getHeight();
         enemy.x = x;
         enemy.y = -enemy.height;
