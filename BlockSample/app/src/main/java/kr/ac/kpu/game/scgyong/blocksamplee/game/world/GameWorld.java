@@ -143,7 +143,7 @@ public class GameWorld {
                 fighter.shoot();
                 break;
             case fireBullet:
-                plane.head((PointF)param);
+                plane.move((PointF)param);
 //                plane.fire();
                 break;
         }

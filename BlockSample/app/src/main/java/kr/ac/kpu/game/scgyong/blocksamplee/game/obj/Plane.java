@@ -71,9 +71,9 @@ public class Plane implements GameObject {
 //    String debug = "";
 //    Paint paint = new Paint();
 
-    public void head(PointF pt) {
+    public void move(PointF pt) {
         GameWorld gw = GameWorld.get();
-        x = pt.x;
+        x += pt.x;
         int left = gw.getLeft();
         if (x < left) {
             x = left;
