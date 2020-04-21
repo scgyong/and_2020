@@ -1,4 +1,4 @@
-package kr.ac.kpu.game.scgyong.blocksamplee.sound;
+package kr.ac.kpu.game.scgyong.blocksamplee.res.sound;
 
 import android.content.Context;
 import android.media.AudioAttributes;
@@ -12,7 +12,6 @@ import kr.ac.kpu.game.scgyong.blocksamplee.R;
 public class SoundEffects {
     private static final String TAG = SoundEffects.class.getSimpleName();
     private static SoundEffects singleton;
-    private Context context;
     private SoundPool soundPool;
     private HashMap<Integer, Integer> soundIdMap = new HashMap<>();
     private static final int[] SOUND_IDS = {
@@ -25,9 +24,8 @@ public class SoundEffects {
         }
         return singleton;
     }
-    public void init(Context context) {
-        this.context = context;
-        AudioAttributes audioAttributes = null;
+    private SoundEffects() {
+        AudioAttributes audioAttributes;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
             audioAttributes = new AudioAttributes.Builder()
                     .setUsage(AudioAttributes.USAGE_GAME)
@@ -40,7 +38,8 @@ public class SoundEffects {
         } else {
             this.soundPool = new SoundPool(3, AudioManager.STREAM_MUSIC, 0);
         }
-
+    }
+    public void loadAll(Context context) {
         for (int resId: SOUND_IDS) {
             int soundId = soundPool.load(context, resId, 1);
             soundIdMap.put(resId, soundId);

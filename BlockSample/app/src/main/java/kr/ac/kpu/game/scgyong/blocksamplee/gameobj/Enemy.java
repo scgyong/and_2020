@@ -7,7 +7,7 @@ import android.graphics.RectF;
 import android.util.Log;
 
 import kr.ac.kpu.game.scgyong.blocksamplee.R;
-import kr.ac.kpu.game.scgyong.blocksamplee.util.FrameAnimationBitmap;
+import kr.ac.kpu.game.scgyong.blocksamplee.res.bitmap.FrameAnimationBitmap;
 
 public class Enemy implements GameObject, BoxCollidable, Recyclable {
     private static final String TAG = Enemy.class.getSimpleName();
@@ -55,7 +55,7 @@ public class Enemy implements GameObject, BoxCollidable, Recyclable {
             enemy = new Enemy();
         }
         int resId = RES_IDS[level];
-        enemy.fab = FrameAnimationBitmap.load(gw.getResources(), resId, FRAMES_PER_SECOND, 0);
+        enemy.fab = new FrameAnimationBitmap(resId, FRAMES_PER_SECOND, 0);
         enemy.height = enemy.fab.getHeight();
         enemy.x = x;
         enemy.y = -enemy.height;
@@ -82,7 +82,7 @@ public class Enemy implements GameObject, BoxCollidable, Recyclable {
         if (y > gw.getBottom() + height) {
             gw.removeObject(this);
         }
-        fab.update();
+//        fab.update();
     }
 
     public void decreaseLife(int amount) {

@@ -1,7 +1,5 @@
 package kr.ac.kpu.game.scgyong.blocksamplee.util;
 
-import android.util.Log;
-
 import kr.ac.kpu.game.scgyong.blocksamplee.gameobj.GameWorld;
 
 public class IndexTimer {
@@ -15,18 +13,21 @@ public class IndexTimer {
         this.time = GameWorld.get().getCurrentTimeNanos();
     }
 
-    public int update() {
-        long elapsed = GameWorld.get().getCurrentTimeNanos() - this.time;
-        int index = (int) (((elapsed * fps + 500) / 1000000000 % count));
-//        Log.d("IndexTimer", "e*f=" + (elapsed * fps) + " /1000=" + ((elapsed * fps) / 1000));
-        return index;
+    public int getIndex() {
+        int index = getRawIndex();
+        return index % count;
     }
     public boolean done() {
-        long elapsed = GameWorld.get().getCurrentTimeNanos() - this.time;
-        int index = (int) (((elapsed * fps + 500) / 1000000000));
+        int index = getRawIndex();
         return index >= count;
     }
+
+    public int getRawIndex() {
+        long elapsed = GameWorld.get().getCurrentTimeNanos() - this.time;
+        return (int) (((elapsed * fps + 500) / 1000000000));
+    }
+
     public void reset() {
-        this.time = GameWorld.get().getCurrentTimeNanos ();
+        this.time = GameWorld.get().getCurrentTimeNanos();
     }
 }

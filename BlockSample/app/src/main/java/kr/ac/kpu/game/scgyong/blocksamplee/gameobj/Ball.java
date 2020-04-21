@@ -4,7 +4,7 @@ import android.graphics.Canvas;
 import android.view.View;
 
 import kr.ac.kpu.game.scgyong.blocksamplee.R;
-import kr.ac.kpu.game.scgyong.blocksamplee.util.FrameAnimationBitmap;
+import kr.ac.kpu.game.scgyong.blocksamplee.res.bitmap.FrameAnimationBitmap;
 
 public class Ball implements GameObject {
     private static final String TAG = Ball.class.getSimpleName();
@@ -13,7 +13,7 @@ public class Ball implements GameObject {
     private final int halfImageWidth;
     private float x, y, dx, dy;
     public Ball(View view, int x, int y, int dx, int dy) {
-        fab = FrameAnimationBitmap.load(view.getResources(), R.mipmap.fireball_128_24f, FRAMES_PER_SECOND, 0);
+        fab = new FrameAnimationBitmap(R.mipmap.fireball_128_24f, FRAMES_PER_SECOND, 0);
         this.halfImageWidth = fab.getHeight() / 4;
         this.x = x;
         this.y = y;
@@ -33,7 +33,6 @@ public class Ball implements GameObject {
         if (dy > 0 && y > gw.getBottom() - halfImageWidth || dy < 0 && y < gw.getTop() + halfImageWidth) {
             dy *= -1;
         }
-        fab.update();
     }
 
     public void draw(Canvas canvas) {

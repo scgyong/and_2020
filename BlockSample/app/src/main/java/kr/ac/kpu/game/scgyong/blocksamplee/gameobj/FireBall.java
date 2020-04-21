@@ -5,7 +5,7 @@ import android.util.Log;
 import android.view.View;
 
 import kr.ac.kpu.game.scgyong.blocksamplee.R;
-import kr.ac.kpu.game.scgyong.blocksamplee.util.FrameAnimationBitmap;
+import kr.ac.kpu.game.scgyong.blocksamplee.res.bitmap.FrameAnimationBitmap;
 
 public class FireBall implements GameObject {
     private static final String TAG = FireBall.class.getSimpleName();
@@ -15,8 +15,8 @@ public class FireBall implements GameObject {
     private final FrameAnimationBitmap fabFly;
     private int x, y, dx, dy;
     public FireBall(View view, int x, int y, int dx, int dy) {
-        fabStart = FrameAnimationBitmap.load(view.getResources(), R.mipmap.hadoken1, FRAMES_PER_SECOND, 0);
-        fabFly = FrameAnimationBitmap.load(view.getResources(), R.mipmap.hadoken2, FRAMES_PER_SECOND, FLY_FRAME_COUNT);
+        fabStart = new FrameAnimationBitmap(R.mipmap.hadoken1, FRAMES_PER_SECOND, 0);
+        fabFly = new FrameAnimationBitmap(R.mipmap.hadoken2, FRAMES_PER_SECOND, FLY_FRAME_COUNT);
         this.x = x;
         this.y = y;
         this.dx = dx;
@@ -35,13 +35,13 @@ public class FireBall implements GameObject {
             return;
         }
         if (state == State.start) {
-            boolean done = fabStart.update();
+            boolean done = fabStart.done();
             if (done) {
                 state = State.fly;
                 fabFly.reset();
             }
         } else {
-            fabFly.update();
+//            fabFly.update();
         }
     }
 

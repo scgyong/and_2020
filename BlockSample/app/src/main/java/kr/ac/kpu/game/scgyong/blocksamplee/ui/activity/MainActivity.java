@@ -2,14 +2,10 @@ package kr.ac.kpu.game.scgyong.blocksamplee.ui.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.graphics.Point;
-import android.graphics.PointF;
 import android.os.Bundle;
-import android.view.MotionEvent;
 
 import kr.ac.kpu.game.scgyong.blocksamplee.R;
-import kr.ac.kpu.game.scgyong.blocksamplee.gameobj.GameWorld;
-import kr.ac.kpu.game.scgyong.blocksamplee.sound.SoundEffects;
+import kr.ac.kpu.game.scgyong.blocksamplee.res.sound.SoundEffects;
 import kr.ac.kpu.game.scgyong.blocksamplee.ui.view.GameView;
 
 public class MainActivity extends AppCompatActivity {
@@ -22,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        SoundEffects.get().init(this);
+        SoundEffects.get().loadAll(this);
         gameView = findViewById(R.id.gameView);
 
 //        postUpdate();

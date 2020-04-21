@@ -1,18 +1,14 @@
 package kr.ac.kpu.game.scgyong.blocksamplee.gameobj;
 
 import android.graphics.Canvas;
-import android.graphics.Matrix;
-import android.graphics.PointF;
 import android.graphics.RectF;
 import android.util.Log;
-import android.view.View;
 
 import java.util.ArrayList;
 
 import kr.ac.kpu.game.scgyong.blocksamplee.R;
 import kr.ac.kpu.game.scgyong.blocksamplee.util.CollisionHelper;
-import kr.ac.kpu.game.scgyong.blocksamplee.util.FrameAnimationBitmap;
-import kr.ac.kpu.game.scgyong.blocksamplee.util.MatrixHelper;
+import kr.ac.kpu.game.scgyong.blocksamplee.res.bitmap.FrameAnimationBitmap;
 
 public class Bullet implements GameObject, BoxCollidable, Recyclable {
     private static final String TAG = Bullet.class.getSimpleName();
@@ -30,7 +26,7 @@ public class Bullet implements GameObject, BoxCollidable, Recyclable {
         Bullet bullet = (Bullet) gw.getRecyclePool().get(Bullet.class);
         if (bullet == null) {
             bullet = new Bullet();
-            bullet.fab = FrameAnimationBitmap.load(gw.getResources(), R.mipmap.bullet_hadoken, 10, 6);
+            bullet.fab = new FrameAnimationBitmap(R.mipmap.bullet_hadoken, 10, 6);
         }
         bullet.fab.reset();
         bullet.x = x;
@@ -70,7 +66,7 @@ public class Bullet implements GameObject, BoxCollidable, Recyclable {
             gw.removeObject(this);
         }
 
-        fab.update();
+//        fab.update();
     }
 
     public void draw(Canvas canvas) {

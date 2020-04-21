@@ -5,8 +5,8 @@ import android.util.Log;
 import android.view.View;
 
 import kr.ac.kpu.game.scgyong.blocksamplee.R;
-import kr.ac.kpu.game.scgyong.blocksamplee.sound.SoundEffects;
-import kr.ac.kpu.game.scgyong.blocksamplee.util.FrameAnimationBitmap;
+import kr.ac.kpu.game.scgyong.blocksamplee.res.bitmap.FrameAnimationBitmap;
+import kr.ac.kpu.game.scgyong.blocksamplee.res.sound.SoundEffects;
 
 public class Fighter implements GameObject {
     private static final String TAG = Fighter.class.getSimpleName();
@@ -19,8 +19,8 @@ public class Fighter implements GameObject {
     private int x, y, dx, dy;
 
     public Fighter(View view, int x, int y, int dx, int dy) {
-        fabIdle = FrameAnimationBitmap.load(view.getResources(), R.mipmap.ryu, FRAMES_PER_SECOND, 0);
-        fabShoot = FrameAnimationBitmap.load(view.getResources(), R.mipmap.ryu_1, FRAMES_PER_SECOND, SHOOT_FRAME_COUNT);
+        fabIdle = new FrameAnimationBitmap(R.mipmap.ryu, FRAMES_PER_SECOND, 0);
+        fabShoot = new FrameAnimationBitmap(R.mipmap.ryu_1, FRAMES_PER_SECOND, SHOOT_FRAME_COUNT);
         this.shootOffset = fabIdle.getHeight() * 32 / 100;
         this.x = x;
         this.y = y;
@@ -35,9 +35,8 @@ public class Fighter implements GameObject {
     private State state = State.idle;
     public void update() {
         if (state == State.idle) {
-            fabIdle.update();
         } else {
-            boolean done = fabShoot.update();
+            boolean done = fabShoot.done();
             if (done) {
                 state = State.idle;
                 fabIdle.reset();
@@ -70,6 +69,7 @@ public class Fighter implements GameObject {
             Log.d(TAG, "changing state to shoot");
             state = State.shoot;
             fabShoot.reset();
+//            kr.ac.kpu.game.scgyong.blocksamplee.res.sound.SoundEffects s;.
 //            mediaPlayer.seekTo(0);
 //            mediaPlayer.start();
             SoundEffects.get().play(R.raw.hadouken);

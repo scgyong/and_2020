@@ -16,6 +16,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
 import kr.ac.kpu.game.scgyong.blocksamplee.gameobj.GameWorld;
+import kr.ac.kpu.game.scgyong.blocksamplee.res.bitmap.SharedBitmap;
 import kr.ac.kpu.game.scgyong.blocksamplee.util.IndexTimer;
 
 public class GameView extends View {
@@ -44,6 +45,7 @@ public class GameView extends View {
     }
 
     private void initResources() {
+        SharedBitmap.setResources(getResources());
         mainPaint = new Paint();
         mainPaint.setColor(0xFFFFEEEE);
 
