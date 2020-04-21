@@ -10,11 +10,13 @@ import android.view.View;
 import java.util.ArrayList;
 import java.util.Random;
 
+import kr.ac.kpu.game.scgyong.blocksamplee.R;
 import kr.ac.kpu.game.scgyong.blocksamplee.game.obj.Ball;
 import kr.ac.kpu.game.scgyong.blocksamplee.game.obj.Fighter;
 import kr.ac.kpu.game.scgyong.blocksamplee.game.iface.GameObject;
 import kr.ac.kpu.game.scgyong.blocksamplee.game.obj.Plane;
 import kr.ac.kpu.game.scgyong.blocksamplee.game.iface.Recyclable;
+import kr.ac.kpu.game.scgyong.blocksamplee.game.obj.bg.ImageScrollBackground;
 
 public class GameWorld {
 
@@ -66,7 +68,9 @@ public class GameWorld {
 
         recyclePool = new RecyclePool();
         initLayers();
-        initObjects();
+//        initObjects();
+
+//        Log.d(TAG, "mod = " + (-3 % 10));
     }
 
     public long getCurrentTimeNanos() {
@@ -132,8 +136,12 @@ public class GameWorld {
     private View view;
 
     public void onSize(Rect rect) {
+        boolean first = this.rect == null;
         this.rect = rect;
-        plane.placePlane();
+        if (first) {
+            initObjects();
+        }
+//        plane.placePlane();
     }
 
     public void doAction(Action action, Object param) {
@@ -210,6 +218,9 @@ public class GameWorld {
         add(Layer.player, fighter);
 
         enemyGenerator = new EnemyGenerator();
+
+        ImageScrollBackground bg = new ImageScrollBackground(R.mipmap.bg_city, ImageScrollBackground.Orientation.vertical, 100);
+        add(Layer.bg, bg);
     }
 
     public enum Action {fireBullet, fireHadoken}
