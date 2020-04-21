@@ -1,6 +1,4 @@
-package kr.ac.kpu.game.scgyong.blocksamplee.gameobj;
-
-import android.util.Log;
+package kr.ac.kpu.game.scgyong.blocksamplee.game.world;
 
 import java.util.ArrayList;
 import java.util.HashMap;

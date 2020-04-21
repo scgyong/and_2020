@@ -5,7 +5,6 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.PointF;
 import android.graphics.Rect;
-import android.os.Build;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.Choreographer;
@@ -13,9 +12,8 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 
-import kr.ac.kpu.game.scgyong.blocksamplee.gameobj.GameWorld;
+import kr.ac.kpu.game.scgyong.blocksamplee.game.world.GameWorld;
 import kr.ac.kpu.game.scgyong.blocksamplee.res.bitmap.SharedBitmap;
 import kr.ac.kpu.game.scgyong.blocksamplee.util.IndexTimer;
 

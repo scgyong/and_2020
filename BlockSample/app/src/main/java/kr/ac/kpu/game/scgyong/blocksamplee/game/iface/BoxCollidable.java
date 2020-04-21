@@ -1,4 +1,4 @@
-package kr.ac.kpu.game.scgyong.blocksamplee.gameobj;
+package kr.ac.kpu.game.scgyong.blocksamplee.game.iface;
 
 import android.graphics.RectF;
 

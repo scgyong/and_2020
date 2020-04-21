@@ -1,8 +1,10 @@
-package kr.ac.kpu.game.scgyong.blocksamplee.gameobj;
+package kr.ac.kpu.game.scgyong.blocksamplee.game.world;
 
 import android.util.Log;
 
 import java.util.Random;
+
+import kr.ac.kpu.game.scgyong.blocksamplee.game.obj.Enemy;
 
 public class EnemyGenerator {
     public static final long INITIAL_GENERATE_INTERVAL = 5000000000l;

@@ -1,15 +1,13 @@
-package kr.ac.kpu.game.scgyong.blocksamplee.gameobj;
+package kr.ac.kpu.game.scgyong.blocksamplee.game.obj;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Matrix;
-import android.graphics.Paint;
 import android.graphics.PointF;
-import android.view.View;
 
 import kr.ac.kpu.game.scgyong.blocksamplee.R;
-import kr.ac.kpu.game.scgyong.blocksamplee.util.MatrixHelper;
+import kr.ac.kpu.game.scgyong.blocksamplee.game.iface.GameObject;
+import kr.ac.kpu.game.scgyong.blocksamplee.game.world.GameWorld;
 
 public class Plane implements GameObject {
     private static final float ANGLE_PER_SECOND = 90;

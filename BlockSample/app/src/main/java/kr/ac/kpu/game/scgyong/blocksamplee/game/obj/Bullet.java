@@ -1,4 +1,4 @@
-package kr.ac.kpu.game.scgyong.blocksamplee.gameobj;
+package kr.ac.kpu.game.scgyong.blocksamplee.game.obj;
 
 import android.graphics.Canvas;
 import android.graphics.RectF;
@@ -7,6 +7,10 @@ import android.util.Log;
 import java.util.ArrayList;
 
 import kr.ac.kpu.game.scgyong.blocksamplee.R;
+import kr.ac.kpu.game.scgyong.blocksamplee.game.iface.BoxCollidable;
+import kr.ac.kpu.game.scgyong.blocksamplee.game.iface.GameObject;
+import kr.ac.kpu.game.scgyong.blocksamplee.game.iface.Recyclable;
+import kr.ac.kpu.game.scgyong.blocksamplee.game.world.GameWorld;
 import kr.ac.kpu.game.scgyong.blocksamplee.util.CollisionHelper;
 import kr.ac.kpu.game.scgyong.blocksamplee.res.bitmap.FrameAnimationBitmap;
 

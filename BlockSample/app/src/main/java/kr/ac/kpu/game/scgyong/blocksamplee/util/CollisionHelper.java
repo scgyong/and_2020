@@ -2,8 +2,7 @@ package kr.ac.kpu.game.scgyong.blocksamplee.util;
 
 import android.graphics.RectF;
 
-import kr.ac.kpu.game.scgyong.blocksamplee.gameobj.BoxCollidable;
-import kr.ac.kpu.game.scgyong.blocksamplee.gameobj.Bullet;
+import kr.ac.kpu.game.scgyong.blocksamplee.game.iface.BoxCollidable;
 
 public class CollisionHelper {
     private static RectF rect1 = new RectF();

@@ -1,6 +1,6 @@
 package kr.ac.kpu.game.scgyong.blocksamplee.util;
 
-import kr.ac.kpu.game.scgyong.blocksamplee.gameobj.GameWorld;
+import kr.ac.kpu.game.scgyong.blocksamplee.game.world.GameWorld;
 
 public class IndexTimer {
     private final int count;

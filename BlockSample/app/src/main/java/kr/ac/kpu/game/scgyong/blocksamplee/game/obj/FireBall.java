@@ -1,10 +1,12 @@
-package kr.ac.kpu.game.scgyong.blocksamplee.gameobj;
+package kr.ac.kpu.game.scgyong.blocksamplee.game.obj;
 
 import android.graphics.Canvas;
 import android.util.Log;
 import android.view.View;
 
 import kr.ac.kpu.game.scgyong.blocksamplee.R;
+import kr.ac.kpu.game.scgyong.blocksamplee.game.iface.GameObject;
+import kr.ac.kpu.game.scgyong.blocksamplee.game.world.GameWorld;
 import kr.ac.kpu.game.scgyong.blocksamplee.res.bitmap.FrameAnimationBitmap;
 
 public class FireBall implements GameObject {

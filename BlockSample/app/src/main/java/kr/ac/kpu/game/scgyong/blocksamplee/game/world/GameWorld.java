@@ -1,4 +1,4 @@
-package kr.ac.kpu.game.scgyong.blocksamplee.gameobj;
+package kr.ac.kpu.game.scgyong.blocksamplee.game.world;
 
 import android.content.res.Resources;
 import android.graphics.Canvas;
@@ -9,6 +9,12 @@ import android.view.View;
 
 import java.util.ArrayList;
 import java.util.Random;
+
+import kr.ac.kpu.game.scgyong.blocksamplee.game.obj.Ball;
+import kr.ac.kpu.game.scgyong.blocksamplee.game.obj.Fighter;
+import kr.ac.kpu.game.scgyong.blocksamplee.game.iface.GameObject;
+import kr.ac.kpu.game.scgyong.blocksamplee.game.obj.Plane;
+import kr.ac.kpu.game.scgyong.blocksamplee.game.iface.Recyclable;
 
 public class GameWorld {
 
