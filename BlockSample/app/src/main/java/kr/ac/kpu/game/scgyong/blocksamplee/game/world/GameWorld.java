@@ -112,7 +112,7 @@ public class GameWorld {
 
     private ArrayList<ArrayList<GameObject>> layers;
     private void initLayers() {
-        layers = new ArrayList<ArrayList<GameObject>>();
+        layers = new ArrayList<>();
         for (int i = 0; i < Layer.COUNT.ordinal(); i++) {
             Log.d(TAG, "Adding layer " + i + " - " + Layer.values()[i]);
             layers.add(new ArrayList<GameObject>());
@@ -219,8 +219,10 @@ public class GameWorld {
 
         enemyGenerator = new EnemyGenerator();
 
-        ImageScrollBackground bg = new ImageScrollBackground(R.mipmap.bg_city, ImageScrollBackground.Orientation.vertical, 100);
-        add(Layer.bg, bg);
+        add(Layer.bg, new ImageScrollBackground(
+                R.mipmap.bg_city, ImageScrollBackground.Orientation.vertical, 25));
+        add(Layer.bg, new ImageScrollBackground(
+                R.mipmap.clouds, ImageScrollBackground.Orientation.vertical, 100));
     }
 
     public enum Action {fireBullet, fireHadoken}

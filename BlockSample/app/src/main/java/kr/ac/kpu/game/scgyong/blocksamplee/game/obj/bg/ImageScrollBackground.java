@@ -13,8 +13,8 @@ public class ImageScrollBackground implements GameObject, ScrollableObject {
     private final SharedBitmap sbmp;
 //    private final int pageSize;
     private int speed;
-    private int scrollX;
-    private int scrollY;
+    private float scrollX;
+    private float scrollY;
     private boolean horizontal;
     private Rect srcRect = new Rect();
     private RectF dstRect = new RectF();
@@ -66,7 +66,7 @@ public class ImageScrollBackground implements GameObject, ScrollableObject {
         canvas.save();
         canvas.clipRect(left, top, right, bottom);
 
-        int curr = scrollY % pageSize;
+        float curr = scrollY % pageSize;
         if (curr > 0) curr -= pageSize;
         curr += top;
         while (curr < bottom) {
@@ -88,7 +88,7 @@ public class ImageScrollBackground implements GameObject, ScrollableObject {
         canvas.save();
         canvas.clipRect(left, top, right, bottom);
 
-        int curr = scrollX % pageSize;
+        float curr = scrollX % pageSize;
         if (curr > 0) curr -= pageSize;
         curr += left;
         while (curr < right) {
