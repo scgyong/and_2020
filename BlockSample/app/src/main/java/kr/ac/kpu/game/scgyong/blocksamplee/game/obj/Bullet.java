@@ -17,6 +17,8 @@ import kr.ac.kpu.game.scgyong.blocksamplee.res.bitmap.FrameAnimationBitmap;
 public class Bullet implements GameObject, BoxCollidable, Recyclable {
     private static final String TAG = Bullet.class.getSimpleName();
     public static final int SPEED = 1500;
+    public static final int FRAME_COUNT = 13;
+    public static final int FRAMES_PER_SECOND = 10;
     private FrameAnimationBitmap fab;
     private int power;
     private float x, y;
@@ -30,7 +32,7 @@ public class Bullet implements GameObject, BoxCollidable, Recyclable {
         Bullet bullet = (Bullet) gw.getRecyclePool().get(Bullet.class);
         if (bullet == null) {
             bullet = new Bullet();
-            bullet.fab = new FrameAnimationBitmap(R.mipmap.bullet_hadoken, 10, 6);
+            bullet.fab = new FrameAnimationBitmap(R.mipmap.metal_slug_missile, FRAMES_PER_SECOND, FRAME_COUNT);
         }
         bullet.fab.reset();
         bullet.x = x;
