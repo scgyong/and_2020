@@ -43,6 +43,7 @@ public class Fighter implements GameObject {
         this.dx = dx;
         this.dy = dy;
         objectAnimator = ObjectAnimator.ofFloat(this, "scale", 1.0f, 2.0f);
+        objectAnimator.setInterpolator(interpolator);
 //        this.mediaPlayer = MediaPlayer.create(view.getContext(), R.raw.hadouken);
     }
 
@@ -84,12 +85,11 @@ public class Fighter implements GameObject {
     }
 
     public void shoot() {
-        objectAnimator.setInterpolator(interpolator);
-        objectAnimator.setDuration(1000);
-        objectAnimator.start();
-        Log.d(TAG, "shoot()");
+//        Log.d(TAG, "shoot()");
         if (state == State.idle) {
-            Log.d(TAG, "changing state to shoot");
+//            Log.d(TAG, "changing state to shoot");
+            objectAnimator.setDuration(1000);
+            objectAnimator.start();
             state = State.shoot;
             fabShoot.reset();
 //            kr.ac.kpu.game.scgyong.blocksamplee.res.sound.SoundEffects s;.
