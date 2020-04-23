@@ -17,6 +17,7 @@ import kr.ac.kpu.game.scgyong.blocksamplee.game.iface.GameObject;
 import kr.ac.kpu.game.scgyong.blocksamplee.game.obj.Plane;
 import kr.ac.kpu.game.scgyong.blocksamplee.game.iface.Recyclable;
 import kr.ac.kpu.game.scgyong.blocksamplee.game.obj.bg.ImageScrollBackground;
+import kr.ac.kpu.game.scgyong.blocksamplee.game.obj.bg.TileScrollBackground;
 
 public class GameWorld {
 
@@ -219,8 +220,10 @@ public class GameWorld {
 
         enemyGenerator = new EnemyGenerator();
 
-        add(Layer.bg, new ImageScrollBackground(
-                R.mipmap.bg_city, ImageScrollBackground.Orientation.vertical, 25));
+//        add(Layer.bg, new ImageScrollBackground(
+//                R.mipmap.bg_city, ImageScrollBackground.Orientation.vertical, 25));
+        add(Layer.bg, new TileScrollBackground(
+                R.mipmap.bg_city, TileScrollBackground.Orientation.vertical, -25));
         add(Layer.bg, new ImageScrollBackground(
                 R.mipmap.clouds, ImageScrollBackground.Orientation.vertical, 100));
     }

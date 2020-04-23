@@ -32,6 +32,11 @@ public class GameView extends View {
         initResources();
     }
 
+    public GameView(Context context, @Nullable AttributeSet attrs) {
+        super(context, attrs);
+        initResources();
+    }
+
     private void postFrameCallback() {
         Choreographer.getInstance().postFrameCallback(new Choreographer.FrameCallback() {
             @Override
@@ -56,11 +61,6 @@ public class GameView extends View {
         timer = new IndexTimer(30, 1);
 
         postFrameCallback();
-    }
-
-    public GameView(Context context, @Nullable AttributeSet attrs) {
-        super(context, attrs);
-        initResources();
     }
 
     private PointF pt = new PointF();

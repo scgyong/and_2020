@@ -42,12 +42,15 @@ public class SharedBitmap {
         resources = res;
     }
     public static SharedBitmap load(int resId) {
+        return load(resId, null);
+    }
+    public static SharedBitmap load(int resId, BitmapFactory.Options options) {
 //        Log.d(TAG, "Loading " + resId);
         SharedBitmap sb = map.get(resId);
         if (sb != null) {
             return sb;
         }
-        Bitmap bitmap = BitmapFactory.decodeResource(resources, resId);
+        Bitmap bitmap = BitmapFactory.decodeResource(resources, resId, options);
         if (bitmap == null) {
             return null;
         }
