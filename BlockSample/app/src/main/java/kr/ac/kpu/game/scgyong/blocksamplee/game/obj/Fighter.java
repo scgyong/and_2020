@@ -1,8 +1,11 @@
 package kr.ac.kpu.game.scgyong.blocksamplee.game.obj;
 
+import android.animation.ObjectAnimator;
 import android.graphics.Canvas;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.DecelerateInterpolator;
+import android.view.animation.Interpolator;
 
 import kr.ac.kpu.game.scgyong.blocksamplee.R;
 import kr.ac.kpu.game.scgyong.blocksamplee.game.iface.GameObject;
@@ -18,16 +21,28 @@ public class Fighter implements GameObject {
     private final FrameAnimationBitmap fabShoot;
 //    private final MediaPlayer mediaPlayer;
     private final int shootOffset;
+    private final ObjectAnimator objectAnimator;
     private int x, y, dx, dy;
+    private Interpolator interpolator = new DecelerateInterpolator();
+
+    public void setScale(float scale) {
+//        Log.d(TAG, "Scale = " + scale);
+        this.scale = scale;
+    }
+
+    //    private Matrix matrix;
+    private float scale = 1.0f;
+
 
     public Fighter(View view, int x, int y, int dx, int dy) {
         fabIdle = new FrameAnimationBitmap(R.mipmap.ryu, FRAMES_PER_SECOND, 0);
-        fabShoot = new FrameAnimationBitmap(R.mipmap.ryu_1, FRAMES_PER_SECOND, SHOOT_FRAME_COUNT);
+        fabShoot = new FrameAnimationBitmap(R.mipmap.ryu_1, 5, SHOOT_FRAME_COUNT);
         this.shootOffset = fabIdle.getHeight() * 32 / 100;
         this.x = x;
         this.y = y;
         this.dx = dx;
         this.dy = dy;
+        objectAnimator = ObjectAnimator.ofFloat(this, "scale", 1.0f, 2.0f);
 //        this.mediaPlayer = MediaPlayer.create(view.getContext(), R.raw.hadouken);
     }
 
@@ -61,11 +76,17 @@ public class Fighter implements GameObject {
         if (state == State.idle) {
             fabIdle.draw(canvas, x, y);
         } else {
+            canvas.save();
+            canvas.scale(scale, scale, x + shootOffset, y);
             fabShoot.draw(canvas, x + shootOffset, y);
+            canvas.restore();
         }
     }
 
     public void shoot() {
+        objectAnimator.setInterpolator(interpolator);
+        objectAnimator.setDuration(1000);
+        objectAnimator.start();
         Log.d(TAG, "shoot()");
         if (state == State.idle) {
             Log.d(TAG, "changing state to shoot");

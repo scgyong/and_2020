@@ -2,7 +2,9 @@ package kr.ac.kpu.game.scgyong.blocksamplee.ui.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
+import android.util.Log;
 
 import kr.ac.kpu.game.scgyong.blocksamplee.R;
 import kr.ac.kpu.game.scgyong.blocksamplee.res.sound.SoundEffects;
@@ -11,6 +13,7 @@ import kr.ac.kpu.game.scgyong.blocksamplee.ui.view.GameView;
 public class MainActivity extends AppCompatActivity {
 
     private static final long GAMEVIEW_UPDATE_INTERVAL_MSEC = 30;
+    private static final String TAG = MainActivity.class.getSimpleName();
     private GameView gameView;
 
 
@@ -23,7 +26,12 @@ public class MainActivity extends AppCompatActivity {
 //        postUpdate();
     }
 
-//    private void postUpdate() {
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        Log.v(TAG, "onConfigChange: " + newConfig);
+        super.onConfigurationChanged(newConfig);
+    }
+    //    private void postUpdate() {
 //        gameView.postDelayed(new Runnable() {
 //            @Override
 //            public void run() {

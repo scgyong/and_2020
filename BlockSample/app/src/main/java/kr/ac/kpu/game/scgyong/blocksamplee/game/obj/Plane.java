@@ -1,5 +1,6 @@
 package kr.ac.kpu.game.scgyong.blocksamplee.game.obj;
 
+import android.animation.ObjectAnimator;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -20,7 +21,6 @@ public class Plane implements GameObject {
     private int size;
     private float x, y;
     private int power;
-//    private Matrix matrix;
 
     public Plane() {
         GameWorld gw = GameWorld.get();
