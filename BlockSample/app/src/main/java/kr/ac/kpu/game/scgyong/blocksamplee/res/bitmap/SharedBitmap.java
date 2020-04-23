@@ -6,7 +6,6 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Paint;
-import android.util.Log;
 
 import java.util.HashMap;
 
@@ -14,6 +13,11 @@ public class SharedBitmap {
     private static final String TAG = SharedBitmap.class.getSimpleName();
     private static Resources resources;
     private static HashMap<Integer, SharedBitmap> map = new HashMap<>();
+    private static BitmapFactory.Options noScaleOption;
+    static {
+        noScaleOption = new BitmapFactory.Options();
+        noScaleOption.inScaled = false;
+    }
     Bitmap bitmap;
     int width;
     int height;
@@ -42,15 +46,17 @@ public class SharedBitmap {
         resources = res;
     }
     public static SharedBitmap load(int resId) {
-        return load(resId, null);
+        return load(resId, true);
     }
-    public static SharedBitmap load(int resId, BitmapFactory.Options options) {
+    public static SharedBitmap load(int resId, boolean inScaled) {
 //        Log.d(TAG, "Loading " + resId);
         SharedBitmap sb = map.get(resId);
         if (sb != null) {
             return sb;
         }
-        Bitmap bitmap = BitmapFactory.decodeResource(resources, resId, options);
+
+        BitmapFactory.Options opt = inScaled ? null : noScaleOption;
+        Bitmap bitmap = BitmapFactory.decodeResource(resources, resId, opt);
         if (bitmap == null) {
             return null;
         }

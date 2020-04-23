@@ -179,7 +179,7 @@ public class GameWorld {
     }
 
     public enum Layer {
-        bg, missile, enemy, player, COUNT
+        bg, missile, enemy, player, ui, COUNT
     }
 
     protected static GameWorld singleton;

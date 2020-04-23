@@ -1,6 +1,8 @@
 package kr.ac.kpu.game.scgyong.blocksamplee.game.world;
 
 import android.graphics.PointF;
+import android.graphics.Rect;
+import android.graphics.RectF;
 import android.util.Log;
 import android.view.MotionEvent;
 
@@ -11,6 +13,7 @@ import kr.ac.kpu.game.scgyong.blocksamplee.game.framework.GameWorld;
 import kr.ac.kpu.game.scgyong.blocksamplee.game.obj.Ball;
 import kr.ac.kpu.game.scgyong.blocksamplee.game.obj.Fighter;
 import kr.ac.kpu.game.scgyong.blocksamplee.game.obj.Plane;
+import kr.ac.kpu.game.scgyong.blocksamplee.game.obj.Score;
 import kr.ac.kpu.game.scgyong.blocksamplee.game.obj.bg.ImageScrollBackground;
 import kr.ac.kpu.game.scgyong.blocksamplee.game.obj.bg.TileScrollBackground;
 
@@ -20,11 +23,16 @@ public class World extends GameWorld {
     private Fighter fighter;
     private Plane plane;
     private EnemyGenerator enemyGenerator;
+    private Score score;
+
+    public void addScore(int score) {
+        this.score.add(score);
+    }
 
     public enum Action {fireBullet, fireHadoken}
 
     public void doAction(Action action, Object param) {
-//        Log.d(TAG, "doAction() " + action);
+        Log.d(TAG, "doAction() " + action);
         switch (action) {
             case fireHadoken:
                 fighter.shoot();
@@ -59,11 +67,19 @@ public class World extends GameWorld {
                 R.mipmap.bg_city, TileScrollBackground.Orientation.vertical, -25));
         add(Layer.bg, new ImageScrollBackground(
                 R.mipmap.clouds, ImageScrollBackground.Orientation.vertical, 100));
+
+        int digitWidth = rect.width() / 20;
+        RectF rightmostScoreRect = new RectF(rect.right - 2 * digitWidth, digitWidth, rect.right - digitWidth, 0);
+        score = new Score(rightmostScoreRect);
+        add(Layer.ui, score);
     }
 
     @Override
     public void update(long frameTimeNanos) {
         super.update(frameTimeNanos);
+        if (enemyGenerator == null) {
+            return;
+        }
         enemyGenerator.update();
     }
 
@@ -88,7 +104,7 @@ public class World extends GameWorld {
                 break;
         }
 
-        return false;
+        return true;
     }
 
     public static void create() {
@@ -97,5 +113,8 @@ public class World extends GameWorld {
             return;
         }
         singleton = new World();
+    }
+    public static World get() {
+        return (World) singleton;
     }
 }

@@ -20,7 +20,7 @@ public class TiledLayer {
     public void loadBitmap(Resources res, int resId) {
         BitmapFactory.Options opts = new BitmapFactory.Options();
         opts.inScaled = false;
-        SharedBitmap sbmp = SharedBitmap.load(resId, opts);
+        SharedBitmap sbmp = SharedBitmap.load(resId, false);
         bitmap = sbmp.getBitmap();
     }
 }

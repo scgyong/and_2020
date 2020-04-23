@@ -11,6 +11,7 @@ import kr.ac.kpu.game.scgyong.blocksamplee.game.iface.BoxCollidable;
 import kr.ac.kpu.game.scgyong.blocksamplee.game.iface.GameObject;
 import kr.ac.kpu.game.scgyong.blocksamplee.game.iface.Recyclable;
 import kr.ac.kpu.game.scgyong.blocksamplee.game.framework.GameWorld;
+import kr.ac.kpu.game.scgyong.blocksamplee.game.world.World;
 import kr.ac.kpu.game.scgyong.blocksamplee.res.bitmap.FrameAnimationBitmap;
 
 public class Enemy implements GameObject, BoxCollidable, Recyclable {
@@ -94,10 +95,11 @@ public class Enemy implements GameObject, BoxCollidable, Recyclable {
     }
 
     public void decreaseLife(int amount) {
-        GameWorld gw = GameWorld.get();
+        World gw = World.get();
         this.life -= amount;
         if (this.life <= 0) {
             gw.removeObject(this);
+            gw.addScore(this.maxLife);
             return;
         }
         lifeGauge.lifeWidth = (height - 2 * LifeGauge.BORDER_WIDTH) * life / maxLife;;
