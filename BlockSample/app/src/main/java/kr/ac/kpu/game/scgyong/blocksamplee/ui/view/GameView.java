@@ -13,7 +13,8 @@ import android.view.View;
 
 import androidx.annotation.Nullable;
 
-import kr.ac.kpu.game.scgyong.blocksamplee.game.world.GameWorld;
+import kr.ac.kpu.game.scgyong.blocksamplee.game.framework.GameWorld;
+import kr.ac.kpu.game.scgyong.blocksamplee.game.world.World;
 import kr.ac.kpu.game.scgyong.blocksamplee.res.bitmap.SharedBitmap;
 import kr.ac.kpu.game.scgyong.blocksamplee.res.sound.SoundEffects;
 import kr.ac.kpu.game.scgyong.blocksamplee.util.IndexTimer;
@@ -63,27 +64,9 @@ public class GameView extends View {
         postFrameCallback();
     }
 
-    private PointF pt = new PointF();
-    private PointF ptDown = new PointF();
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        switch (event.getAction()) {
-            case MotionEvent.ACTION_DOWN:
-                GameWorld.get().doAction(GameWorld.Action.fireHadoken, null);
-                ptDown.x = event.getX();
-                ptDown.y = event.getY();
-                break;
-            case MotionEvent.ACTION_MOVE:
-                float x = event.getX();
-                float y = event.getY();
-                pt.x = x - ptDown.x;
-                pt.y = y - ptDown.y;
-                GameWorld.get().doAction(GameWorld.Action.fireBullet, pt);
-                ptDown.x = x;
-                ptDown.y = y;
-                break;
-        }
-        return true;
+        return GameWorld.get().onTouchEvent(event);
     }
 
     @Override

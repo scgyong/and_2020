@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 
 import kr.ac.kpu.game.scgyong.blocksamplee.R;
+import kr.ac.kpu.game.scgyong.blocksamplee.game.world.World;
 import kr.ac.kpu.game.scgyong.blocksamplee.res.sound.SoundEffects;
 import kr.ac.kpu.game.scgyong.blocksamplee.ui.view.GameView;
 
@@ -22,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 //        setContentView(R.layout.activity_main);
 //        gameView = findViewById(R.id.gameView);
+        World.create();
         gameView = new GameView(this);
         setContentView(gameView);
 

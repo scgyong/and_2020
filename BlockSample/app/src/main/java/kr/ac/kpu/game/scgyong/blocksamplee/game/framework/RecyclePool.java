@@ -1,4 +1,4 @@
-package kr.ac.kpu.game.scgyong.blocksamplee.game.world;
+package kr.ac.kpu.game.scgyong.blocksamplee.game.framework;
 
 import java.util.ArrayList;
 import java.util.HashMap;

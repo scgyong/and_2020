@@ -2,14 +2,11 @@ package kr.ac.kpu.game.scgyong.blocksamplee.game.obj.bg;
 
 import android.content.res.Resources;
 import android.graphics.Canvas;
-import android.graphics.Rect;
-import android.graphics.RectF;
 
 import kr.ac.kpu.game.scgyong.blocksamplee.R;
 import kr.ac.kpu.game.scgyong.blocksamplee.game.iface.GameObject;
 import kr.ac.kpu.game.scgyong.blocksamplee.game.iface.ScrollableObject;
-import kr.ac.kpu.game.scgyong.blocksamplee.game.world.GameWorld;
-import kr.ac.kpu.game.scgyong.blocksamplee.res.bitmap.SharedBitmap;
+import kr.ac.kpu.game.scgyong.blocksamplee.game.framework.GameWorld;
 import kr.ac.kpu.game.scgyong.blocksamplee.res.tile.TiledMap;
 
 public class TileScrollBackground implements GameObject, ScrollableObject {

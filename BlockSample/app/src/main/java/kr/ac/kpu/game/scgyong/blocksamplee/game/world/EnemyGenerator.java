@@ -4,6 +4,7 @@ import android.util.Log;
 
 import java.util.Random;
 
+import kr.ac.kpu.game.scgyong.blocksamplee.game.framework.GameWorld;
 import kr.ac.kpu.game.scgyong.blocksamplee.game.obj.Enemy;
 
 public class EnemyGenerator {

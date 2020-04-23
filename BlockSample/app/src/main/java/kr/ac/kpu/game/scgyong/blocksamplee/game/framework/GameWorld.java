@@ -1,40 +1,29 @@
-package kr.ac.kpu.game.scgyong.blocksamplee.game.world;
+package kr.ac.kpu.game.scgyong.blocksamplee.game.framework;
 
 import android.content.res.Resources;
 import android.graphics.Canvas;
-import android.graphics.PointF;
 import android.graphics.Rect;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 
 import java.util.ArrayList;
-import java.util.Random;
 
-import kr.ac.kpu.game.scgyong.blocksamplee.R;
-import kr.ac.kpu.game.scgyong.blocksamplee.game.obj.Ball;
-import kr.ac.kpu.game.scgyong.blocksamplee.game.obj.Fighter;
 import kr.ac.kpu.game.scgyong.blocksamplee.game.iface.GameObject;
-import kr.ac.kpu.game.scgyong.blocksamplee.game.obj.Plane;
 import kr.ac.kpu.game.scgyong.blocksamplee.game.iface.Recyclable;
-import kr.ac.kpu.game.scgyong.blocksamplee.game.obj.bg.ImageScrollBackground;
-import kr.ac.kpu.game.scgyong.blocksamplee.game.obj.bg.TileScrollBackground;
 
 public class GameWorld {
 
     private static final String TAG = GameWorld.class.getSimpleName();
-    private static final int BALL_COUNT = 10;
-    private Fighter fighter;
-    private long currentTimeNanos;
-    private long timeDiffNanos;
-    private Plane plane;
-    private EnemyGenerator enemyGenerator;
-    private RecyclePool recyclePool;
+    protected long currentTimeNanos;
+    protected long timeDiffNanos;
+    protected RecyclePool recyclePool;
 
     public float getDotsPerInch() {
         return dotsPerInch;
     }
 
-    private float dotsPerInch;
+    protected float dotsPerInch;
 
     public int getLeft() {
         return rect.left;
@@ -49,7 +38,7 @@ public class GameWorld {
         return rect.bottom;
     }
 
-    private Rect rect;
+    protected Rect rect;
 
     public static GameWorld get() {
         if (singleton == null) {
@@ -100,9 +89,8 @@ public class GameWorld {
         if (trash.size() > 0) {
             removeTrashObjects();
         }
-
-        enemyGenerator.update();
     }
+
     public void draw(Canvas canvas) {
         for (ArrayList<GameObject> layer: layers) {
             for (GameObject o: layer) {
@@ -111,7 +99,7 @@ public class GameWorld {
         }
     }
 
-    private ArrayList<ArrayList<GameObject>> layers;
+    protected ArrayList<ArrayList<GameObject>> layers;
     private void initLayers() {
         layers = new ArrayList<>();
         for (int i = 0; i < Layer.COUNT.ordinal(); i++) {
@@ -134,7 +122,7 @@ public class GameWorld {
         objectsAt(layer).add(obj);
     }
 
-    private View view;
+    protected View view;
 
     public void onSize(Rect rect) {
         boolean first = this.rect == null;
@@ -145,17 +133,7 @@ public class GameWorld {
 //        plane.placePlane();
     }
 
-    public void doAction(Action action, Object param) {
-//        Log.d(TAG, "doAction() " + action);
-        switch (action) {
-            case fireHadoken:
-                fighter.shoot();
-                break;
-            case fireBullet:
-                plane.move((PointF)param);
-//                plane.fire();
-                break;
-        }
+    protected void initObjects() {
     }
 
     private ArrayList<GameObject> trash = new ArrayList<>();
@@ -196,37 +174,15 @@ public class GameWorld {
         return recyclePool;
     }
 
+    public boolean onTouchEvent(MotionEvent event) {
+        return false;
+    }
+
     public enum Layer {
         bg, missile, enemy, player, COUNT
     }
 
-    private static GameWorld singleton;
-    private GameWorld() {}
+    protected static GameWorld singleton;
+    protected GameWorld() {}
 
-    private void initObjects() {
-        Random rand = new Random();
-        for (int i = 0; i < BALL_COUNT; i++) {
-            int x = rand.nextInt(1000);
-            int y = rand.nextInt(1000);
-            int dx = rand.nextInt(1000) - 500; if (dx >= 0) dx++;
-            int dy = rand.nextInt(1000) - 500; if (dy >= 0) dy++;
-            add(Layer.enemy, new Ball(view, x, y, dx, dy));
-        }
-        plane = new Plane();
-        add(Layer.player, plane);
-
-        fighter = new Fighter(view, 200, 700, 0, 0);
-        add(Layer.player, fighter);
-
-        enemyGenerator = new EnemyGenerator();
-
-//        add(Layer.bg, new ImageScrollBackground(
-//                R.mipmap.bg_city, ImageScrollBackground.Orientation.vertical, 25));
-        add(Layer.bg, new TileScrollBackground(
-                R.mipmap.bg_city, TileScrollBackground.Orientation.vertical, -25));
-        add(Layer.bg, new ImageScrollBackground(
-                R.mipmap.clouds, ImageScrollBackground.Orientation.vertical, 100));
-    }
-
-    public enum Action {fireBullet, fireHadoken}
 }

@@ -1,6 +1,5 @@
 package kr.ac.kpu.game.scgyong.blocksamplee.game.obj;
 
-import android.animation.ObjectAnimator;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -8,7 +7,7 @@ import android.graphics.PointF;
 
 import kr.ac.kpu.game.scgyong.blocksamplee.R;
 import kr.ac.kpu.game.scgyong.blocksamplee.game.iface.GameObject;
-import kr.ac.kpu.game.scgyong.blocksamplee.game.world.GameWorld;
+import kr.ac.kpu.game.scgyong.blocksamplee.game.framework.GameWorld;
 
 public class Plane implements GameObject {
     private static final float ANGLE_PER_SECOND = 90;

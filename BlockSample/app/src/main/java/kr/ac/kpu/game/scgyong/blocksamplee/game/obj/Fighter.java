@@ -2,14 +2,13 @@ package kr.ac.kpu.game.scgyong.blocksamplee.game.obj;
 
 import android.animation.ObjectAnimator;
 import android.graphics.Canvas;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.Interpolator;
 
 import kr.ac.kpu.game.scgyong.blocksamplee.R;
 import kr.ac.kpu.game.scgyong.blocksamplee.game.iface.GameObject;
-import kr.ac.kpu.game.scgyong.blocksamplee.game.world.GameWorld;
+import kr.ac.kpu.game.scgyong.blocksamplee.game.framework.GameWorld;
 import kr.ac.kpu.game.scgyong.blocksamplee.res.bitmap.FrameAnimationBitmap;
 import kr.ac.kpu.game.scgyong.blocksamplee.res.sound.SoundEffects;
 
