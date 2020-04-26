@@ -8,6 +8,7 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import kr.ac.kpu.game.scgyong.blocksamplee.game.iface.GameObject;
 import kr.ac.kpu.game.scgyong.blocksamplee.game.iface.Recyclable;
@@ -39,6 +40,7 @@ public class GameWorld {
     }
 
     protected Rect rect;
+    protected Random rand = new Random();
 
     public static GameWorld get() {
         if (singleton == null) {

@@ -12,13 +12,15 @@ import kr.ac.kpu.game.scgyong.blocksamplee.R;
 import kr.ac.kpu.game.scgyong.blocksamplee.game.framework.GameWorld;
 import kr.ac.kpu.game.scgyong.blocksamplee.game.obj.Ball;
 import kr.ac.kpu.game.scgyong.blocksamplee.game.obj.Fighter;
+import kr.ac.kpu.game.scgyong.blocksamplee.game.obj.Meteor;
+import kr.ac.kpu.game.scgyong.blocksamplee.game.obj.MeteorLaser;
 import kr.ac.kpu.game.scgyong.blocksamplee.game.obj.Plane;
 import kr.ac.kpu.game.scgyong.blocksamplee.game.obj.Score;
 import kr.ac.kpu.game.scgyong.blocksamplee.game.obj.bg.ImageScrollBackground;
 import kr.ac.kpu.game.scgyong.blocksamplee.game.obj.bg.TileScrollBackground;
 
 public class World extends GameWorld {
-    private static final int BALL_COUNT = 10;
+    private static final int BALL_COUNT = 0;
     private static final String TAG = World.class.getSimpleName();
     private Fighter fighter;
     private Plane plane;
@@ -29,10 +31,23 @@ public class World extends GameWorld {
         this.score.add(score);
     }
 
+    public void createMeteor(float x) {
+        int METEOR_SPEED = 2000;
+        Meteor m = Meteor.get(x, METEOR_SPEED);
+        add(Layer.enemy, m);
+    }
+
+    public void createLaser() {
+        int width = rect.right;
+        float x = rand.nextInt(width);
+        MeteorLaser laser = MeteorLaser.get(x);
+        add(Layer.missile, laser);
+    }
+
     public enum Action {fireBullet, fireHadoken}
 
     public void doAction(Action action, Object param) {
-        Log.d(TAG, "doAction() " + action);
+//        Log.d(TAG, "doAction() " + action);
         switch (action) {
             case fireHadoken:
                 fighter.shoot();
@@ -45,7 +60,6 @@ public class World extends GameWorld {
     }
 
     protected void initObjects() {
-        Random rand = new Random();
         for (int i = 0; i < BALL_COUNT; i++) {
             int x = rand.nextInt(1000);
             int y = rand.nextInt(1000);

@@ -73,4 +73,19 @@ public class FrameAnimationBitmap {
     public int getHeight() {
         return sbmp.getHeight();
     }
+
+    public void draw(Canvas canvas, float x, float y, int radius) {
+        dstRect.left = x - radius;
+        dstRect.top = y - radius;
+        dstRect.right = x + radius;
+        dstRect.bottom = y + radius;
+        draw(canvas, dstRect, null);
+    }
+    public void draw(Canvas canvas, float x, float y, int xRadius, int yRadius) {
+        dstRect.left = x - xRadius;
+        dstRect.top = y - yRadius;
+        dstRect.right = x + xRadius;
+        dstRect.bottom = y + yRadius;
+        draw(canvas, dstRect, null);
+    }
 }

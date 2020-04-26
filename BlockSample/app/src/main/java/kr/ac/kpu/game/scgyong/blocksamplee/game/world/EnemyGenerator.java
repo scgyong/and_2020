@@ -14,24 +14,37 @@ public class EnemyGenerator {
     private static final String TAG = EnemyGenerator.class.getSimpleName();
     private static final int MAX_SPEED = 2000;
     private final Random rand;
-    private long time;
+    private long lastWaveTime;
     private long genarationInterval;
     private int wave;
+    private long nextMeteorTime;
 
     public EnemyGenerator() {
-        this.time = GameWorld.get().getCurrentTimeNanos();
+        long now = GameWorld.get().getCurrentTimeNanos();
+        this.lastWaveTime = now;
         genarationInterval = INITIAL_GENERATE_INTERVAL;
         rand = new Random();
         wave = 0;
+
+        setNextMeteorTime(now);
+    }
+
+    private void setNextMeteorTime(long now) {
+        long nextMeteor = (long) ((5 + 5 * rand.nextFloat()) * 1_000_000_000);
+        nextMeteorTime = now + nextMeteor;
     }
 
     public void update() {
-        GameWorld gw = GameWorld.get();
+        World gw = World.get();
         long now = gw.getCurrentTimeNanos();
-        long elapsed = now - time;
+        long elapsed = now - lastWaveTime;
         if (elapsed > genarationInterval) {
             genarateWave();
-            this.time = now;
+            this.lastWaveTime = now;
+        }
+        if (now > nextMeteorTime) {
+            gw.createLaser();
+            setNextMeteorTime(now);
         }
     }
 
