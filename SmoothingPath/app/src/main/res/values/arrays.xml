@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="interpolators">
+        <item>@string/interpolator_linear</item>
+        <item>@string/interpolator_ascending</item>
+        <item>@string/interpolator_descending</item>
+        <item>@string/interpolator_asc_desc</item>
+    </string-array>
+</resources>

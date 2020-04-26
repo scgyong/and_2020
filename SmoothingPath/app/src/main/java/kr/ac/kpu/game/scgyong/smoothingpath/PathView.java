@@ -1,5 +1,6 @@
 package kr.ac.kpu.game.scgyong.smoothingpath;
 
+import android.animation.TimeInterpolator;
 import android.animation.ValueAnimator;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -24,13 +25,16 @@ class PathView extends View {
     private float xFighter, yFighter;
     private float angle;
 
-    public void start(int msecPerCount) {
+    public void start(int msecPerCount, TimeInterpolator interpolator) {
         int count = getCount();
         if (count < 2) return;
         final PathMeasure pm = new PathMeasure(path, false);
         final float length = pm.getLength();
         ValueAnimator anim = ValueAnimator.ofFloat(0f, 1f);
         anim.setDuration(count * msecPerCount);
+        if (interpolator != null) {
+            anim.setInterpolator(interpolator);
+        }
         anim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             float[] pos = new float[2];
             float[] tan = new float[2];

@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">SmoothingPath</string>
+    <string name="interpolator_linear">Linear</string>
+    <string name="interpolator_ascending">Ascending</string>
+    <string name="interpolator_descending">Descending</string>
+    <string name="interpolator_asc_desc">Asc-Desc</string>
 </resources>
