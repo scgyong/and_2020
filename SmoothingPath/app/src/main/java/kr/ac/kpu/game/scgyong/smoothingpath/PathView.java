@@ -24,13 +24,13 @@ class PathView extends View {
     private float xFighter, yFighter;
     private float angle;
 
-    public void start() {
+    public void start(int msecPerCount) {
         int count = getCount();
         if (count < 2) return;
         final PathMeasure pm = new PathMeasure(path, false);
         final float length = pm.getLength();
         ValueAnimator anim = ValueAnimator.ofFloat(0f, 1f);
-        anim.setDuration(count * 100);
+        anim.setDuration(count * msecPerCount);
         anim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             float[] pos = new float[2];
             float[] tan = new float[2];
@@ -40,6 +40,7 @@ class PathView extends View {
                 pm.getPosTan(length * progress, pos, tan);
                 xFighter = pos[0];
                 yFighter = pos[1];
+                angle = (float) (Math.atan2(tan[1], tan[0]) * 180 / Math.PI);
                 invalidate();
             }
         });
@@ -106,7 +107,10 @@ class PathView extends View {
     @Override
     public void onDraw(Canvas canvas) {
         canvas.drawPath(path, paint);
+        canvas.save();
+        canvas.rotate(angle, xFighter, yFighter);
         canvas.drawBitmap(bitmap, xFighter - halfWidth, yFighter - halfHeight, null);
+        canvas.restore();
 
 //        Path path = new Path();
 //
