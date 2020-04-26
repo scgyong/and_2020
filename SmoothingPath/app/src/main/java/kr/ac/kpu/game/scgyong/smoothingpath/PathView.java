@@ -1,10 +1,14 @@
 package kr.ac.kpu.game.scgyong.smoothingpath;
 
+import android.animation.ValueAnimator;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.graphics.PathMeasure;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -15,6 +19,33 @@ import androidx.annotation.Nullable;
 import java.util.ArrayList;
 
 class PathView extends View {
+    public Bitmap bitmap;
+    private int halfWidth, halfHeight;
+    private float xFighter, yFighter;
+    private float angle;
+
+    public void start() {
+        int count = getCount();
+        if (count < 2) return;
+        final PathMeasure pm = new PathMeasure(path, false);
+        final float length = pm.getLength();
+        ValueAnimator anim = ValueAnimator.ofFloat(0f, 1f);
+        anim.setDuration(count * 100);
+        anim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            float[] pos = new float[2];
+            float[] tan = new float[2];
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                float progress = animation.getAnimatedFraction();
+                pm.getPosTan(length * progress, pos, tan);
+                xFighter = pos[0];
+                yFighter = pos[1];
+                invalidate();
+            }
+        });
+        anim.start();
+    }
+
     interface Listener {
         public void onClick();
     }
@@ -53,6 +84,10 @@ class PathView extends View {
         paint.setStyle(Paint.Style.STROKE);
         paint.setStrokeWidth(2);
         paint.setColor(Color.BLUE);
+
+        bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.fight_plane);
+        halfWidth = bitmap.getWidth() / 2;
+        halfHeight = bitmap.getHeight() / 2;
     }
 
     public PathView(Context context, @Nullable AttributeSet attrs) {
@@ -71,6 +106,7 @@ class PathView extends View {
     @Override
     public void onDraw(Canvas canvas) {
         canvas.drawPath(path, paint);
+        canvas.drawBitmap(bitmap, xFighter - halfWidth, yFighter - halfHeight, null);
 
 //        Path path = new Path();
 //

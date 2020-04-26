@@ -2,6 +2,8 @@ package kr.ac.kpu.game.scgyong.smoothingpath;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.animation.ValueAnimator;
+import android.graphics.PathMeasure;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -33,5 +35,9 @@ public class MainActivity extends AppCompatActivity {
 
     public void onBtnReset(View view) {
         pathView.clear();
+    }
+
+    public void onBtnStart(View view) {
+        pathView.start();
     }
 }
