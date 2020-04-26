@@ -46,7 +46,7 @@ public class SharedBitmap {
         resources = res;
     }
     public static SharedBitmap load(int resId) {
-        return load(resId, true);
+        return load(resId, false);
     }
     public static SharedBitmap load(int resId, boolean inScaled) {
 //        Log.d(TAG, "Loading " + resId);
