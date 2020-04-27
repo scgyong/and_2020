@@ -29,6 +29,7 @@ public class World extends GameWorld {
 
     public void addScore(int score) {
         this.score.add(score);
+        plane.applyScore(this.score.getScoreValue());
     }
 
     public void createMeteor(float x) {

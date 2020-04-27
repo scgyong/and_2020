@@ -25,6 +25,9 @@ public class Score implements GameObject {
     public void setDisplayedScore(int displayedScore) {
         this.displayedScore = displayedScore;
     }
+    public int getScoreValue() {
+        return targetScore;
+    }
 
     private int displayedScore, targetScore;
 

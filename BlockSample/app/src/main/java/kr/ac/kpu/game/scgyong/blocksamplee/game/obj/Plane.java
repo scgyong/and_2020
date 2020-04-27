@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.PointF;
+import android.util.Log;
 
 import kr.ac.kpu.game.scgyong.blocksamplee.R;
 import kr.ac.kpu.game.scgyong.blocksamplee.game.iface.GameObject;
@@ -12,14 +13,15 @@ import kr.ac.kpu.game.scgyong.blocksamplee.game.framework.GameWorld;
 public class Plane implements GameObject {
     private static final float ANGLE_PER_SECOND = 90;
     private static final String TAG = Plane.class.getSimpleName();
-    private static final long BULLET_FIRE_INTERVAL_NSEC = 100000000;
-    private static final int INITIAL_BULLET_POWER = 100;
+    private static final long BULLET_FIRE_INTERVAL_NSEC = 100_000_000;
+    private static final int INITIAL_LEVELUP_SCORE = 1000;
     private static Bitmap image;
     private static int radius;
     private long lastFire;
     private int size;
     private float x, y;
-    private int power;
+    private int level;
+    private int nextLevelupScore;
 
     public Plane() {
         GameWorld gw = GameWorld.get();
@@ -29,11 +31,19 @@ public class Plane implements GameObject {
         }
         this.x = 0;
         this.y = 0;
-        this.power = INITIAL_BULLET_POWER;
+        this.level = 1;
 
         placePlane();
 
         this.lastFire = gw.getCurrentTimeNanos();
+        nextLevelupScore = INITIAL_LEVELUP_SCORE;
+    }
+
+    public void increaseLevel() {
+        this.level++;
+        nextLevelupScore = nextLevelupScore * 15 / 10;
+
+        Log.d(TAG, "Now level=" + level + " nextScore=" + nextLevelupScore);
     }
 
     public void placePlane() {
@@ -47,7 +57,7 @@ public class Plane implements GameObject {
 
     public void fire() {
 //        float angle = MatrixHelper.getAngle(matrix);
-        Bullet bullet = Bullet.get(x, y - radius, power);
+        Bullet bullet = Bullet.get(x, y - radius, level);
         GameWorld.get().add(GameWorld.Layer.missile, bullet);
     }
     @Override
@@ -81,6 +91,12 @@ public class Plane implements GameObject {
         int right = gw.getRight();
         if (x > right) {
             x = right;
+        }
+    }
+
+    public void applyScore(int score) {
+        if (score >= nextLevelupScore) {
+            increaseLevel();
         }
     }
 }
