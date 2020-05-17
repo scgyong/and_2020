@@ -3,6 +3,7 @@ package kr.ac.kpu.game.scgyong.blocksamplee.util;
 import android.graphics.RectF;
 
 import kr.ac.kpu.game.scgyong.blocksamplee.game.iface.BoxCollidable;
+import kr.ac.kpu.game.scgyong.blocksamplee.game.iface.Positionable;
 
 public class CollisionHelper {
     private static RectF rect1 = new RectF();
@@ -23,5 +24,14 @@ public class CollisionHelper {
             return false;
         }
         return true;
+    }
+
+    public static float getDistanceSquare(Positionable o1, Positionable o2) {
+        float dx = o1.getX() - o2.getX();
+        float dy = o1.getY() - o2.getY();
+        return dx * dx + dy * dy;
+    }
+    public static float getDistance(Positionable o1, Positionable o2) {
+        return (float) Math.sqrt(getDistanceSquare(o1, o2));
     }
 }

@@ -9,12 +9,13 @@ import java.util.ArrayList;
 import kr.ac.kpu.game.scgyong.blocksamplee.R;
 import kr.ac.kpu.game.scgyong.blocksamplee.game.iface.BoxCollidable;
 import kr.ac.kpu.game.scgyong.blocksamplee.game.iface.GameObject;
+import kr.ac.kpu.game.scgyong.blocksamplee.game.iface.Positionable;
 import kr.ac.kpu.game.scgyong.blocksamplee.game.iface.Recyclable;
 import kr.ac.kpu.game.scgyong.blocksamplee.game.framework.GameWorld;
 import kr.ac.kpu.game.scgyong.blocksamplee.util.CollisionHelper;
 import kr.ac.kpu.game.scgyong.blocksamplee.res.bitmap.FrameAnimationBitmap;
 
-public class Bullet implements GameObject, BoxCollidable, Recyclable {
+public class Bullet implements GameObject, BoxCollidable, Recyclable, Positionable {
     private static final String TAG = Bullet.class.getSimpleName();
     public static final int SPEED = 1500;
 //    public static final int FRAME_COUNT1 = 13;
@@ -60,19 +61,25 @@ public class Bullet implements GameObject, BoxCollidable, Recyclable {
 
         y -= SPEED * gw.getTimeDiffInSecond();
 
+        float distSq = 1e10f;
+        Enemy closest = null;
         boolean toBeDeleted = false;
         ArrayList<GameObject> enemies = gw.objectsAt(GameWorld.Layer.enemy);
         for (GameObject e: enemies) {
-            if (!(e instanceof BoxCollidable)) {
+            if (!(e instanceof Enemy)) {
                 continue;
             }
-            BoxCollidable bc = (BoxCollidable) e;
-            boolean collides = CollisionHelper.collides(bc, this);
+            Enemy enemy = (Enemy) e;
+            boolean collides = CollisionHelper.collides(enemy, this);
             if (collides) {
-                Enemy enemy = (Enemy) bc;
                 enemy.decreaseLife(power);
                 toBeDeleted = true;
                 break;
+            }
+            float ds = CollisionHelper.getDistanceSquare(enemy, this);
+            if (distSq > ds) {
+                distSq = ds;
+                closest = enemy;
             }
         }
         if (x > gw.getRight() || x < gw.getLeft()) {
@@ -83,6 +90,15 @@ public class Bullet implements GameObject, BoxCollidable, Recyclable {
         }
         if (toBeDeleted) {
             gw.removeObject(this);
+            return;
+        }
+
+        if (closest != null) {
+            if (closest.getX() < this.x) {
+                this.x -= SPEED * 0.3 * gw.getTimeDiffInSecond();
+            } else if (closest.getX() > this.x) {
+                this.x += SPEED * 0.3 * gw.getTimeDiffInSecond();
+            }
         }
 
 //        fab1.update();
@@ -126,5 +142,15 @@ public class Bullet implements GameObject, BoxCollidable, Recyclable {
     @Override
     public void recycle() {
 
+    }
+
+    @Override
+    public float getX() {
+        return x;
+    }
+
+    @Override
+    public float getY() {
+        return y;
     }
 }

@@ -9,12 +9,13 @@ import android.util.Log;
 import kr.ac.kpu.game.scgyong.blocksamplee.R;
 import kr.ac.kpu.game.scgyong.blocksamplee.game.iface.BoxCollidable;
 import kr.ac.kpu.game.scgyong.blocksamplee.game.iface.GameObject;
+import kr.ac.kpu.game.scgyong.blocksamplee.game.iface.Positionable;
 import kr.ac.kpu.game.scgyong.blocksamplee.game.iface.Recyclable;
 import kr.ac.kpu.game.scgyong.blocksamplee.game.framework.GameWorld;
 import kr.ac.kpu.game.scgyong.blocksamplee.game.world.World;
 import kr.ac.kpu.game.scgyong.blocksamplee.res.bitmap.FrameAnimationBitmap;
 
-public class Enemy implements GameObject, BoxCollidable, Recyclable {
+public class Enemy implements GameObject, BoxCollidable, Recyclable, Positionable {
     private static final String TAG = Enemy.class.getSimpleName();
     public static final int FRAMES_PER_SECOND = 12;
     private final LifeGauge lifeGauge = new LifeGauge();
@@ -120,5 +121,15 @@ public class Enemy implements GameObject, BoxCollidable, Recyclable {
         rect.right = x + halfWidth;
         rect.top = y - halfHeight;
         rect.bottom = y + halfHeight;
+    }
+
+    @Override
+    public float getX() {
+        return x;
+    }
+
+    @Override
+    public float getY() {
+        return y;
     }
 }

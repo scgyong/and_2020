@@ -42,7 +42,7 @@ public class Fighter implements GameObject {
         this.dx = dx;
         this.dy = dy;
         objectAnimator = ObjectAnimator.ofFloat(this, "scale", 1.0f, 2.0f);
-        objectAnimator.setInterpolator(interpolator);
+        objectAnimator.setInterpolator(null);
 //        this.mediaPlayer = MediaPlayer.create(view.getContext(), R.raw.hadouken);
     }
 
