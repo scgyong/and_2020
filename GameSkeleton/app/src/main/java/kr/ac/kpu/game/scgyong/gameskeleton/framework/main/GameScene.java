@@ -2,6 +2,7 @@ package kr.ac.kpu.game.scgyong.gameskeleton.framework.main;
 
 import android.graphics.Canvas;
 import android.util.Log;
+import android.view.MotionEvent;
 
 import java.util.ArrayList;
 
@@ -80,4 +81,8 @@ public abstract class GameScene {
     public void exit() { Log.v(TAG, "exit()"); }
     public void pause() { Log.v(TAG, "pause()"); }
     public void resume() { Log.v(TAG, "resume()"); }
+
+    public boolean onTouchEvent(MotionEvent event) {
+        return gameWorld.onTouchEvent(event);
+    }
 }

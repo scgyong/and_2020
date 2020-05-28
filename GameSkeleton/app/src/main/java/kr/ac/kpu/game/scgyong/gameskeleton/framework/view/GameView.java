@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.Choreographer;
+import android.view.MotionEvent;
 import android.view.View;
 
 import androidx.annotation.Nullable;
@@ -61,5 +62,10 @@ public class GameView extends View {
             frameCount = 0;
             timer.reset();
         }
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        return GameScene.getTop().onTouchEvent(event);
     }
 }
