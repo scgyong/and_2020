@@ -22,6 +22,7 @@ public class Bullet implements GameObject, BoxCollidable, Recyclable, Positionab
     public static final int FRAME_COUNT1 = 10;
     public static final int FRAME_COUNT2 = 13;
     public static final int FRAMES_PER_SECOND = 10;
+    public static final double HOMING_X_RATE = 0.4;
     private FrameAnimationBitmap fab1, fab2;
     private int power;
     private float x, y;
@@ -95,9 +96,9 @@ public class Bullet implements GameObject, BoxCollidable, Recyclable, Positionab
 
         if (closest != null) {
             if (closest.getX() < this.x) {
-                this.x -= SPEED * 0.3 * gw.getTimeDiffInSecond();
+                this.x -= SPEED * HOMING_X_RATE * gw.getTimeDiffInSecond();
             } else if (closest.getX() > this.x) {
-                this.x += SPEED * 0.3 * gw.getTimeDiffInSecond();
+                this.x += SPEED * HOMING_X_RATE * gw.getTimeDiffInSecond();
             }
         }
 
