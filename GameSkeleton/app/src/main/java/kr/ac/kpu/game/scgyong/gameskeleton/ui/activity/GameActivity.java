@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
+import kr.ac.kpu.game.scgyong.gameskeleton.framework.input.sensor.GyroSensor;
 import kr.ac.kpu.game.scgyong.gameskeleton.framework.main.GameScene;
 import kr.ac.kpu.game.scgyong.gameskeleton.framework.main.UiBridge;
 import kr.ac.kpu.game.scgyong.gameskeleton.framework.view.GameView;
@@ -18,6 +19,22 @@ public class GameActivity extends AppCompatActivity {
         setContentView(new GameView(this));
 
         new FirstScene().run();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (GyroSensor.isCreated()) {
+            GyroSensor.get().register();
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        if (GyroSensor.isCreated()) {
+            GyroSensor.get().unregister();
+        }
+        super.onPause();
     }
 
     @Override

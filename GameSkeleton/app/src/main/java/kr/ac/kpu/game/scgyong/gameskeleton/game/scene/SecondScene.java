@@ -5,6 +5,7 @@ import android.graphics.RectF;
 import java.util.Random;
 
 import kr.ac.kpu.game.scgyong.gameskeleton.R;
+import kr.ac.kpu.game.scgyong.gameskeleton.framework.input.sensor.GyroSensor;
 import kr.ac.kpu.game.scgyong.gameskeleton.framework.main.GameScene;
 import kr.ac.kpu.game.scgyong.gameskeleton.framework.main.GameTimer;
 import kr.ac.kpu.game.scgyong.gameskeleton.framework.main.UiBridge;
@@ -13,6 +14,7 @@ import kr.ac.kpu.game.scgyong.gameskeleton.framework.obj.ScoreObject;
 import kr.ac.kpu.game.scgyong.gameskeleton.framework.obj.ui.Button;
 import kr.ac.kpu.game.scgyong.gameskeleton.game.obj.Ball;
 import kr.ac.kpu.game.scgyong.gameskeleton.game.obj.CityBackground;
+import kr.ac.kpu.game.scgyong.gameskeleton.game.obj.GyroBall;
 
 public class SecondScene extends GameScene {
     private static final String TAG = SecondScene.class.getSimpleName();
@@ -21,7 +23,7 @@ public class SecondScene extends GameScene {
         bg, enemy, player, ui, COUNT
     }
 
-    private Ball ball;
+    private GyroBall ball;
     private GameTimer timer;
 
     @Override
@@ -36,20 +38,28 @@ public class SecondScene extends GameScene {
         if (timer.done()) {
             pop();
         }
+
     }
 
     @Override
     public void enter() {
         super.enter();
+        GyroSensor.get();
         initObjects();
     }
 
+    @Override
+    public void exit() {
+        GyroSensor.get().destroy();
+        super.exit();
+    }
+
     private void initObjects() {
-        timer = new GameTimer(10, 1);
+        timer = new GameTimer(60, 1);
         Random rand = new Random();
         int cx = UiBridge.metrics.center.x;
         int cy = UiBridge.metrics.center.y;
-        ball = new Ball(cx, cy, 0, 0);
+        ball = new GyroBall(cx, cy);
         gameWorld.add(Layer.enemy.ordinal(), ball);
         gameWorld.add(Layer.bg.ordinal(), new CityBackground());
     }
