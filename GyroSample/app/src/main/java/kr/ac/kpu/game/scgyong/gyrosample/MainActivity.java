@@ -14,6 +14,7 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity {
 
     private static final double NS2S = 1.0 / 1_000_000_000.0;
+    private static final double RAD_TO_DEGREE = 180.0 / Math.PI;
     private TextView xAxisTextView, yAxisTextView, zAxisTextView;
     private double roll, pitch, yaw;
     private SensorManager sensorManager;
@@ -82,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private String fmt(double value) {
-        return String.format("%.5f", value);
+        return String.format("%.3f", value * RAD_TO_DEGREE);
     }
 
     private void connectUiParts() {
