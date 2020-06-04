@@ -8,6 +8,7 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
@@ -49,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
     SensorEventListener gyroListener = new SensorEventListener() {
         @Override
         public void onSensorChanged(SensorEvent event) {
-            showSensorValues(event);
+            accumulateSensorValues(event);
         }
 
         @Override
@@ -58,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-    private void showSensorValues(SensorEvent event) {
+    private void accumulateSensorValues(SensorEvent event) {
         if (timestamp == 0) {
             timestamp = event.timestamp;
             return;
@@ -69,11 +70,15 @@ public class MainActivity extends AppCompatActivity {
         yaw += event.values[2] * dt;
 
 
+        showRotationValues();
+
+        timestamp = event.timestamp;
+    }
+
+    private void showRotationValues() {
         xAxisTextView.setText("X: " + fmt(roll));
         yAxisTextView.setText("Y: " + fmt(pitch));
         zAxisTextView.setText("Z: " + fmt(yaw));
-
-        timestamp = event.timestamp;
     }
 
     private String fmt(double value) {
@@ -84,5 +89,12 @@ public class MainActivity extends AppCompatActivity {
         xAxisTextView = findViewById(R.id.xAxisTextView);
         yAxisTextView = findViewById(R.id.yAxisTextView);
         zAxisTextView = findViewById(R.id.zAxisTextView);
+    }
+
+    public void onBtnReset(View view) {
+        roll = 0;
+        pitch = 0;
+        yaw = 0;
+        showRotationValues();
     }
 }
