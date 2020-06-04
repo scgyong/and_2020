@@ -85,4 +85,8 @@ public abstract class GameScene {
     public boolean onTouchEvent(MotionEvent event) {
         return gameWorld.onTouchEvent(event);
     }
+
+    public void onBackPressed() {
+        pop();
+    }
 }

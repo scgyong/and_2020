@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
+import kr.ac.kpu.game.scgyong.gameskeleton.framework.main.GameScene;
 import kr.ac.kpu.game.scgyong.gameskeleton.framework.main.UiBridge;
 import kr.ac.kpu.game.scgyong.gameskeleton.framework.view.GameView;
 import kr.ac.kpu.game.scgyong.gameskeleton.game.scene.FirstScene;
@@ -17,5 +18,10 @@ public class GameActivity extends AppCompatActivity {
         setContentView(new GameView(this));
 
         new FirstScene().run();
+    }
+
+    @Override
+    public void onBackPressed() {
+        GameScene.getTop().onBackPressed();
     }
 }
