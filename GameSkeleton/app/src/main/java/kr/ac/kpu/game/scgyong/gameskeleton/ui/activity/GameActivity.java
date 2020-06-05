@@ -32,7 +32,7 @@ public class GameActivity extends AppCompatActivity {
         long now = System.currentTimeMillis();
         long elapsed = now - lastBackPressedOn;
         if (elapsed <= BACKKEY_INTERVAL_MSEC) {
-            finish();
+            handleBackPressed();
             return;
         }
         Log.d("BackKey", "elapsed="+elapsed);
@@ -59,8 +59,7 @@ public class GameActivity extends AppCompatActivity {
         super.onPause();
     }
 
-    @Override
-    public void onBackPressed() {
+    public void handleBackPressed() {
         GameScene.getTop().onBackPressed();
     }
 }
