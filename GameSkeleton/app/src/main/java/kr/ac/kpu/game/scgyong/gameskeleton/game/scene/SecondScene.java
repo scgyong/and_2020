@@ -1,7 +1,5 @@
 package kr.ac.kpu.game.scgyong.gameskeleton.game.scene;
 
-import android.graphics.RectF;
-
 import java.util.Random;
 
 import kr.ac.kpu.game.scgyong.gameskeleton.R;
@@ -9,12 +7,8 @@ import kr.ac.kpu.game.scgyong.gameskeleton.framework.input.sensor.GyroSensor;
 import kr.ac.kpu.game.scgyong.gameskeleton.framework.main.GameScene;
 import kr.ac.kpu.game.scgyong.gameskeleton.framework.main.GameTimer;
 import kr.ac.kpu.game.scgyong.gameskeleton.framework.main.UiBridge;
-import kr.ac.kpu.game.scgyong.gameskeleton.framework.obj.BitmapObject;
-import kr.ac.kpu.game.scgyong.gameskeleton.framework.obj.ScoreObject;
-import kr.ac.kpu.game.scgyong.gameskeleton.framework.obj.ui.Button;
-import kr.ac.kpu.game.scgyong.gameskeleton.game.obj.Ball;
-import kr.ac.kpu.game.scgyong.gameskeleton.game.obj.CityBackground;
-import kr.ac.kpu.game.scgyong.gameskeleton.game.obj.GyroBall;
+import kr.ac.kpu.game.scgyong.gameskeleton.game.obj.Cookie;
+import kr.ac.kpu.game.scgyong.gameskeleton.game.obj.HorzScrollBackground;
 
 public class SecondScene extends GameScene {
     private static final String TAG = SecondScene.class.getSimpleName();
@@ -23,7 +17,7 @@ public class SecondScene extends GameScene {
         bg, enemy, player, ui, COUNT
     }
 
-    private GyroBall ball;
+    private Cookie cookie;
     private GameTimer timer;
 
     @Override
@@ -57,10 +51,13 @@ public class SecondScene extends GameScene {
     private void initObjects() {
         timer = new GameTimer(60, 1);
         Random rand = new Random();
+        int mdpi_100 = UiBridge.x(100);
+        int sw = UiBridge.metrics.size.x;
+        int sh = UiBridge.metrics.size.y;
         int cx = UiBridge.metrics.center.x;
         int cy = UiBridge.metrics.center.y;
-        ball = new GyroBall(cx, cy);
-        gameWorld.add(Layer.enemy.ordinal(), ball);
-        gameWorld.add(Layer.bg.ordinal(), new CityBackground());
+        cookie = new Cookie(mdpi_100, sh - mdpi_100);
+        gameWorld.add(Layer.enemy.ordinal(), cookie);
+        gameWorld.add(Layer.bg.ordinal(), new HorzScrollBackground(R.mipmap.cookie_run_bg_1));
     }
 }
