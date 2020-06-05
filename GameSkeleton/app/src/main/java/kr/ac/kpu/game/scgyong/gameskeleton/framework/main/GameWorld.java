@@ -24,6 +24,10 @@ public class GameWorld {
         }
     }
 
+    public ArrayList<GameObject> objectsAtLayer(int layer) {
+        return layers.get(layer);
+    }
+
     public void draw(Canvas canvas) {
         for (ArrayList<GameObject> objects: layers) {
             for (GameObject o : objects) {
