@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
+import kr.ac.kpu.game.scgyong.gameskeleton.framework.input.sensor.GyroSensor;
+import kr.ac.kpu.game.scgyong.gameskeleton.framework.main.GameScene;
 import kr.ac.kpu.game.scgyong.gameskeleton.framework.main.UiBridge;
 import kr.ac.kpu.game.scgyong.gameskeleton.framework.view.GameView;
 import kr.ac.kpu.game.scgyong.gameskeleton.game.scene.FirstScene;
@@ -39,5 +41,26 @@ public class GameActivity extends AppCompatActivity {
                 Toast.LENGTH_SHORT)
                 .show();
         lastBackPressedOn = now;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (GyroSensor.isCreated()) {
+            GyroSensor.get().register();
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        if (GyroSensor.isCreated()) {
+            GyroSensor.get().unregister();
+        }
+        super.onPause();
+    }
+
+    @Override
+    public void onBackPressed() {
+        GameScene.getTop().onBackPressed();
     }
 }
