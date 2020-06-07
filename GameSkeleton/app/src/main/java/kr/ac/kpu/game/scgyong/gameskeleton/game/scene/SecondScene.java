@@ -101,7 +101,7 @@ public class SecondScene extends GameScene {
         int sh = UiBridge.metrics.size.y;
         int cx = UiBridge.metrics.center.x;
         int cy = UiBridge.metrics.center.y;
-        cookie = new Cookie(mdpi_100, sh - mdpi_100);
+        cookie = new Cookie(mdpi_100, mdpi_100);
         gameWorld.add(Layer.player.ordinal(), cookie);
         gameWorld.add(Layer.bg.ordinal(), new ImageScrollBackground(R.mipmap.cookie_run_bg_1, ImageScrollBackground.Orientation.horizontal, -100));
         gameWorld.add(Layer.bg.ordinal(), new ImageScrollBackground(R.mipmap.cookie_run_bg_1_2, ImageScrollBackground.Orientation.horizontal, -200));

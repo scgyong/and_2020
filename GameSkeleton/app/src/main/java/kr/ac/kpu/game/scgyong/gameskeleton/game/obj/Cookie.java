@@ -71,7 +71,7 @@ public class Cookie extends AnimObject implements Touchable {
             float ptop = platform.getTop();
             if (jumpCount > 0) {
                 Log.d(TAG, "Platform box = " + rect + " footY = " + footY + " ptop=" + ptop);
-                if (footY >= ptop) {
+                if (speed > 0 && footY >= ptop) {
                     Log.d(TAG, " Stopping at the platform");
                     y = ptop - height / 2;
                     jumpCount = 0;
