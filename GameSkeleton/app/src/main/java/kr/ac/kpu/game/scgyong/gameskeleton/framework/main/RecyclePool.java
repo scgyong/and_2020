@@ -1,5 +1,7 @@
 package kr.ac.kpu.game.scgyong.gameskeleton.framework.main;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -16,6 +18,7 @@ public class RecyclePool {
             map.put(clazz, list);
         }
         list.add(obj);
+//        Log.d(TAG, "Adding " + obj);
     }
     public Object get(Class clazz) {
         ArrayList<Object> list = map.get(clazz);
@@ -28,6 +31,7 @@ public class RecyclePool {
         }
         if (obj != null) {
 //            Log.d(TAG, "Reusing obj " + obj);
+//            Log.d(TAG, "Recycling " + obj);
             return obj;
         }
 

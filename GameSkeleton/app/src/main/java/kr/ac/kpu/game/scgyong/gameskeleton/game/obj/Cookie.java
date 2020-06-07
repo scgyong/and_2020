@@ -77,9 +77,9 @@ public class Cookie extends AnimObject implements Touchable, BoxCollidable {
 //            Log.d(TAG, "Platform box = " + rect);
             float ptop = platform.getTop();
             if (jumpCount > 0) {
-                Log.d(TAG, "Platform box = " + rect + " footY = " + footY + " ptop=" + ptop);
+//                Log.d(TAG, "Platform box = " + rect + " footY = " + footY + " ptop=" + ptop);
                 if (speed > 0 && footY >= ptop) {
-                    Log.d(TAG, " Stopping at the platform");
+//                    Log.d(TAG, " Stopping at the platform");
                     y = ptop - height / 2;
                     jumpCount = 0;
                     speed = 0;
@@ -87,12 +87,12 @@ public class Cookie extends AnimObject implements Touchable, BoxCollidable {
                 }
             } else {
                 if (footY < ptop) {
-                    Log.d(TAG, " Start to fall down");
+//                    Log.d(TAG, " Start to fall down");
                     jumpCount = 10; // falling down
                 }
             }
         } else {
-            Log.d(TAG, " No platform. Falling down");
+//            Log.d(TAG, " No platform. Falling down");
             jumpCount = 10;
         }
 
@@ -122,7 +122,7 @@ public class Cookie extends AnimObject implements Touchable, BoxCollidable {
         if (tx < UiBridge.metrics.center.x) {
             // jump
             if (jumpCount < 2) {
-                Log.d(TAG, "Jumping");
+//                Log.d(TAG, "Jumping");
                 jumpCount++;
                 speed += JUMP_POWER;
                 if (speed > JUMP_POWER) {
