@@ -11,6 +11,7 @@ import kr.ac.kpu.game.scgyong.gameskeleton.framework.main.GameObject;
 import kr.ac.kpu.game.scgyong.gameskeleton.framework.main.GameScene;
 import kr.ac.kpu.game.scgyong.gameskeleton.framework.main.GameTimer;
 import kr.ac.kpu.game.scgyong.gameskeleton.framework.main.UiBridge;
+import kr.ac.kpu.game.scgyong.gameskeleton.framework.obj.ScoreObject;
 import kr.ac.kpu.game.scgyong.gameskeleton.framework.obj.bg.ImageScrollBackground;
 import kr.ac.kpu.game.scgyong.gameskeleton.game.map.TextMap;
 import kr.ac.kpu.game.scgyong.gameskeleton.game.obj.Cookie;
@@ -22,6 +23,8 @@ public class SecondScene extends GameScene {
     private int mdpi_100;
 
     private RectF rect = new RectF();
+    private ScoreObject scoreObject;
+
     public Platform getPlatformAt(float x, float y) {
         Platform platform = null;
         ArrayList<GameObject> objects = gameWorld.objectsAtLayer(Layer.platform.ordinal());
@@ -104,6 +107,15 @@ public class SecondScene extends GameScene {
         gameWorld.add(Layer.bg.ordinal(), new ImageScrollBackground(R.mipmap.cookie_run_bg_1, ImageScrollBackground.Orientation.horizontal, -100));
         gameWorld.add(Layer.bg.ordinal(), new ImageScrollBackground(R.mipmap.cookie_run_bg_1_2, ImageScrollBackground.Orientation.horizontal, -200));
         gameWorld.add(Layer.bg.ordinal(), new ImageScrollBackground(R.mipmap.cookie_run_bg_1_3, ImageScrollBackground.Orientation.horizontal, -300));
+
+        RectF rbox = new RectF(UiBridge.x(-52), UiBridge.y(20), UiBridge.x(-20), UiBridge.y(62));
+        scoreObject = new ScoreObject(R.mipmap.number_64x84, rbox);
+        gameWorld.add(SecondScene.Layer.ui.ordinal(), scoreObject);
+
+    }
+
+    public void addScore(int amount) {
+        scoreObject.add(amount);
     }
 
     public static SecondScene get() {
