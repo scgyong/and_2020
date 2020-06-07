@@ -1,5 +1,6 @@
 package kr.ac.kpu.game.scgyong.gameskeleton.game.scene;
 
+import android.graphics.RectF;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -15,11 +16,38 @@ import kr.ac.kpu.game.scgyong.gameskeleton.framework.obj.bg.ImageScrollBackgroun
 import kr.ac.kpu.game.scgyong.gameskeleton.game.map.TextMap;
 import kr.ac.kpu.game.scgyong.gameskeleton.game.obj.Cookie;
 import kr.ac.kpu.game.scgyong.gameskeleton.game.obj.HorzScrollBackground;
+import kr.ac.kpu.game.scgyong.gameskeleton.game.obj.Platform;
 
 public class SecondScene extends GameScene {
     private static final String TAG = SecondScene.class.getSimpleName();
     private TextMap map;
     private int mdpi_100;
+
+    private RectF rect = new RectF();
+    public Platform getPlatformAt(float x, float y) {
+        Platform platform = null;
+        ArrayList<GameObject> objects = gameWorld.objectsAtLayer(Layer.platform.ordinal());
+        for (GameObject obj : objects) {
+            if (!(obj instanceof Platform)) {
+                continue;
+            }
+            ((Platform) obj).getBox(rect);
+            if (rect.left > x || rect.right < x) {
+                continue;
+            }
+            if (rect.top < y - rect.height() / 4) {
+                continue;
+            }
+            if (platform == null) {
+                platform = (Platform) obj;
+            } else {
+                if (platform.getY() > obj.getY()) {
+                    platform = (Platform) obj;
+                }
+            }
+        }
+        return platform;
+    }
 
     public enum Layer {
         bg, platform, item, obstacle, player, ui, COUNT
@@ -78,5 +106,9 @@ public class SecondScene extends GameScene {
         gameWorld.add(Layer.bg.ordinal(), new ImageScrollBackground(R.mipmap.cookie_run_bg_1, ImageScrollBackground.Orientation.horizontal, -100));
         gameWorld.add(Layer.bg.ordinal(), new ImageScrollBackground(R.mipmap.cookie_run_bg_1_2, ImageScrollBackground.Orientation.horizontal, -200));
         gameWorld.add(Layer.bg.ordinal(), new ImageScrollBackground(R.mipmap.cookie_run_bg_1_3, ImageScrollBackground.Orientation.horizontal, -300));
+    }
+
+    public static SecondScene get() {
+        return (SecondScene) GameScene.getTop();
     }
 }

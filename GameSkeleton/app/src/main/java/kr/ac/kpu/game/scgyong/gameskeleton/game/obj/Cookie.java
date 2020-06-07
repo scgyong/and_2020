@@ -1,5 +1,6 @@
 package kr.ac.kpu.game.scgyong.gameskeleton.game.obj;
 
+import android.graphics.RectF;
 import android.util.Log;
 import android.view.MotionEvent;
 
@@ -9,6 +10,7 @@ import kr.ac.kpu.game.scgyong.gameskeleton.framework.main.GameTimer;
 import kr.ac.kpu.game.scgyong.gameskeleton.framework.main.UiBridge;
 import kr.ac.kpu.game.scgyong.gameskeleton.framework.obj.AnimObject;
 import kr.ac.kpu.game.scgyong.gameskeleton.framework.res.bitmap.FrameAnimationBitmap;
+import kr.ac.kpu.game.scgyong.gameskeleton.game.scene.SecondScene;
 
 public class Cookie extends AnimObject implements Touchable {
 
@@ -18,7 +20,7 @@ public class Cookie extends AnimObject implements Touchable {
     private final FrameAnimationBitmap fabNormal;
     private final FrameAnimationBitmap fabJump;
     private final FrameAnimationBitmap fabDJump;
-    private int jumpCount;
+    private int jumpCount = 10; // 10 if falling
     private float speed;
     private float base;
 
@@ -50,13 +52,41 @@ public class Cookie extends AnimObject implements Touchable {
             float timeDiffSeconds = GameTimer.getTimeDiffSeconds();
             y += speed * timeDiffSeconds;
             speed += GRAVITY_SPEED * timeDiffSeconds;
-            if (y >= base) {
-                Log.d(TAG, "Jumping Done");
-                jumpCount = 0;
-                speed = 0;
-                setAnimState(AnimState.normal);
-                y = base;
+//            if (y >= base) {
+//                Log.d(TAG, "Jumping Done");
+//                jumpCount = 0;
+//                speed = 0;
+//                setAnimState(AnimState.normal);
+//                y = base;
+//            }
+        }
+        SecondScene scene = SecondScene.get();
+        float footY = y + height / 2;
+        Platform platform = scene.getPlatformAt(x, footY);
+        if (platform != null) {
+
+            RectF rect = new RectF();
+            platform.getBox(rect);
+//            Log.d(TAG, "Platform box = " + rect);
+            float ptop = platform.getTop();
+            if (jumpCount > 0) {
+                Log.d(TAG, "Platform box = " + rect + " footY = " + footY + " ptop=" + ptop);
+                if (footY >= ptop) {
+                    Log.d(TAG, " Stopping at the platform");
+                    y = ptop - height / 2;
+                    jumpCount = 0;
+                    speed = 0;
+                    setAnimState(AnimState.normal);
+                }
+            } else {
+                if (footY < ptop) {
+                    Log.d(TAG, " Start to fall down");
+                    jumpCount = 10; // falling down
+                }
             }
+        } else {
+            Log.d(TAG, " No platform. Falling down");
+            jumpCount = 10;
         }
     }
 

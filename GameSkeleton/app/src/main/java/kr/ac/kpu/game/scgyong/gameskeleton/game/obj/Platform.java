@@ -1,9 +1,11 @@
 package kr.ac.kpu.game.scgyong.gameskeleton.game.obj;
 
 import android.graphics.Point;
+import android.graphics.RectF;
 import android.util.Log;
 
 import kr.ac.kpu.game.scgyong.gameskeleton.R;
+import kr.ac.kpu.game.scgyong.gameskeleton.framework.iface.BoxCollidable;
 import kr.ac.kpu.game.scgyong.gameskeleton.framework.iface.Recyclable;
 import kr.ac.kpu.game.scgyong.gameskeleton.framework.main.GameScene;
 import kr.ac.kpu.game.scgyong.gameskeleton.framework.main.GameWorld;
@@ -11,7 +13,7 @@ import kr.ac.kpu.game.scgyong.gameskeleton.framework.main.RecyclePool;
 import kr.ac.kpu.game.scgyong.gameskeleton.framework.obj.BitmapObject;
 import kr.ac.kpu.game.scgyong.gameskeleton.framework.res.bitmap.SharedBitmap;
 
-public class Platform extends BitmapObject implements Recyclable {
+public class Platform extends BitmapObject implements Recyclable, BoxCollidable {
     private static final int[] RES_IDS = {
             R.mipmap.cookierun_platform_480x48,
             R.mipmap.cookierun_platform_124x120,
@@ -55,5 +57,19 @@ public class Platform extends BitmapObject implements Recyclable {
 
     @Override
     public void recycle() {
+    }
+
+    @Override
+    public void getBox(RectF rect) {
+        int hw = width / 2;
+        int hh = height / 2;
+        rect.left = x - hw;
+        rect.top = y - hh;
+        rect.right = x + hw;
+        rect.bottom = y + hh;
+    }
+
+    public float getTop() {
+        return y - height / 2;
     }
 }
