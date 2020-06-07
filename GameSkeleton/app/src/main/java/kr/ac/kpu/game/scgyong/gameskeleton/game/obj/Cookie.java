@@ -17,7 +17,8 @@ public class Cookie extends AnimObject implements Touchable {
     private static final String TAG = Cookie.class.getSimpleName();
     private final FrameAnimationBitmap fabNormal;
     private final FrameAnimationBitmap fabJump;
-    private boolean jumping;
+    private final FrameAnimationBitmap fabDJump;
+    private int jumpCount;
     private float speed;
     private float base;
 
@@ -27,28 +28,32 @@ public class Cookie extends AnimObject implements Touchable {
 
         fabNormal = fab;
         fabJump = new FrameAnimationBitmap(R.mipmap.cookie_jump, 12, 0);
+        fabDJump = new FrameAnimationBitmap(R.mipmap.cookie_djump, 12, 0);
     }
 
     public enum AnimState {
-        normal, jump
+        normal, jump, djump
     }
     public void setAnimState(AnimState state) {
         if (state == AnimState.normal) {
             fab = fabNormal;
-        } else {
+        } else if (state == AnimState.jump){
             fab = fabJump;
+        } else {
+            fab = fabDJump;
         }
     }
 
     @Override
     public void update() {
-        if (jumping) {
+        if (jumpCount > 0) {
             float timeDiffSeconds = GameTimer.getTimeDiffSeconds();
             y += speed * timeDiffSeconds;
             speed += GRAVITY_SPEED * timeDiffSeconds;
             if (y >= base) {
                 Log.d(TAG, "Jumping Done");
-                jumping = false;
+                jumpCount = 0;
+                speed = 0;
                 setAnimState(AnimState.normal);
                 y = base;
             }
@@ -64,11 +69,11 @@ public class Cookie extends AnimObject implements Touchable {
 //        Log.d(TAG, "TouchEvent:" + e.getAction() + " - " + tx + "/" + UiBridge.metrics.center.x);
         if (tx < UiBridge.metrics.center.x) {
             // jump
-            if (!jumping) {
+            if (jumpCount < 2) {
                 Log.d(TAG, "Jumping");
-                jumping = true;
-                speed = JUMP_POWER;
-                setAnimState(AnimState.jump);
+                jumpCount++;
+                speed += JUMP_POWER;
+                setAnimState(jumpCount == 1 ? AnimState.jump : AnimState.djump);
             }
         } else {
             // slide
