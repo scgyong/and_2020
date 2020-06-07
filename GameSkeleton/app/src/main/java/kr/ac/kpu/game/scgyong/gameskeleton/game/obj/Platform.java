@@ -17,10 +17,12 @@ public class Platform extends BitmapObject implements Recyclable, BoxCollidable 
     private static final int[] RES_IDS = {
             R.mipmap.cookierun_platform_480x48,
             R.mipmap.cookierun_platform_124x120,
+            R.mipmap.cookierun_platform_120x40,
     };
     private static final Point[] SIZES = {
             new Point(10, 2),
             new Point(2, 2),
+            new Point(3, 1),
     };
     public static final int ITEM_TYPE_COUNT = RES_IDS.length;
     private static final String TAG = Platform.class.getSimpleName();

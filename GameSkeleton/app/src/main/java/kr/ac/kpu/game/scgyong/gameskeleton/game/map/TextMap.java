@@ -80,7 +80,7 @@ public class TextMap {
                 layer = SecondScene.Layer.item;
                 obj = CandyItem.get(x, y, blockSize, blockSize, ch - '1');
                 break;
-            case 'O': case 'P':
+            case 'O': case 'P': case 'Q':
                 layer = SecondScene.Layer.platform;
                 obj = Platform.get(x, y, blockSize, ch - 'O');
                 break;
