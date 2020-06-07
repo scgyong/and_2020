@@ -73,6 +73,9 @@ public class Cookie extends AnimObject implements Touchable {
                 Log.d(TAG, "Jumping");
                 jumpCount++;
                 speed += JUMP_POWER;
+                if (speed > JUMP_POWER) {
+                    speed = JUMP_POWER;
+                }
                 setAnimState(jumpCount == 1 ? AnimState.jump : AnimState.djump);
             }
         } else {
