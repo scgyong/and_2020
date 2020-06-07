@@ -10,6 +10,7 @@ import kr.ac.kpu.game.scgyong.gameskeleton.framework.res.bitmap.SharedBitmap;
 
 public class ScoreObject extends GameObject {
     private static final String TAG = ScoreObject.class.getSimpleName();
+    public static final int SCORE_INCREASE_DURATION = 100;
     private final SharedBitmap sbmp;
     private final int digitWidth;
     private RectF rightmostRect;
@@ -42,7 +43,7 @@ public class ScoreObject extends GameObject {
         }
         srcRect.top = 0;
         srcRect.bottom = digitHeight;
-        scoreAnimator.setDuration(300);
+        scoreAnimator.setDuration(SCORE_INCREASE_DURATION);
     }
 
     @Override

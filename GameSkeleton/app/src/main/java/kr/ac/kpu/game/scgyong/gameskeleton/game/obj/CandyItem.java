@@ -21,6 +21,14 @@ public class CandyItem extends BitmapObject implements Recyclable, BoxCollidable
     };
     public static final int ITEM_TYPE_COUNT = RES_IDS.length;
     private static final String TAG = CandyItem.class.getSimpleName();
+    public static final int SCORE_MULTIPLIER = 10;
+
+    public int getScore() {
+        return score;
+    }
+
+    protected int score;
+
 
     protected CandyItem(float x, float y, int width, int height, int typeIndex) {
         super(x, y, width, height, RES_IDS[typeIndex]);
@@ -38,6 +46,7 @@ public class CandyItem extends BitmapObject implements Recyclable, BoxCollidable
             item.height = height;
             item.sbmp = SharedBitmap.load(RES_IDS[typeIndex]);
         }
+        item.score = SCORE_MULTIPLIER * (typeIndex + 1);
         return item;
     }
 

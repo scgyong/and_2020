@@ -103,12 +103,13 @@ public class Cookie extends AnimObject implements Touchable, BoxCollidable {
 
         ArrayList<GameObject> items = SecondScene.get().getGameWorld().objectsAtLayer(SecondScene.Layer.item.ordinal());
         for (GameObject obj : items) {
-            if (!(obj instanceof BoxCollidable)) {
+            if (!(obj instanceof CandyItem)) {
                 continue;
             }
-            if (CollisionHelper.collides(this, (BoxCollidable) obj)) {
-                obj.remove();
-                SecondScene.get().addScore(10);
+            CandyItem candy = (CandyItem) obj;
+            if (CollisionHelper.collides(this, candy)) {
+                candy.remove();
+                SecondScene.get().addScore(candy.getScore());
             }
         }
     }
