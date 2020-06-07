@@ -4,6 +4,7 @@ import android.util.Log;
 
 import kr.ac.kpu.game.scgyong.gameskeleton.R;
 import kr.ac.kpu.game.scgyong.gameskeleton.framework.main.GameScene;
+import kr.ac.kpu.game.scgyong.gameskeleton.framework.main.GameWorld;
 import kr.ac.kpu.game.scgyong.gameskeleton.framework.main.RecyclePool;
 import kr.ac.kpu.game.scgyong.gameskeleton.framework.obj.BitmapObject;
 import kr.ac.kpu.game.scgyong.gameskeleton.framework.iface.Recyclable;
@@ -36,6 +37,15 @@ public class CandyItem extends BitmapObject implements Recyclable {
             item.sbmp = SharedBitmap.load(RES_IDS[typeIndex]);
         }
         return item;
+    }
+
+    @Override
+    public void update() {
+        super.update();
+        if (x < -width) {
+            GameWorld gw = GameScene.getTop().getGameWorld();
+            gw.removeObject(this);
+        }
     }
 
     @Override
