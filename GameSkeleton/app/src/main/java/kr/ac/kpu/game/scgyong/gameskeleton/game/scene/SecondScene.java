@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import kr.ac.kpu.game.scgyong.gameskeleton.R;
-import kr.ac.kpu.game.scgyong.gameskeleton.framework.input.sensor.GyroSensor;
 import kr.ac.kpu.game.scgyong.gameskeleton.framework.main.GameObject;
 import kr.ac.kpu.game.scgyong.gameskeleton.framework.main.GameScene;
 import kr.ac.kpu.game.scgyong.gameskeleton.framework.main.GameTimer;
@@ -15,7 +14,6 @@ import kr.ac.kpu.game.scgyong.gameskeleton.framework.main.UiBridge;
 import kr.ac.kpu.game.scgyong.gameskeleton.framework.obj.bg.ImageScrollBackground;
 import kr.ac.kpu.game.scgyong.gameskeleton.game.map.TextMap;
 import kr.ac.kpu.game.scgyong.gameskeleton.game.obj.Cookie;
-import kr.ac.kpu.game.scgyong.gameskeleton.game.obj.HorzScrollBackground;
 import kr.ac.kpu.game.scgyong.gameskeleton.game.obj.Platform;
 
 public class SecondScene extends GameScene {
@@ -54,7 +52,7 @@ public class SecondScene extends GameScene {
     }
 
     private Cookie cookie;
-    private GameTimer timer;
+//    private GameTimer timer;
 
     @Override
     protected int getLayerCount() {
@@ -65,9 +63,9 @@ public class SecondScene extends GameScene {
     public void update() {
         super.update();
 //        Log.d(TAG, "Score: " + timer.getRawIndex());
-        if (timer.done()) {
-            pop();
-        }
+//        if (timer.done()) {
+//            pop();
+//        }
         float dx = -2 * mdpi_100 * GameTimer.getTimeDiffSeconds();
         map.update(dx);
         for (int layer = Layer.platform.ordinal(); layer <= Layer.obstacle.ordinal(); layer++) {
@@ -93,7 +91,7 @@ public class SecondScene extends GameScene {
     }
 
     private void initObjects() {
-        timer = new GameTimer(60, 1);
+//        timer = new GameTimer(60, 1);
         Random rand = new Random();
         mdpi_100 = UiBridge.x(100);
         Log.d(TAG, "mdpi_100: " + mdpi_100);
