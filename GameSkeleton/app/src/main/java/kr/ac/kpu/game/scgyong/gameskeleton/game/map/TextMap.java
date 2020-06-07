@@ -77,7 +77,7 @@ public class TextMap {
         switch (ch) {
             case '1': case '2': case '3': case '4':
                 layer = SecondScene.Layer.item;
-                obj = new CandyItem(x, y, blockSize, blockSize, ch - '1');
+                obj = CandyItem.get(x, y, blockSize, blockSize, ch - '1');
                 break;
             case 'O':
                 layer = SecondScene.Layer.platform;

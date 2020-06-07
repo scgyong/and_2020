@@ -1,8 +1,13 @@
 package kr.ac.kpu.game.scgyong.gameskeleton.game.obj;
 
+import android.util.Log;
+
 import kr.ac.kpu.game.scgyong.gameskeleton.R;
+import kr.ac.kpu.game.scgyong.gameskeleton.framework.main.GameScene;
+import kr.ac.kpu.game.scgyong.gameskeleton.framework.main.RecyclePool;
 import kr.ac.kpu.game.scgyong.gameskeleton.framework.obj.BitmapObject;
 import kr.ac.kpu.game.scgyong.gameskeleton.framework.iface.Recyclable;
+import kr.ac.kpu.game.scgyong.gameskeleton.framework.res.bitmap.SharedBitmap;
 
 public class CandyItem extends BitmapObject implements Recyclable {
     private static final int[] RES_IDS = {
@@ -12,8 +17,25 @@ public class CandyItem extends BitmapObject implements Recyclable {
             R.mipmap.cookie_item_004,
     };
     public static final int ITEM_TYPE_COUNT = RES_IDS.length;
-    public CandyItem(float x, float y, int width, int height, int typeIndex) {
+    private static final String TAG = CandyItem.class.getSimpleName();
+
+    protected CandyItem(float x, float y, int width, int height, int typeIndex) {
         super(x, y, width, height, RES_IDS[typeIndex]);
+        Log.d(TAG, "Creating CandyItem instance");
+    }
+    public static CandyItem get(float x, float y, int width, int height, int typeIndex) {
+        RecyclePool rpool = GameScene.getTop().getGameWorld().getRecyclePool();
+        CandyItem item = (CandyItem) rpool.get(CandyItem.class);
+        if (item == null) {
+            item = new CandyItem(x, y, width, height, typeIndex);
+        } else {
+            item.x = x;
+            item.y = y;
+            item.width = width;
+            item.height = height;
+            item.sbmp = SharedBitmap.load(RES_IDS[typeIndex]);
+        }
+        return item;
     }
 
     @Override

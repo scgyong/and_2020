@@ -11,7 +11,7 @@ import kr.ac.kpu.game.scgyong.gameskeleton.framework.iface.Touchable;
 
 public class GameWorld {
     private static final String TAG = GameWorld.class.getSimpleName();
-    protected RecyclePool recyclePool;
+    protected RecyclePool recyclePool = new RecyclePool();
     protected ArrayList<ArrayList<GameObject>> layers;
     protected ArrayList<GameObject> trash = new ArrayList<>();
     protected Touchable capturingObject;
