@@ -1,8 +1,10 @@
 package kr.ac.kpu.game.scgyong.gameskeleton.game.obj;
 
+import android.graphics.RectF;
 import android.util.Log;
 
 import kr.ac.kpu.game.scgyong.gameskeleton.R;
+import kr.ac.kpu.game.scgyong.gameskeleton.framework.iface.BoxCollidable;
 import kr.ac.kpu.game.scgyong.gameskeleton.framework.main.GameScene;
 import kr.ac.kpu.game.scgyong.gameskeleton.framework.main.GameWorld;
 import kr.ac.kpu.game.scgyong.gameskeleton.framework.main.RecyclePool;
@@ -10,7 +12,7 @@ import kr.ac.kpu.game.scgyong.gameskeleton.framework.obj.BitmapObject;
 import kr.ac.kpu.game.scgyong.gameskeleton.framework.iface.Recyclable;
 import kr.ac.kpu.game.scgyong.gameskeleton.framework.res.bitmap.SharedBitmap;
 
-public class CandyItem extends BitmapObject implements Recyclable {
+public class CandyItem extends BitmapObject implements Recyclable, BoxCollidable {
     private static final int[] RES_IDS = {
             R.mipmap.cookie_item_001,
             R.mipmap.cookie_item_002,
@@ -50,5 +52,15 @@ public class CandyItem extends BitmapObject implements Recyclable {
 
     @Override
     public void recycle() {
+    }
+
+    @Override
+    public void getBox(RectF rect) {
+        int hw = width / 2;
+        int hh = height / 2;
+        rect.left = x - hw;
+        rect.top = y - hh;
+        rect.right = x + hw;
+        rect.bottom = y + hh;
     }
 }

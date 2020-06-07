@@ -4,15 +4,22 @@ import android.graphics.RectF;
 import android.util.Log;
 import android.view.MotionEvent;
 
+import java.util.ArrayList;
+
 import kr.ac.kpu.game.scgyong.gameskeleton.R;
+import kr.ac.kpu.game.scgyong.gameskeleton.framework.iface.BoxCollidable;
 import kr.ac.kpu.game.scgyong.gameskeleton.framework.iface.Touchable;
+import kr.ac.kpu.game.scgyong.gameskeleton.framework.main.GameObject;
+import kr.ac.kpu.game.scgyong.gameskeleton.framework.main.GameScene;
 import kr.ac.kpu.game.scgyong.gameskeleton.framework.main.GameTimer;
+import kr.ac.kpu.game.scgyong.gameskeleton.framework.main.GameWorld;
 import kr.ac.kpu.game.scgyong.gameskeleton.framework.main.UiBridge;
 import kr.ac.kpu.game.scgyong.gameskeleton.framework.obj.AnimObject;
 import kr.ac.kpu.game.scgyong.gameskeleton.framework.res.bitmap.FrameAnimationBitmap;
+import kr.ac.kpu.game.scgyong.gameskeleton.framework.util.CollisionHelper;
 import kr.ac.kpu.game.scgyong.gameskeleton.game.scene.SecondScene;
 
-public class Cookie extends AnimObject implements Touchable {
+public class Cookie extends AnimObject implements Touchable, BoxCollidable {
 
     private static final float JUMP_POWER = -1500;
     private static final float GRAVITY_SPEED = 4500;
@@ -88,6 +95,22 @@ public class Cookie extends AnimObject implements Touchable {
             Log.d(TAG, " No platform. Falling down");
             jumpCount = 10;
         }
+
+        checkItemCollision();
+    }
+
+    private void checkItemCollision() {
+
+        ArrayList<GameObject> items = SecondScene.get().getGameWorld().objectsAtLayer(SecondScene.Layer.item.ordinal());
+        for (GameObject obj : items) {
+            if (!(obj instanceof BoxCollidable)) {
+                continue;
+            }
+            if (CollisionHelper.collides(this, (BoxCollidable) obj)) {
+                GameWorld gw = GameScene.getTop().getGameWorld();
+                gw.removeObject(obj);
+            }
+        }
     }
 
     @Override
@@ -112,5 +135,14 @@ public class Cookie extends AnimObject implements Touchable {
             // slide
         }
         return false;
+    }
+    @Override
+    public void getBox(RectF rect) {
+        int hw = width / 2;
+        int hh = height / 2;
+        rect.left = x - hw;
+        rect.top = y - hh;
+        rect.right = x + hw;
+        rect.bottom = y + hh;
     }
 }
