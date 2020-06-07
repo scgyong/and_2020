@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import kr.ac.kpu.game.scgyong.gameskeleton.framework.iface.Recyclable;
 import kr.ac.kpu.game.scgyong.gameskeleton.framework.iface.Touchable;
+import kr.ac.kpu.game.scgyong.gameskeleton.game.obj.CandyItem;
 
 public class GameWorld {
     private static final String TAG = GameWorld.class.getSimpleName();
@@ -106,5 +107,9 @@ public class GameWorld {
             }
         }
         return false;
+    }
+
+    public void removeObject(GameObject gameObject) {
+        trash.add(gameObject);
     }
 }
