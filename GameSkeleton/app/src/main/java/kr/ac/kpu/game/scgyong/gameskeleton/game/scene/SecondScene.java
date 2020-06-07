@@ -36,7 +36,7 @@ public class SecondScene extends GameScene {
             if (rect.left > x || rect.right < x) {
                 continue;
             }
-            if (rect.top < y - rect.height() / 4) {
+            if (rect.top < y - rect.height() / 2) {
                 continue;
             }
             if (platform == null) {
