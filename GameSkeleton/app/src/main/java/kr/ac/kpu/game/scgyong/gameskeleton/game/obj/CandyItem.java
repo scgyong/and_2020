@@ -53,13 +53,4 @@ public class CandyItem extends BitmapObject implements Recyclable, BoxCollidable
     public void recycle() {
     }
 
-    @Override
-    public void getBox(RectF rect) {
-        int hw = width / 2;
-        int hh = height / 2;
-        rect.left = x - hw;
-        rect.top = y - hh;
-        rect.right = x + hw;
-        rect.bottom = y + hh;
-    }
 }

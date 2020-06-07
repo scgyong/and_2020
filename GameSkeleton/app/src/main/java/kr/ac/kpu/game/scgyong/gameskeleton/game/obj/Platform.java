@@ -13,7 +13,7 @@ import kr.ac.kpu.game.scgyong.gameskeleton.framework.main.RecyclePool;
 import kr.ac.kpu.game.scgyong.gameskeleton.framework.obj.BitmapObject;
 import kr.ac.kpu.game.scgyong.gameskeleton.framework.res.bitmap.SharedBitmap;
 
-public class Platform extends BitmapObject implements Recyclable, BoxCollidable {
+public class Platform extends BitmapObject implements Recyclable {
     private static final int[] RES_IDS = {
             R.mipmap.cookierun_platform_480x48,
             R.mipmap.cookierun_platform_124x120,
@@ -58,16 +58,6 @@ public class Platform extends BitmapObject implements Recyclable, BoxCollidable 
 
     @Override
     public void recycle() {
-    }
-
-    @Override
-    public void getBox(RectF rect) {
-        int hw = width / 2;
-        int hh = height / 2;
-        rect.left = x - hw;
-        rect.top = y - hh;
-        rect.right = x + hw;
-        rect.bottom = y + hh;
     }
 
     public float getTop() {
