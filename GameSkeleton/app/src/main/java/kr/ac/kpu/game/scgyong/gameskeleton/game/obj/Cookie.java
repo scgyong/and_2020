@@ -107,8 +107,7 @@ public class Cookie extends AnimObject implements Touchable, BoxCollidable {
                 continue;
             }
             if (CollisionHelper.collides(this, (BoxCollidable) obj)) {
-                GameWorld gw = GameScene.getTop().getGameWorld();
-                gw.removeObject(obj);
+                obj.remove();
             }
         }
     }

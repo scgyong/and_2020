@@ -33,4 +33,10 @@ public class GameObject {
         x += dx;
         y += dy;
     }
+
+    public void remove() {
+        GameWorld gw = GameScene.getTop().getGameWorld();
+        gw.removeObject(this);
+    }
+
 }

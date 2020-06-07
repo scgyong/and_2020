@@ -45,8 +45,7 @@ public class CandyItem extends BitmapObject implements Recyclable, BoxCollidable
     public void update() {
         super.update();
         if (x < -width) {
-            GameWorld gw = GameScene.getTop().getGameWorld();
-            gw.removeObject(this);
+            remove();
         }
     }
 
