@@ -15,6 +15,7 @@ import kr.ac.kpu.game.scgyong.gameskeleton.framework.main.UiBridge;
 import kr.ac.kpu.game.scgyong.gameskeleton.framework.obj.AnimObject;
 import kr.ac.kpu.game.scgyong.gameskeleton.framework.obj.BitmapObject;
 import kr.ac.kpu.game.scgyong.gameskeleton.game.obj.CandyItem;
+import kr.ac.kpu.game.scgyong.gameskeleton.game.obj.Platform;
 import kr.ac.kpu.game.scgyong.gameskeleton.game.scene.SecondScene;
 
 public class TextMap {
@@ -79,13 +80,9 @@ public class TextMap {
                 layer = SecondScene.Layer.item;
                 obj = CandyItem.get(x, y, blockSize, blockSize, ch - '1');
                 break;
-            case 'O':
+            case 'O': case 'P':
                 layer = SecondScene.Layer.platform;
-                obj = new BitmapObject(x + 5 * blockSize, y + blockSize, 10 * blockSize, 2 * blockSize, R.mipmap.cookierun_platform_480x48);
-                break;
-            case 'B':
-                layer = SecondScene.Layer.platform;
-                obj = new BitmapObject(x + blockSize, y + blockSize, 2 * blockSize, 2 * blockSize, R.mipmap.cookierun_platform_124x120);
+                obj = Platform.get(x, y, blockSize, ch - 'O');
                 break;
             case 'x':
                 layer = SecondScene.Layer.obstacle;
