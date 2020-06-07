@@ -14,6 +14,7 @@ import kr.ac.kpu.game.scgyong.gameskeleton.framework.main.GameWorld;
 import kr.ac.kpu.game.scgyong.gameskeleton.framework.main.UiBridge;
 import kr.ac.kpu.game.scgyong.gameskeleton.framework.obj.AnimObject;
 import kr.ac.kpu.game.scgyong.gameskeleton.framework.obj.BitmapObject;
+import kr.ac.kpu.game.scgyong.gameskeleton.game.obj.CandyItem;
 import kr.ac.kpu.game.scgyong.gameskeleton.game.scene.SecondScene;
 
 public class TextMap {
@@ -74,21 +75,9 @@ public class TextMap {
         SecondScene.Layer layer = SecondScene.Layer.item;
         GameObject obj = null;
         switch (ch) {
-            case '1':
+            case '1': case '2': case '3': case '4':
                 layer = SecondScene.Layer.item;
-                obj = new BitmapObject(x, y, blockSize, blockSize, R.mipmap.cookie_item_001);
-                break;
-            case '2':
-                layer = SecondScene.Layer.item;
-                obj = new BitmapObject(x, y, blockSize, blockSize, R.mipmap.cookie_item_002);
-                break;
-            case '3':
-                layer = SecondScene.Layer.item;
-                obj = new BitmapObject(x, y, blockSize, blockSize, R.mipmap.cookie_item_003);
-                break;
-            case '4':
-                layer = SecondScene.Layer.item;
-                obj = new BitmapObject(x, y, blockSize, blockSize, R.mipmap.cookie_item_004);
+                obj = new CandyItem(x, y, blockSize, blockSize, ch - '1');
                 break;
             case 'O':
                 layer = SecondScene.Layer.platform;
