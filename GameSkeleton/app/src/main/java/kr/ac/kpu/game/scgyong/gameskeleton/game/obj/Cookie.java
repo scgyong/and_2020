@@ -159,9 +159,16 @@ public class Cookie extends AnimObject implements Touchable, BoxCollidable {
     public void getBox(RectF rect) {
         int hw = width / 2;
         int hh = height / 2;
-        rect.left = x - hw;
-        rect.top = y - hh;
-        rect.right = x + hw;
-        rect.bottom = y + hh;
+        if (fab == fabSlide) {
+            rect.left = x - hw;
+            rect.top = y;
+            rect.right = x + hw;
+            rect.bottom = y + hh;
+        } else {
+            rect.left = x - hw;
+            rect.top = y - hh;
+            rect.right = x + hw;
+            rect.bottom = y + hh;
+        }
     }
 }
