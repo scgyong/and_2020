@@ -16,7 +16,7 @@ import kr.ac.kpu.game.scgyong.gameskeleton.framework.res.bitmap.FrameAnimationBi
 import kr.ac.kpu.game.scgyong.gameskeleton.framework.util.CollisionHelper;
 import kr.ac.kpu.game.scgyong.gameskeleton.game.scene.SecondScene;
 
-public class Cookie extends AnimObject implements Touchable, BoxCollidable {
+public class Cookie extends AnimObject implements BoxCollidable {
 
     private static final float JUMP_POWER = -1500;
     private static final float GRAVITY_SPEED = 4500;
@@ -41,6 +41,26 @@ public class Cookie extends AnimObject implements Touchable, BoxCollidable {
         fabSlide = new FrameAnimationBitmap(R.mipmap.cookie_slide, 12, 2);
 
         slideTime = -1;
+    }
+
+    public void jump() {
+        // jump
+        if (jumpCount < 2) {
+//                Log.d(TAG, "Jumping");
+            jumpCount++;
+            speed += JUMP_POWER;
+            if (speed > JUMP_POWER) {
+                speed = JUMP_POWER;
+            }
+            setAnimState(jumpCount == 1 ? AnimState.jump : AnimState.djump);
+        }
+    }
+
+    public void slide() {
+        if (jumpCount == 0 && slideTime < 0) {
+            slideTime = 0;
+            setAnimState(AnimState.slide);
+        }
     }
 
     public enum AnimState {
@@ -129,32 +149,18 @@ public class Cookie extends AnimObject implements Touchable, BoxCollidable {
         }
     }
 
-    @Override
-    public boolean onTouchEvent(MotionEvent e) {
-        if (e.getAction() != MotionEvent.ACTION_DOWN) {
-            return false;
-        }
-        float tx = e.getX();
-//        Log.d(TAG, "TouchEvent:" + e.getAction() + " - " + tx + "/" + UiBridge.metrics.center.x);
-        if (tx < UiBridge.metrics.center.x) {
-            // jump
-            if (jumpCount < 2) {
-//                Log.d(TAG, "Jumping");
-                jumpCount++;
-                speed += JUMP_POWER;
-                if (speed > JUMP_POWER) {
-                    speed = JUMP_POWER;
-                }
-                setAnimState(jumpCount == 1 ? AnimState.jump : AnimState.djump);
-            }
-        } else {
-            if (jumpCount == 0 && slideTime < 0) {
-                slideTime = 0;
-                setAnimState(AnimState.slide);
-            }
-        }
-        return false;
-    }
+//    //@Override
+//    public boolean onTouchEvent(MotionEvent e) {
+//        if (e.getAction() != MotionEvent.ACTION_DOWN) {
+//            return false;
+//        }
+//        float tx = e.getX();
+////        Log.d(TAG, "TouchEvent:" + e.getAction() + " - " + tx + "/" + UiBridge.metrics.center.x);
+//        if (tx < UiBridge.metrics.center.x) {
+//        } else {
+//        }
+//        return false;
+//    }
     @Override
     public void getBox(RectF rect) {
         int hw = width / 2;

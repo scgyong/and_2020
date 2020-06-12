@@ -13,6 +13,7 @@ import kr.ac.kpu.game.scgyong.gameskeleton.framework.main.GameTimer;
 import kr.ac.kpu.game.scgyong.gameskeleton.framework.main.UiBridge;
 import kr.ac.kpu.game.scgyong.gameskeleton.framework.obj.ScoreObject;
 import kr.ac.kpu.game.scgyong.gameskeleton.framework.obj.bg.ImageScrollBackground;
+import kr.ac.kpu.game.scgyong.gameskeleton.framework.obj.ui.Button;
 import kr.ac.kpu.game.scgyong.gameskeleton.game.map.TextMap;
 import kr.ac.kpu.game.scgyong.gameskeleton.game.obj.Cookie;
 import kr.ac.kpu.game.scgyong.gameskeleton.game.obj.Platform;
@@ -112,6 +113,24 @@ public class SecondScene extends GameScene {
         scoreObject = new ScoreObject(R.mipmap.number_64x84, rbox);
         gameWorld.add(SecondScene.Layer.ui.ordinal(), scoreObject);
 
+        Button btnJump = new Button(mdpi_100, sh - mdpi_100,
+                R.mipmap.btn_jump, R.mipmap.blue_round_btn, R.mipmap.red_round_btn);
+        btnJump.setOnClickRunnable(new Runnable() {
+            @Override
+            public void run() {
+                cookie.jump();
+            }
+        });
+        gameWorld.add(SecondScene.Layer.ui.ordinal(), btnJump);
+        Button btnSlide = new Button(sw - mdpi_100, sh - mdpi_100,
+                R.mipmap.btn_slide, R.mipmap.blue_round_btn, R.mipmap.red_round_btn);
+        btnSlide.setOnClickRunnable(new Runnable() {
+            @Override
+            public void run() {
+                cookie.slide();
+            }
+        });
+        gameWorld.add(SecondScene.Layer.ui.ordinal(), btnSlide);
     }
 
     public void addScore(int amount) {
