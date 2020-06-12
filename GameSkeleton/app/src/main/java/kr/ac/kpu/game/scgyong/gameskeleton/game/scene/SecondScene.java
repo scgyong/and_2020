@@ -113,18 +113,18 @@ public class SecondScene extends GameScene {
         scoreObject = new ScoreObject(R.mipmap.number_64x84, rbox);
         gameWorld.add(SecondScene.Layer.ui.ordinal(), scoreObject);
 
-        Button btnJump = new Button(mdpi_100, sh - mdpi_100,
+        Button btnJump = new Button(mdpi_100 / 2, sh - mdpi_100 / 4,
                 R.mipmap.btn_jump, R.mipmap.blue_round_btn, R.mipmap.red_round_btn);
-        btnJump.setOnClickRunnable(new Runnable() {
+        btnJump.setOnClickRunnable(true, new Runnable() {
             @Override
             public void run() {
                 cookie.jump();
             }
         });
         gameWorld.add(SecondScene.Layer.ui.ordinal(), btnJump);
-        Button btnSlide = new Button(sw - mdpi_100, sh - mdpi_100,
+        Button btnSlide = new Button(sw - mdpi_100 / 2, sh - mdpi_100 / 4,
                 R.mipmap.btn_slide, R.mipmap.blue_round_btn, R.mipmap.red_round_btn);
-        btnSlide.setOnClickRunnable(new Runnable() {
+        btnSlide.setOnClickRunnable(true, new Runnable() {
             @Override
             public void run() {
                 cookie.slide();
