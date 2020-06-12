@@ -148,7 +148,7 @@ public class Cookie extends AnimObject implements Touchable, BoxCollidable {
                 setAnimState(jumpCount == 1 ? AnimState.jump : AnimState.djump);
             }
         } else {
-            if (jumpCount == 0) {
+            if (jumpCount == 0 && slideTime < 0) {
                 slideTime = 0;
                 setAnimState(AnimState.slide);
             }
