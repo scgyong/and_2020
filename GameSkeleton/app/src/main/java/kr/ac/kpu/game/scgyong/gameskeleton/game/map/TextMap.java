@@ -88,6 +88,18 @@ public class TextMap {
                 layer = SecondScene.Layer.obstacle;
                 obj = new AnimObject(x + 3 * blockSize / 2, y + 3 * blockSize / 2, 3 * blockSize, 3 * blockSize, R.mipmap.fireball_128_24f, 2, 0);
                 break;
+            case 'X':
+                layer = SecondScene.Layer.obstacle;
+                obj = new AnimObject(x, y, blockSize, blockSize, R.mipmap.cookie_item_003, 1, 0);
+                break;
+            case 'Y':
+                layer = SecondScene.Layer.obstacle;
+                obj = new AnimObject(x + blockSize, y + blockSize, 2 * blockSize, 2 * blockSize, R.mipmap.cookie_item_003, 1, 0);
+                break;
+            case 'Z':
+                layer = SecondScene.Layer.obstacle;
+                obj = new AnimObject(x + 3 * blockSize / 2, y + 3 * blockSize / 2, 3 * blockSize, 3 * blockSize, R.mipmap.cookie_item_003, 1, 0);
+                break;
         }
         if (obj != null) {
             gameWorld.add(layer.ordinal(), obj);
