@@ -25,6 +25,7 @@ public class SecondScene extends GameScene {
 
     private RectF rect = new RectF();
     private ScoreObject scoreObject;
+    private static SecondScene instance;
 
     public Platform getPlatformAt(float x, float y) {
         Platform platform = null;
@@ -83,6 +84,7 @@ public class SecondScene extends GameScene {
     @Override
     public void enter() {
         super.enter();
+        instance = this;
 //        GyroSensor.get();
         initObjects();
         map = new TextMap("stage_01.txt", gameWorld);
@@ -147,6 +149,6 @@ public class SecondScene extends GameScene {
     }
 
     public static SecondScene get() {
-        return (SecondScene) GameScene.getTop();
+        return instance;
     }
 }
