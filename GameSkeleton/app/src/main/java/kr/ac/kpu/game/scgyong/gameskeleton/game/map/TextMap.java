@@ -90,15 +90,15 @@ public class TextMap {
                 break;
             case 'X':
                 layer = SecondScene.Layer.obstacle;
-                obj = new AnimObject(x, y, blockSize, blockSize, R.mipmap.cookie_item_003, 1, 0);
+                obj = new BitmapObject(x, y, blockSize, blockSize, R.mipmap.obstacle_63x99);
                 break;
             case 'Y':
                 layer = SecondScene.Layer.obstacle;
-                obj = new AnimObject(x + blockSize, y + blockSize, 2 * blockSize, 2 * blockSize, R.mipmap.cookie_item_003, 1, 0);
+                obj = new BitmapObject(x, y + blockSize, blockSize, 2 * blockSize, R.mipmap.obstacle_81x131);
                 break;
             case 'Z':
                 layer = SecondScene.Layer.obstacle;
-                obj = new AnimObject(x + 3 * blockSize / 2, y + 3 * blockSize / 2, 3 * blockSize, 3 * blockSize, R.mipmap.cookie_item_003, 1, 0);
+                obj = new BitmapObject(x, y + 3 * blockSize / 2, blockSize, 3 * blockSize, R.mipmap.obstacle_87x222);
                 break;
         }
         if (obj != null) {
