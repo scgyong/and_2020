@@ -15,6 +15,9 @@ public abstract class GameScene {
     public static void drawScenes(Canvas canvas) {
         //getTop().draw(canvas);
         int topIndex = sceneStack.size() - 1;
+        if (topIndex < 0) {
+            return;
+        }
         drawSceneAt(topIndex, canvas);
     }
 
