@@ -24,6 +24,16 @@ public class Obstacle extends BitmapObject implements Recyclable {
     public static final int ITEM_TYPE_COUNT = RES_IDS.length;
     private static final String TAG = Obstacle.class.getSimpleName();
 
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    protected boolean enabled;
+
     protected Obstacle(float x, float y, int width, int height, int typeIndex) {
         super(x, y, width, height, RES_IDS[typeIndex]);
 //        super(x + SIZES[typeIndex].x / 2, y + SIZES[typeIndex].y / 2, SIZES[typeIndex].x * unit, SIZES[typeIndex].y * unit, RES_IDS[typeIndex]);
@@ -42,6 +52,7 @@ public class Obstacle extends BitmapObject implements Recyclable {
             item.height = unit * size.y;
             item.sbmp = SharedBitmap.load(RES_IDS[typeIndex]);
         }
+        //item.enabled = true;
         return item;
     }
 

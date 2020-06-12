@@ -1,6 +1,7 @@
 package kr.ac.kpu.game.scgyong.gameskeleton.game.obj;
 
 import android.graphics.RectF;
+import android.util.Log;
 import android.view.MotionEvent;
 
 import java.util.ArrayList;
@@ -132,6 +133,7 @@ public class Cookie extends AnimObject implements BoxCollidable {
         }
 
         checkItemCollision();
+        checkObstacleCollision();
     }
 
     private void checkItemCollision() {
@@ -145,6 +147,28 @@ public class Cookie extends AnimObject implements BoxCollidable {
             if (CollisionHelper.collides(this, candy)) {
                 candy.remove();
                 SecondScene.get().addScore(candy.getScore());
+            }
+        }
+    }
+    private void checkObstacleCollision() {
+
+        ArrayList<GameObject> obstacles = SecondScene.get().getGameWorld().objectsAtLayer(SecondScene.Layer.obstacle.ordinal());
+        for (GameObject obj : obstacles) {
+            if (!(obj instanceof Obstacle)) {
+                continue;
+            }
+            Obstacle obstacle = (Obstacle) obj;
+            if (obstacle.isEnabled()){
+                continue;
+            }
+            if (CollisionHelper.collides(this, obstacle)) {
+                //obstacle.remove();
+                //SecondScene.get().addScore(obstacle.getScore());
+                obstacle.setEnabled(false);
+
+                Log.d(TAG, "Collision: " + obstacle);
+//                int power = obstacle.getPower();
+//                decreaseLife(power);
             }
         }
     }
