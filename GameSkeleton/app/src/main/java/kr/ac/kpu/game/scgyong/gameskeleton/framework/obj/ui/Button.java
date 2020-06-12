@@ -11,9 +11,9 @@ import kr.ac.kpu.game.scgyong.gameskeleton.framework.obj.BitmapObject;
 
 public class Button extends BitmapObject implements Touchable {
     private static final String TAG = Button.class.getSimpleName();
-    private final NinePatchDrawable bgNormal;
-    private final NinePatchDrawable bgPress;
-    private boolean capturing, pressed;
+    protected final NinePatchDrawable bgNormal;
+    protected final NinePatchDrawable bgPress;
+    protected boolean capturing, pressed;
     private Runnable onClickRunnable;
     private boolean runOnDown;
 
