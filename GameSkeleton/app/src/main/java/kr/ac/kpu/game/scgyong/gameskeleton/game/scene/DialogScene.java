@@ -1,15 +1,10 @@
 package kr.ac.kpu.game.scgyong.gameskeleton.game.scene;
 
-import android.animation.ObjectAnimator;
-import android.animation.ValueAnimator;
 import android.graphics.RectF;
-import android.view.animation.OvershootInterpolator;
 
-import java.util.ArrayList;
 import java.util.Random;
 
 import kr.ac.kpu.game.scgyong.gameskeleton.R;
-import kr.ac.kpu.game.scgyong.gameskeleton.framework.main.GameObject;
 import kr.ac.kpu.game.scgyong.gameskeleton.framework.main.GameScene;
 import kr.ac.kpu.game.scgyong.gameskeleton.framework.main.GameTimer;
 import kr.ac.kpu.game.scgyong.gameskeleton.framework.main.UiBridge;
@@ -36,33 +31,6 @@ public class DialogScene extends GameScene {
         super.enter();
         setTransparent(true);
         initObjects();
-
-        int mdpi_100 = UiBridge.y(100);
-        //ValueAnimator animator =
-        ValueAnimator anim = ValueAnimator.ofFloat(UiBridge.metrics.size.y, mdpi_100);
-        anim.setDuration(500);
-        anim.setInterpolator(new OvershootInterpolator());
-        anim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-                Float value = (Float) animation.getAnimatedValue();
-                scrollTo(value);
-            }
-        });
-        anim.start();
-    }
-
-    private void scrollTo(float y) {
-        int mdpi_100 = UiBridge.y(100);
-        ArrayList<GameObject> objs = gameWorld.objectsAtLayer(Layer.ui.ordinal());
-        int count = objs.size();
-        for (int i = 0; i < count; i++) {
-            Button btn = (Button)objs.get(i);
-            float diff = y - btn.getY();
-            btn.move(0, diff);
-
-            y += mdpi_100;
-        }
     }
 
     private void initObjects() {
