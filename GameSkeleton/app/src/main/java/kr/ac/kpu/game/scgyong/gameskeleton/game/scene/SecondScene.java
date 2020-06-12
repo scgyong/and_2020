@@ -133,7 +133,16 @@ public class SecondScene extends GameScene {
         gameWorld.add(SecondScene.Layer.ui.ordinal(), btnSlide);
     }
 
+    private int nextScore = 500;
     public void addScore(int amount) {
+        int score = scoreObject.getScoreValue();
+        if (score >= nextScore) {
+            // launch DialogScene
+            DialogScene scene = new DialogScene();
+            scene.push();
+            nextScore += 500;
+            return;
+        }
         scoreObject.add(amount);
     }
 
