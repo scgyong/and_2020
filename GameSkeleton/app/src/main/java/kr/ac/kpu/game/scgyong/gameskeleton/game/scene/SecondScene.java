@@ -133,18 +133,20 @@ public class SecondScene extends GameScene {
             }
         });
         gameWorld.add(SecondScene.Layer.ui.ordinal(), btnSlide);
+
+        Button btnSettings = new Button(cx, sh - mdpi_100 / 4, R.mipmap.btn_settings, R.mipmap.blue_round_btn, R.mipmap.red_round_btn);
+        btnSettings.setOnClickRunnable(new Runnable() {
+            @Override
+            public void run() {
+                DialogScene scene = new DialogScene();
+                scene.push();
+                return;
+            }
+        });
+        gameWorld.add(SecondScene.Layer.ui.ordinal(), btnSettings);
     }
 
-    private int nextScore = 500;
     public void addScore(int amount) {
-        int score = scoreObject.getScoreValue();
-        if (score >= nextScore) {
-            // launch DialogScene
-            DialogScene scene = new DialogScene();
-            scene.push();
-            nextScore += 500;
-            return;
-        }
         scoreObject.add(amount);
     }
 
