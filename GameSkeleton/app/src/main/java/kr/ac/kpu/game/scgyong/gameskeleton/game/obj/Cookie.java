@@ -38,7 +38,7 @@ public class Cookie extends AnimObject implements Touchable, BoxCollidable {
         fabNormal = fab;
         fabJump = new FrameAnimationBitmap(R.mipmap.cookie_jump, 12, 0);
         fabDJump = new FrameAnimationBitmap(R.mipmap.cookie_djump, 12, 0);
-        fabSlide = new FrameAnimationBitmap(R.mipmap.cookie_slide, 12, 0);
+        fabSlide = new FrameAnimationBitmap(R.mipmap.cookie_slide, 12, 2);
 
         slideTime = -1;
     }
