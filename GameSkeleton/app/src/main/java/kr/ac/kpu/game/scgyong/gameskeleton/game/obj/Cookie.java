@@ -1,7 +1,6 @@
 package kr.ac.kpu.game.scgyong.gameskeleton.game.obj;
 
 import android.graphics.RectF;
-import android.util.Log;
 import android.view.MotionEvent;
 
 import java.util.ArrayList;
@@ -10,9 +9,7 @@ import kr.ac.kpu.game.scgyong.gameskeleton.R;
 import kr.ac.kpu.game.scgyong.gameskeleton.framework.iface.BoxCollidable;
 import kr.ac.kpu.game.scgyong.gameskeleton.framework.iface.Touchable;
 import kr.ac.kpu.game.scgyong.gameskeleton.framework.main.GameObject;
-import kr.ac.kpu.game.scgyong.gameskeleton.framework.main.GameScene;
 import kr.ac.kpu.game.scgyong.gameskeleton.framework.main.GameTimer;
-import kr.ac.kpu.game.scgyong.gameskeleton.framework.main.GameWorld;
 import kr.ac.kpu.game.scgyong.gameskeleton.framework.main.UiBridge;
 import kr.ac.kpu.game.scgyong.gameskeleton.framework.obj.AnimObject;
 import kr.ac.kpu.game.scgyong.gameskeleton.framework.res.bitmap.FrameAnimationBitmap;
@@ -24,12 +21,15 @@ public class Cookie extends AnimObject implements Touchable, BoxCollidable {
     private static final float JUMP_POWER = -1500;
     private static final float GRAVITY_SPEED = 4500;
     private static final String TAG = Cookie.class.getSimpleName();
+    private static final float SLIDE_TIME = 1.0f;
     private final FrameAnimationBitmap fabNormal;
     private final FrameAnimationBitmap fabJump;
     private final FrameAnimationBitmap fabDJump;
+    private final FrameAnimationBitmap fabSlide;
     private int jumpCount = 10; // 10 if falling
     private float speed;
     private float base;
+    private float slideTime;
 
     public Cookie(float x, float y) {
         super(x, y, -50, -50, R.mipmap.cookie_run, 12, 0);
@@ -38,18 +38,23 @@ public class Cookie extends AnimObject implements Touchable, BoxCollidable {
         fabNormal = fab;
         fabJump = new FrameAnimationBitmap(R.mipmap.cookie_jump, 12, 0);
         fabDJump = new FrameAnimationBitmap(R.mipmap.cookie_djump, 12, 0);
+        fabSlide = new FrameAnimationBitmap(R.mipmap.cookie_slide, 12, 0);
+
+        slideTime = -1;
     }
 
     public enum AnimState {
-        normal, jump, djump
+        normal, jump, djump, slide
     }
     public void setAnimState(AnimState state) {
         if (state == AnimState.normal) {
             fab = fabNormal;
         } else if (state == AnimState.jump){
             fab = fabJump;
-        } else {
+        } else if (state == AnimState.djump){
             fab = fabDJump;
+        } else {
+            fab = fabSlide;
         }
     }
 
@@ -89,11 +94,21 @@ public class Cookie extends AnimObject implements Touchable, BoxCollidable {
                 if (footY < ptop) {
 //                    Log.d(TAG, " Start to fall down");
                     jumpCount = 10; // falling down
+                    slideTime = -1;
+                    setAnimState(AnimState.normal);
                 }
             }
         } else {
 //            Log.d(TAG, " No platform. Falling down");
             jumpCount = 10;
+        }
+
+        if (slideTime >= 0) {
+            slideTime += GameTimer.getTimeDiffSeconds();
+            if (slideTime > SLIDE_TIME) {
+                slideTime = -1;
+                setAnimState(AnimState.normal);
+            }
         }
 
         checkItemCollision();
@@ -133,7 +148,10 @@ public class Cookie extends AnimObject implements Touchable, BoxCollidable {
                 setAnimState(jumpCount == 1 ? AnimState.jump : AnimState.djump);
             }
         } else {
-            // slide
+            if (jumpCount == 0) {
+                slideTime = 0;
+                setAnimState(AnimState.slide);
+            }
         }
         return false;
     }
