@@ -92,11 +92,11 @@ public class GameWorld {
     }
 
     public void captureTouch(Touchable obj) {
-        Log.d(TAG, "Capture: " + obj);
+//        Log.d(TAG, "Capture: " + obj);
         capturingObject = obj;
     }
     public void releaseTouch() {
-        Log.d(TAG, "Release: " + capturingObject);
+//        Log.d(TAG, "Release: " + capturingObject);
         capturingObject = null;
     }
     public boolean onTouchEvent(MotionEvent event) {

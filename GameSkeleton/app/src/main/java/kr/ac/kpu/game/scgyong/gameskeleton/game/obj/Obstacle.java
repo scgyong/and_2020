@@ -52,7 +52,7 @@ public class Obstacle extends BitmapObject implements Recyclable {
             item.height = unit * size.y;
             item.sbmp = SharedBitmap.load(RES_IDS[typeIndex]);
         }
-        //item.enabled = true;
+        item.enabled = true;
         return item;
     }
 

@@ -158,7 +158,7 @@ public class Cookie extends AnimObject implements BoxCollidable {
                 continue;
             }
             Obstacle obstacle = (Obstacle) obj;
-            if (obstacle.isEnabled()){
+            if (!obstacle.isEnabled()){
                 continue;
             }
             if (CollisionHelper.collides(this, obstacle)) {
@@ -167,6 +167,7 @@ public class Cookie extends AnimObject implements BoxCollidable {
                 obstacle.setEnabled(false);
 
                 Log.d(TAG, "Collision: " + obstacle);
+                SecondScene.get().decreaseLife();
 //                int power = obstacle.getPower();
 //                decreaseLife(power);
             }

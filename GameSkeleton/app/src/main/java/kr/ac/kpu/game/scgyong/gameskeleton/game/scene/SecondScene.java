@@ -16,6 +16,7 @@ import kr.ac.kpu.game.scgyong.gameskeleton.framework.obj.bg.ImageScrollBackgroun
 import kr.ac.kpu.game.scgyong.gameskeleton.framework.obj.ui.Button;
 import kr.ac.kpu.game.scgyong.gameskeleton.game.map.TextMap;
 import kr.ac.kpu.game.scgyong.gameskeleton.game.obj.Cookie;
+import kr.ac.kpu.game.scgyong.gameskeleton.game.obj.LifeObject;
 import kr.ac.kpu.game.scgyong.gameskeleton.game.obj.Platform;
 
 public class SecondScene extends GameScene {
@@ -25,6 +26,7 @@ public class SecondScene extends GameScene {
 
     private RectF rect = new RectF();
     private ScoreObject scoreObject;
+    private LifeObject lifeObject;
     private static SecondScene instance;
 
     public Platform getPlatformAt(float x, float y) {
@@ -50,6 +52,13 @@ public class SecondScene extends GameScene {
             }
         }
         return platform;
+    }
+
+    public void decreaseLife() {
+        int life = lifeObject.decreaseLife();
+        if (life == 0) {
+            // game over
+        }
     }
 
     public enum Layer {
@@ -114,6 +123,10 @@ public class SecondScene extends GameScene {
         RectF rbox = new RectF(UiBridge.x(-52), UiBridge.y(20), UiBridge.x(-20), UiBridge.y(62));
         scoreObject = new ScoreObject(R.mipmap.number_64x84, rbox);
         gameWorld.add(SecondScene.Layer.ui.ordinal(), scoreObject);
+
+        RectF lbox = new RectF(UiBridge.x(20), UiBridge.y(20), UiBridge.x(44), UiBridge.y(42));
+        lifeObject = new LifeObject(R.mipmap.hearts, lbox, LifeObject.COOKIE_LIFE);
+        gameWorld.add(Layer.ui.ordinal(), lifeObject);
 
         Button btnJump = new Button(mdpi_100 / 2, sh - mdpi_100 / 4,
                 R.mipmap.btn_jump, R.mipmap.blue_round_btn, R.mipmap.red_round_btn);
