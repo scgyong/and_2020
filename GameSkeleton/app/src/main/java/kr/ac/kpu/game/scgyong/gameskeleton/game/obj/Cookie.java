@@ -2,16 +2,13 @@ package kr.ac.kpu.game.scgyong.gameskeleton.game.obj;
 
 import android.graphics.RectF;
 import android.util.Log;
-import android.view.MotionEvent;
 
 import java.util.ArrayList;
 
 import kr.ac.kpu.game.scgyong.gameskeleton.R;
 import kr.ac.kpu.game.scgyong.gameskeleton.framework.iface.BoxCollidable;
-import kr.ac.kpu.game.scgyong.gameskeleton.framework.iface.Touchable;
 import kr.ac.kpu.game.scgyong.gameskeleton.framework.main.GameObject;
 import kr.ac.kpu.game.scgyong.gameskeleton.framework.main.GameTimer;
-import kr.ac.kpu.game.scgyong.gameskeleton.framework.main.UiBridge;
 import kr.ac.kpu.game.scgyong.gameskeleton.framework.obj.AnimObject;
 import kr.ac.kpu.game.scgyong.gameskeleton.framework.res.bitmap.FrameAnimationBitmap;
 import kr.ac.kpu.game.scgyong.gameskeleton.framework.util.CollisionHelper;
@@ -23,14 +20,18 @@ public class Cookie extends AnimObject implements BoxCollidable {
     private static final float GRAVITY_SPEED = 4500;
     private static final String TAG = Cookie.class.getSimpleName();
     private static final float SLIDE_TIME = 1.0f;
+    private static final float HIT_TIME = 0.3f;
     private final FrameAnimationBitmap fabNormal;
     private final FrameAnimationBitmap fabJump;
     private final FrameAnimationBitmap fabDJump;
     private final FrameAnimationBitmap fabSlide;
+    private final FrameAnimationBitmap fabHit;
+
     private int jumpCount = 10; // 10 if falling
     private float speed;
     private float base;
-    private float slideTime;
+    private float stateTime;
+    private AnimState state;
 
     public Cookie(float x, float y) {
         super(x, y, -50, -50, R.mipmap.cookie_run, 12, 0);
@@ -40,8 +41,9 @@ public class Cookie extends AnimObject implements BoxCollidable {
         fabJump = new FrameAnimationBitmap(R.mipmap.cookie_jump, 12, 0);
         fabDJump = new FrameAnimationBitmap(R.mipmap.cookie_djump, 12, 0);
         fabSlide = new FrameAnimationBitmap(R.mipmap.cookie_slide, 12, 2);
+        fabHit = new FrameAnimationBitmap(R.mipmap.cookie_hit, 12, 2);
 
-        slideTime = -1;
+        stateTime = -1;
     }
 
     public void jump() {
@@ -58,24 +60,24 @@ public class Cookie extends AnimObject implements BoxCollidable {
     }
 
     public void slide() {
-        if (jumpCount == 0 && slideTime < 0) {
-            slideTime = 0;
+        if (jumpCount == 0 && stateTime < 0) {
+            stateTime = 0;
             setAnimState(AnimState.slide);
         }
     }
 
     public enum AnimState {
-        normal, jump, djump, slide
+        normal, jump, djump, slide, hit
     }
     public void setAnimState(AnimState state) {
-        if (state == AnimState.normal) {
-            fab = fabNormal;
-        } else if (state == AnimState.jump){
-            fab = fabJump;
-        } else if (state == AnimState.djump){
-            fab = fabDJump;
-        } else {
-            fab = fabSlide;
+        this.state = state;
+
+        switch (state) {
+            case normal: fab = fabNormal; break;
+            case jump:   fab = fabJump;   break;
+            case djump:  fab = fabDJump;  break;
+            case slide:  fab = fabSlide;  break;
+            case hit:    fab = fabHit;    break;
         }
     }
 
@@ -115,7 +117,7 @@ public class Cookie extends AnimObject implements BoxCollidable {
                 if (footY < ptop) {
 //                    Log.d(TAG, " Start to fall down");
                     jumpCount = 10; // falling down
-                    slideTime = -1;
+                    stateTime = -1;
                     setAnimState(AnimState.normal);
                 }
             }
@@ -124,10 +126,16 @@ public class Cookie extends AnimObject implements BoxCollidable {
             jumpCount = 10;
         }
 
-        if (slideTime >= 0) {
-            slideTime += GameTimer.getTimeDiffSeconds();
-            if (slideTime > SLIDE_TIME) {
-                slideTime = -1;
+        if (state == AnimState.slide) {
+            stateTime += GameTimer.getTimeDiffSeconds();
+            if (stateTime > SLIDE_TIME) {
+                stateTime = -1;
+                setAnimState(AnimState.normal);
+            }
+        } else if (state == AnimState.hit) {
+            stateTime += GameTimer.getTimeDiffSeconds();
+            if (stateTime > HIT_TIME) {
+                stateTime = -1;
                 setAnimState(AnimState.normal);
             }
         }
@@ -165,6 +173,8 @@ public class Cookie extends AnimObject implements BoxCollidable {
                 //obstacle.remove();
                 //SecondScene.get().addScore(obstacle.getScore());
                 obstacle.setEnabled(false);
+                this.setAnimState(AnimState.hit);
+                stateTime = 0;
 
                 Log.d(TAG, "Collision: " + obstacle);
                 SecondScene.get().decreaseLife();
