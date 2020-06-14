@@ -57,8 +57,18 @@ public class SecondScene extends GameScene {
     public void decreaseLife() {
         int life = lifeObject.decreaseLife();
         if (life == 0) {
-            // game over
+            GameOverScene scene = new GameOverScene();
+            scene.push();
         }
+    }
+
+    public void restart() {
+        lifeObject.reset();
+        scoreObject.reset();
+        for (int layer = Layer.platform.ordinal(); layer <= Layer.obstacle.ordinal(); layer++) {
+            gameWorld.removeAllObjectsAt(layer);
+        }
+        map.reset();
     }
 
     public enum Layer {

@@ -119,4 +119,15 @@ public class GameWorld {
     public void removeObject(GameObject gameObject) {
         trash.add(gameObject);
     }
+
+    public void removeAllObjectsAt(int layer) {
+        ArrayList<GameObject> objects = objectsAtLayer(layer);
+        while (!objects.isEmpty()) {
+            GameObject obj = objects.remove(0);
+            if (obj instanceof Recyclable) {
+                ((Recyclable) obj).recycle();
+                recyclePool.add(obj);
+            }
+        }
+    }
 }

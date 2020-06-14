@@ -54,12 +54,8 @@ public class TextMap {
 
         blockSize = UiBridge.metrics.size.y / rows;
         createAtX = UiBridge.metrics.size.x + 2 * blockSize;
-        mapIndex = 0;
 
-        currentX = 0;
-        while (currentX <= createAtX) {
-            createColumn();
-        }
+        reset();
     }
 
     private void createColumn() {
@@ -112,6 +108,15 @@ public class TextMap {
         timeElapsed += GameTimer.getTimeDiffSeconds();
         currentX += dx;
         if (currentX < createAtX) {
+            createColumn();
+        }
+    }
+
+    public void reset() {
+        mapIndex = 0;
+
+        currentX = 0;
+        while (currentX <= createAtX) {
             createColumn();
         }
     }
