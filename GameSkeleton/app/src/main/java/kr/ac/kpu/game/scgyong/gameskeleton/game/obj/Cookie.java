@@ -10,6 +10,7 @@ import kr.ac.kpu.game.scgyong.gameskeleton.R;
 import kr.ac.kpu.game.scgyong.gameskeleton.framework.iface.BoxCollidable;
 import kr.ac.kpu.game.scgyong.gameskeleton.framework.main.GameObject;
 import kr.ac.kpu.game.scgyong.gameskeleton.framework.main.GameTimer;
+import kr.ac.kpu.game.scgyong.gameskeleton.framework.main.UiBridge;
 import kr.ac.kpu.game.scgyong.gameskeleton.framework.obj.AnimObject;
 import kr.ac.kpu.game.scgyong.gameskeleton.framework.res.bitmap.FrameAnimationBitmap;
 import kr.ac.kpu.game.scgyong.gameskeleton.framework.util.CollisionHelper;
@@ -201,6 +202,9 @@ public class Cookie extends AnimObject implements BoxCollidable {
 //    }
     @Override
     public void getBox(RectF rect) {
+        int width = UiBridge.x(fab.getWidth()) / 2;
+        int height = UiBridge.y(fab.getHeight()) / 2;
+
         int hw = width / 2;
         int hh = height / 2;
         if (fab == fabSlide) {
@@ -218,6 +222,9 @@ public class Cookie extends AnimObject implements BoxCollidable {
 
     @Override
     public void draw(Canvas canvas) {
+        int width = UiBridge.x(fab.getWidth()) / 2;
+        int height = UiBridge.y(fab.getHeight()) / 2;
+
         float halfWidth = width / 2;
         float halfHeight = height / 2;
         dstRect.left = x - halfWidth;
